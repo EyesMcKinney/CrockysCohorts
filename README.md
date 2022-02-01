@@ -5,11 +5,7 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
   
 ## Team
 
-- Alex Vernes
-- Holden Lalumiere
-- Stevie Alvarez
 - Tylin Hartman
-- Isaac McKinney
 
 
 ## Prerequisites
