@@ -1,6 +1,8 @@
 package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.Product;
 
@@ -16,6 +18,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class InventoryFileDAO implements InventoryDAO {
+    private static final Logger LOG = Logger.getLogger(InventoryFileDAO.class.getName());
+    /**
+     * Local cache of {@link Product} objects
+     */
+    Map<Integer, Product> products;
 
     
     public Product createProduct(Product product) throws IOException {
