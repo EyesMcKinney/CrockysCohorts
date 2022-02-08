@@ -43,7 +43,8 @@ public class InventoryFileDAO implements InventoryDAO {
     
     
     public Product createProduct(Product product) throws IOException {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub editing something
+        
         return null;
     }
 
