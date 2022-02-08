@@ -1,12 +1,14 @@
 package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
@@ -50,6 +52,18 @@ public class InventoryFileDAO implements InventoryDAO {
     
     public Product[] searchForProduct(String text) throws IOException {
         // TODO Auto-generated method stub
+        /**
+         * Search for the text in both the name and the description
+         */
+        synchronized(products) {
+            ArrayList<Product> productArrayList = new ArrayList<>();
+
+            for (Product product : products.values()) {
+                if (text == null || product.getName().contains(text)) {
+                    productArrayList.add(product);
+                }
+            }
+        }
         return null;
     }
 
