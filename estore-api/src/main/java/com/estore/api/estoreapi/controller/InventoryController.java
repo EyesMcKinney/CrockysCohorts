@@ -42,4 +42,12 @@ public class InventoryController {
     public InventoryController(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
+
+    /**
+     * 
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable int id) {
+        return null;
+    }
 }
