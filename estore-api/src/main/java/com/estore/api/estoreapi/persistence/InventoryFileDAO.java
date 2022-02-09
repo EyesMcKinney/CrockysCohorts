@@ -1,8 +1,10 @@
 package com.estore.api.estoreapi.persistence;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.Product;
@@ -73,7 +75,9 @@ public class InventoryFileDAO implements InventoryDAO {
         return null;
     }
 
-    
+    /**
+     * @author Isaac S McKinney
+     */
     public Product[] getInventory() throws IOException {
         synchronized(products) {
             return searchForProduct(null);
@@ -86,6 +90,14 @@ public class InventoryFileDAO implements InventoryDAO {
         return false;
     }
 
+    /**
+     * Saves the {@linkplain Hero heroes} from the map into the file as an array of JSON objects
+     * 
+     * @author Isaac S McKinney
+     * @return true if the {@link Hero heroes} were written successfully
+     * 
+     * @throws IOException when file cannot be accessed or written to
+     */
     private boolean save() throws IOException {
         Product[] ProductArray = searchForProduct(null);
 
@@ -96,21 +108,32 @@ public class InventoryFileDAO implements InventoryDAO {
         return true;
     }
 
-    heroes = new TreeMap<>();
-        nextId = 0;
+    /**
+     * Loads {@linkplain Hero heroes} from the JSON file into the map
+     * <br>
+     * Also sets next id to one more than the greatest id found in the file
+     * @author Isaac S McKinney
+     * @return true if the file was read successfully
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
+    private boolean load() throws IOException{
+        TreeMap products = new TreeMap<>();
+        int nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of heroes
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-        Hero[] heroArray = objectMapper.readValue(new File(filename),Hero[].class);
+        Product[] ProductArray = oMapper.readValue(new File(filename),Product[].class);
 
         // Add each hero to the tree map and keep track of the greatest id
-        for (Hero hero : heroArray) {
-            heroes.put(hero.getId(),hero);
-            if (hero.getId() > nextId)
-                nextId = hero.getId();
+        for (Product product : ProductArray) {
+            products.put(product.getId(), product);
+            if (product.getId() > nextId)
+                nextId = product.getId();
         }
         // Make the next id one greater than the maximum from the file
         ++nextId;
         return true;
+    }
 }
