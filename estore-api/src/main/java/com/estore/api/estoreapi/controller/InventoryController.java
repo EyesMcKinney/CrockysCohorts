@@ -44,10 +44,31 @@ public class InventoryController {
     }
 
     /**
+     * Deletes a {@linkplain Hero hero} with the given id
      * 
+     * @param id The id of the {@link Hero hero} to deleted
+     * 
+     * @return ResponseEntity HTTP status of OK if deleted<br>
+     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> deleteProduct(@PathVariable int id) {
-        return null;
+        LOG.info("DELETE /products/" + id);
+
+        try {  // delete product
+            boolean bool = inventoryDAO.deleteProduct(id);
+
+            if (bool) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+        } catch (IOException e) {  // storage issue
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
