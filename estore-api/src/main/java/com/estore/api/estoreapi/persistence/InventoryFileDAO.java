@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -74,8 +75,9 @@ public class InventoryFileDAO implements InventoryDAO {
 
     
     public Product[] getInventory() throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized(products) {
+            return searchForProduct(null);
+        }
     }
 
     
@@ -84,4 +86,31 @@ public class InventoryFileDAO implements InventoryDAO {
         return false;
     }
 
+    private boolean save() throws IOException {
+        Product[] ProductArray = searchForProduct(null);
+
+        // Serializes the Java Objects to JSON objects into the file
+        // writeValue will thrown an IOException if there is an issue
+        // with the file or reading from the file
+        oMapper.writeValue(new File(filename), ProductArray);
+        return true;
+    }
+
+    heroes = new TreeMap<>();
+        nextId = 0;
+
+        // Deserializes the JSON objects from the file into an array of heroes
+        // readValue will throw an IOException if there's an issue with the file
+        // or reading from the file
+        Hero[] heroArray = objectMapper.readValue(new File(filename),Hero[].class);
+
+        // Add each hero to the tree map and keep track of the greatest id
+        for (Hero hero : heroArray) {
+            heroes.put(hero.getId(),hero);
+            if (hero.getId() > nextId)
+                nextId = hero.getId();
+        }
+        // Make the next id one greater than the maximum from the file
+        ++nextId;
+        return true;
 }
