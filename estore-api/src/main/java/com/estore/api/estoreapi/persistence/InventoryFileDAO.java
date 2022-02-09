@@ -50,6 +50,12 @@ public class InventoryFileDAO implements InventoryDAO {
     }
 
     
+    /**
+     * 
+     * @return the array of Products, may be empty
+     * 
+     * @author Alex Vernes
+     */
     public Product[] searchForProduct(String text) throws IOException {
         // TODO Auto-generated method stub
         /**
@@ -63,8 +69,10 @@ public class InventoryFileDAO implements InventoryDAO {
                     productArrayList.add(product);
                 }
             }
+            Product[] productArray = new Product[productArrayList.size()];
+            productArrayList.toArray(productArray);
+            return productArray;
         }
-        return null;
     }
 
     
