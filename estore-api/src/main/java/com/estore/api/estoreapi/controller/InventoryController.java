@@ -57,10 +57,17 @@ public class InventoryController {
     public ResponseEntity<Product> getProduct(@PathVariable int id) {
         LOG.info("GET /products/" + id);
 
-        try {
+        try {  // product accessed/DNE
+            Product product = inventoryDAO.getProduct(id);
+            if (product != null)
+                return new ResponseEntity<Product>(product, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             
-        } catch (Exception e) {
-            //TODO: handle exception
+
+        } catch (IOException e) {  // storage issue
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<Product>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
