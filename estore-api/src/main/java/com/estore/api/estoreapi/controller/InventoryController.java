@@ -58,7 +58,7 @@ public class InventoryController {
         LOG.info("PUT /heroes " + product);
 
         try {
-            if(productDao.updateHero(product) != null){
+            if(inventoryDAO.updateProduct(product) != null){
                 return new ResponseEntity<>(product, HttpStatus.OK);
             }
             else{
