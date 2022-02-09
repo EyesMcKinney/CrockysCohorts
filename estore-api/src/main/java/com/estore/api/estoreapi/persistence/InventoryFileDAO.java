@@ -57,6 +57,11 @@ public class InventoryFileDAO implements InventoryDAO {
 
     
     /**
+     * Generates and array of Products from the tree map for any 
+     * Product that contains the text specified by containsText. 
+     * 
+     * If containsText is null, the array contains all of the 
+     * Product in the tree map. 
      * 
      * @return the array of Products, may be empty
      * 
@@ -64,14 +69,12 @@ public class InventoryFileDAO implements InventoryDAO {
      */
     public Product[] searchForProduct(String text) throws IOException {
         // TODO Auto-generated method stub
-        /**
-         * Search for the text in both the name and the description
-         */
+        // TODO Search for the text in both the name and the description
         synchronized(products) {
             ArrayList<Product> productArrayList = new ArrayList<>();
 
             for (Product product : products.values()) {
-                if (text == null || product.getName().contains(text)) {
+                if (text == null || product.getName().contains(text) || product.getDescription().contains(text)) {
                     productArrayList.add(product);
                 }
             }
