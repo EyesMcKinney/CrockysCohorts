@@ -71,6 +71,7 @@ public class InventoryFileDAO implements InventoryDAO {
      * 
      * @author Stevie Alvarez
      */
+    @Override
     public Product getProduct(int id) throws IOException {
         synchronized(products) {
             return products.get(id);  // Recall: Map.get(s) returns null if s not present
