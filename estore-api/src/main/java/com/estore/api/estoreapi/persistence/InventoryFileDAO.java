@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.context.annotation.Profile;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,7 +31,7 @@ public class InventoryFileDAO implements InventoryDAO {
     /**
      * Converts between {@link Product} java objects and JSON text
      */
-    private ObjectMapper objectMapper;
+    private ObjectMapper oMapper;
 
     /**
      * Next ID value to assign to a product
@@ -42,6 +42,12 @@ public class InventoryFileDAO implements InventoryDAO {
      * Name of file to read from and write to
      */
     private String filename;
+
+    public InventoryFileDAO(@Value("${products.file}") String filename, ObjectMapper oMapper) throws IOException {
+        this.filename = filename;
+        this.oMapper = oMapper;
+        //load();
+    }
     
     
     public Product createProduct(Product product) throws IOException {
