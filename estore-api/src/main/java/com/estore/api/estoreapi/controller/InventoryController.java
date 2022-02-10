@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.persistence.InventoryDAO;
+import com.estore.api.estoreapi.persistence.InventoryFileDAO;
 import com.estore.api.estoreapi.model.Product;
 
 
@@ -41,5 +42,16 @@ public class InventoryController {
      */
     public InventoryController(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
+    }
+
+    public ResponseEntity<Product[]> getInventory() {
+        LOG.info("GET /products");
+        try {
+            Product[] products = inventoryDAO.getInventory();
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
