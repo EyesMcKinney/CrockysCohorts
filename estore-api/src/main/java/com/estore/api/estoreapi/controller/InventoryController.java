@@ -43,6 +43,33 @@ public class InventoryController {
         this.inventoryDAO = inventoryDAO;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable int id) {
+        return null ;
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Product[]> getProducts() {
+        return null ;
+    }
+
+
+    @GetMapping("/")
+    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
+        return null ;
+    }
+    
+
+    @PostMapping("")
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        return null ;
+    }
+    
+    @PutMapping("")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        return null ;
+    }
+    
     /**
      * Deletes a {@linkplain Hero hero} with the given id
      * 
