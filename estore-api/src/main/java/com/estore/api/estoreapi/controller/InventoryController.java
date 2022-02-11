@@ -43,31 +43,33 @@ public class InventoryController {
         this.inventoryDAO = inventoryDAO;
     }
 
+
     /**
-     * Deletes a {@linkplain Hero hero} with the given id
+     * Responds to the GET request for a {@linkplain Product Product} for the given id
      * 
-     * @param id The id of the {@link Hero hero} to deleted
+     * @param id The id used to locate the {@link Product Product}
      * 
-     * @return ResponseEntity HTTP status of OK if deleted<br>
+     * @return ResponseEntity with {@link Product Product} object and HTTP status of OK if found<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable int id) {
-        LOG.info("DELETE /products/" + id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable int id) {
+        LOG.info("GET /products/" + id);
 
-        try {  // delete product
-            boolean bool = inventoryDAO.deleteProduct(id);
+        try {  // product accessed/DNE
+            Product product = inventoryDAO.getProduct(id);
 
-            if (bool) {
-                return new ResponseEntity<>(HttpStatus.OK);
+            if (product != null) {
+                return new ResponseEntity<Product>(product, HttpStatus.OK);
+                
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
 
         } catch (IOException e) {  // storage issue
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Product>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

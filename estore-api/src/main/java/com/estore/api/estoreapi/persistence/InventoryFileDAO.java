@@ -84,22 +84,10 @@ public class InventoryFileDAO implements InventoryDAO {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @author Stevie Alvarez
-     */
+    
     public boolean deleteProduct(int id) throws IOException {
-        synchronized(products) {
-            if (products.containsKey(id)) {
-                products.remove(id);
-                return save();
-            
-            } else {
-                return false;
-            }
-
-        }
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }
