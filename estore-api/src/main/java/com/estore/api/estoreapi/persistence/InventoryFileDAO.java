@@ -48,7 +48,11 @@ public class InventoryFileDAO implements InventoryDAO {
         //load();
     }
     
-    
+    /**
+     * {@inheritDoc}
+     * 
+     * @author Tylin Hartman
+     */
     public Product createProduct(Product product) throws IOException {
         synchronized(products) {
             // We create a new hero object because the id field is immutable
