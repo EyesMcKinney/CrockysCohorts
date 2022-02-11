@@ -48,10 +48,20 @@ public class InventoryFileDAO implements InventoryDAO {
         //load();
     }
     
-    
+    /**
+     * {@inheritDoc}
+     * 
+     * @author Tylin Hartman
+     */
     public Product createProduct(Product product) throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized(products) {
+            // We create a new hero object because the id field is immutable
+            // and we need to assign the next unique id
+            Product newProduct = new Product(nextId(),product.getName());
+            products.put(newProduct.getId(),newProduct);
+            save(); // may throw an IOException
+            return newProduct;
+        }
     }
 
     
