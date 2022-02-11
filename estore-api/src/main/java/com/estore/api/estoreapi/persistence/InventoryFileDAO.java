@@ -66,10 +66,16 @@ public class InventoryFileDAO implements InventoryDAO {
         return null;
     }
 
-    
+    /**
+     * {@inheritDoc}
+     * 
+     * @author Stevie Alvarez
+     */
+    @Override
     public Product getProduct(int id) throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized(products) {
+            return products.get(id);  // Recall: Map.get(s) returns null if s not present
+        }
     }
 
     
