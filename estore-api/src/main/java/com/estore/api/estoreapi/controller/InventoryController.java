@@ -42,4 +42,14 @@ public class InventoryController {
     public InventoryController(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
+
+    public ResponseEntity<Product[]> searchforProduct(@RequestParam String name) {
+        LOG.info("GET /products/?name="+name);
+        try {
+            return new ResponseEntity<>(inventoryDAO.searchForProduct(name), HttpStatus.OK);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
