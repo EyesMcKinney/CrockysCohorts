@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.persistence.InventoryDAO;
+import com.estore.api.estoreapi.persistence.InventoryFileDAO;
 import com.estore.api.estoreapi.model.Product;
 
 
@@ -54,9 +55,24 @@ public class InventoryController {
     }
 
 
-    @GetMapping("/")
-    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
-        return null ;
+   /**
+     * Responds to the GET request for all {@linkplain Hero heroes}
+     * 
+     * @author Isaac S McKinney
+     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("")
+    public ResponseEntity<Product[]> getInventory() {
+        LOG.info("GET /products");
+        try {
+            Product[] products = inventoryDAO.getInventory();
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
 
