@@ -70,10 +70,19 @@ public class InventoryFileDAO implements InventoryDAO {
         return null;
     }
 
-    
+    /**
+     ** {@inheritDoc}
+     * @author Holden Lalumiere
+     */
     public Product updateProduct(Product product) throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized(products) {
+            if (products.containsKey(product.getId()) == false){
+                return null;  // product does not exist
+            }
+            products.put(product.getId(), product);
+            save(); // may throw an IOException
+            return product;
+        }
     }
 
     /**
