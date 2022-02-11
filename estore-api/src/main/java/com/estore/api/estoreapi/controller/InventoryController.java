@@ -44,6 +44,15 @@ public class InventoryController {
         this.inventoryDAO = inventoryDAO;
     }
 
+    /**
+     * Responds to the GET request for all {@linkplain Hero heroes}
+     * 
+     * @author Isaac S McKinney
+     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("")
     public ResponseEntity<Product[]> getInventory() {
         LOG.info("GET /products");
         try {
