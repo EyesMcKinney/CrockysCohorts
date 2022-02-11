@@ -47,6 +47,7 @@ public class InventoryController {
      * Find all products which contain the given text in their name or description. 
      * @param name the text checked against all product names and descriptions. 
      * @return an array of products that have the text
+     * @author Alex Vernes
      */
     public ResponseEntity<Product[]> searchforProduct(@RequestParam String name) {
         LOG.info("GET /products/?name="+name);
