@@ -42,4 +42,30 @@ public class InventoryController {
     public InventoryController(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
+
+
+    /**
+     * Creates a {@linkplain Product product} with the provided product object
+     * 
+     * @param product - The {@link Product product} to create
+     * 
+     * @return ResponseEntity with created {@link Product product} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link Product product} object already exists<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PostMapping("")
+    public ResponseEntity<Product> createHero(@RequestBody Product product) {
+        LOG.info("POST /heroes " + product);
+
+        try {
+            Product newProduct = inventoryDAO.createProduct(product) ;
+            if(newProduct != null)
+                return new ResponseEntity<>(newProduct, HttpStatus.CREATED) ;
+            else
+                return new ResponseEntity<>(product, HttpStatus.CONFLICT) ;
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
