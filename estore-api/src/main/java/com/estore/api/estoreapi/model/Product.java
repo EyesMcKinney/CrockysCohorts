@@ -27,7 +27,7 @@ public class Product {
 
 
     /**
-     * Create a product with the given name, id, price, 
+     * Create a {@linkplain Product} with the given name, id, price, 
      * description, and stock quantity
      * (eventually (an) image(s) will be added)
      * 
@@ -53,6 +53,16 @@ public class Product {
         this.quantity = quantity ;
         this.description = description;
 
+    }
+
+    /**
+     * Create a {@linkplain Product} with the given name and id. Other fields set to default values.
+     * 
+     * @param id The product id
+     * @param name The product name
+     */
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name) {
+        this(id, name, 1.0, 1, "");
     }
 
     /**
