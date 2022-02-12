@@ -21,9 +21,9 @@ public class Product {
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
-    @JsonProperty("price") private double price ;
-    @JsonProperty("descriptioin") private String description ;
-    @JsonProperty("quantity") private int quantity ;
+    //@JsonProperty("price") private double price ;
+    //@JsonProperty("descriptioin") private String description ;
+    //@JsonProperty("quantity") private int quantity ;
 
 
     /**
@@ -42,7 +42,7 @@ public class Product {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-
+/*
     public Product(@JsonProperty("id") int id, @JsonProperty("name") String name,
                     @JsonProperty("price") double price, @JsonProperty("quantity") int quantity,
                     @JsonProperty("description") String description) {
@@ -54,7 +54,7 @@ public class Product {
         this.description = description;
 
     }
-
+*/
     /**
      * Create a {@linkplain Product} with the given name and id. Other fields set to default values.
      * 
@@ -62,7 +62,9 @@ public class Product {
      * @param name The product name
      */
     public Product(@JsonProperty("id") int id, @JsonProperty("name") String name) {
-        this(id, name, 1.0, 1, "");
+        //this(id, name, 1.0, 1, "");
+        this.id = id;
+        this.name = name;
     }
 
     /**
@@ -87,38 +89,38 @@ public class Product {
      * Set product price
      * @param price The product price
      */
-    public void setPrice(double price) { this.price = price ; }
+    ///public void setPrice(double price) { this.price = price ; }
 
     /**
      * Retrieves product price
      * @return The product price
      */
-    public double getPrice() { return price ; }
+    ///public double getPrice() { return price ; }
 
     /**
      * Set product description
      * @param descritption The product description
      */
-    public void setDescription(String description) { this.description = description ; }
+    ///public void setDescription(String description) { this.description = description ; }
 
     /**
      * Retrieves product description
      * @return Product description
      */
-    public String getDescription() { return description ; }
+    ///public String getDescription() { return description ; }
 
     /**
      * Set the stock quantity of the product
      * @param quantity the stock quantity 
      */
-    public void setQuantity(int quantity) { this.quantity = quantity ; }
+    ///public void setQuantity(int quantity) { this.quantity = quantity ; }
 
     /**
      * Retrieves the current quantity of the product 
      * that is in stock
      * @return The stock quantity
      */
-    public int getQuantity() { return quantity ; }
+    ///public int getQuantity() { return quantity ; }
 
     /**
      * {@inheritDoc}
