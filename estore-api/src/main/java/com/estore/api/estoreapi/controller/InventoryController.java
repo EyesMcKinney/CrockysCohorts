@@ -42,18 +42,27 @@ public class InventoryController {
     public InventoryController(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
-
     
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable int id) {
-        return null ;
-    }
+        LOG.info("GET /products/" + id);
 
-    @GetMapping("")
-    public ResponseEntity<Product[]> getProducts() {
-        return null ;
-    }
+        try {  // product accessed/DNE
+            Product product = inventoryDAO.getProduct(id);
 
+            if (product != null) {
+                return new ResponseEntity<Product>(product, HttpStatus.OK);
+                
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+        } catch (IOException e) {  // storage issue
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<Product>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /**
      * Find all products which contain the given text in their name or description. 
@@ -61,12 +70,33 @@ public class InventoryController {
      * @return an array of products that have the text
      * @author Alex Vernes
      */
-    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
+    public ResponseEntity<Product[]> searchforProducts(@RequestParam String name) {
         LOG.info("GET /products/?name="+name);
         try {
             return new ResponseEntity<>(inventoryDAO.searchForProduct(name), HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+   /**
+     * Responds to the GET request for all {@linkplain Hero heroes}
+     * 
+     * @author Isaac S McKinney
+     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("")
+    public ResponseEntity<Product[]> getInventory() {
+        LOG.info("GET /products");
+        try {
+            Product[] products = inventoryDAO.getInventory();
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -108,8 +138,8 @@ public class InventoryController {
      * @author Holden Lalumiere
      */
     @PutMapping("")
-    public ResponseEntity<Product> updateHero(@RequestBody Product product) {
-        LOG.info("PUT /heroes " + product);
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        LOG.info("PUT /products " + product);
 
         try {
             if(inventoryDAO.updateProduct(product) != null){
