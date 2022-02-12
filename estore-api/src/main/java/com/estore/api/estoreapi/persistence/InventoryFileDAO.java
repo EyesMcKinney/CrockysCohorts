@@ -48,7 +48,7 @@ public class InventoryFileDAO implements InventoryDAO {
     public InventoryFileDAO(@Value("${products.file}") String filename, ObjectMapper oMapper) throws IOException {
         this.filename = filename;
         this.oMapper = oMapper;
-        //load();
+        load();
     }
     
     /**
