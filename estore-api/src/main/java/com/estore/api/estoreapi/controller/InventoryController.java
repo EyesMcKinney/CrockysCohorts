@@ -74,7 +74,7 @@ public class InventoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Product[]> getProducts() {
+    public ResponseEntity<Product[]> searchForProduct() {
         return null ;
     }
 
@@ -136,8 +136,8 @@ public class InventoryController {
      * @author Holden Lalumiere
      */
     @PutMapping("")
-    public ResponseEntity<Product> updateHero(@RequestBody Product product) {
-        LOG.info("PUT /heroes " + product);
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        LOG.info("PUT /products " + product);
 
         try {
             if(inventoryDAO.updateProduct(product) != null){
