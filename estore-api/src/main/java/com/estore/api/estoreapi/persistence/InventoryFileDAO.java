@@ -45,6 +45,14 @@ public class InventoryFileDAO implements InventoryDAO {
      */
     private String filename;
 
+    /**
+     * Creates a Hero File Data Access Object
+     * 
+     * @param filename Filename to read from and write to
+     * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     public InventoryFileDAO(@Value("${products.file}") String filename, ObjectMapper oMapper) throws IOException {
         this.filename = filename;
         this.oMapper = oMapper;
@@ -69,7 +77,7 @@ public class InventoryFileDAO implements InventoryDAO {
      */
     public Product createProduct(Product product) throws IOException {
         synchronized(products) {
-            // We create a new hero object because the id field is immutable
+            // We create a new product object because the id field is immutable
             // and we need to assign the next unique id
             Product newProduct = new Product(nextId(),product.getName());
             products.put(newProduct.getId(),newProduct);
@@ -91,8 +99,6 @@ public class InventoryFileDAO implements InventoryDAO {
      * @author Alex Vernes
      */
     public Product[] searchForProduct(String text) throws IOException {
-        // TODO Auto-generated method stub
-        // TODO Search for the text in both the name and the description
         synchronized(products) {
             ArrayList<Product> productArrayList = new ArrayList<>();
 
@@ -172,12 +178,12 @@ public class InventoryFileDAO implements InventoryDAO {
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Product[] ProductArray = searchForProduct(null);
+        Product[] productArray = searchForProduct(null);
 
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
-        oMapper.writeValue(new File(filename), ProductArray);
+        oMapper.writeValue(new File(filename), productArray);
         return true;
     }
 
