@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.persistence.InventoryDAO;
-import com.estore.api.estoreapi.persistence.InventoryFileDAO;
 import com.estore.api.estoreapi.model.Product;
 
 
