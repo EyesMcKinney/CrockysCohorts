@@ -98,7 +98,7 @@ public class InventoryFileDAO implements InventoryDAO {
      * 
      * @author Alex Vernes
      */
-    public Product[] searchForProduct(String text) throws IOException {
+    private Product[] searchForProduct(String text) throws IOException {
         synchronized(products) {
             ArrayList<Product> productArrayList = new ArrayList<>();
 
@@ -110,6 +110,17 @@ public class InventoryFileDAO implements InventoryDAO {
             Product[] productArray = new Product[productArrayList.size()];
             productArrayList.toArray(productArray);
             return productArray;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @author Alex Vernes and Stevie Alvarez
+     */
+    public Product[] findProducts(String text) throws IOException {
+        synchronized(products) {
+            return searchForProduct(text);
         }
     }
 

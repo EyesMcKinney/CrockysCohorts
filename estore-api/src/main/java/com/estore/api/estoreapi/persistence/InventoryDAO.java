@@ -32,7 +32,7 @@ public interface InventoryDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Product[] searchForProduct(String text) throws IOException;
+    Product[] findProducts(String text) throws IOException;
     
     /**
      * Updates and saves a {@linkplain Product product}
