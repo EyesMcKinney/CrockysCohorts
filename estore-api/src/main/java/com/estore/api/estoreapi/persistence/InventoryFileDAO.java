@@ -50,6 +50,17 @@ public class InventoryFileDAO implements InventoryDAO {
         this.oMapper = oMapper;
         load();
     }
+
+    /**
+     * Generate the next id for a new {@linkplain Product product}
+     * 
+     * @return The new id
+     */
+    private synchronized static int nextId() {
+        int id = currId;
+        ++currId;
+        return id;
+    }
     
     /**
      * {@inheritDoc}
@@ -178,8 +189,8 @@ public class InventoryFileDAO implements InventoryDAO {
      * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException{
-        TreeMap products = new TreeMap<>();
-        int nextId = 0;
+        products = new TreeMap<>();
+        currId = 0;
 
         // Deserializes the JSON objects from the file into an array of heroes
         // readValue will throw an IOException if there's an issue with the file
@@ -189,11 +200,11 @@ public class InventoryFileDAO implements InventoryDAO {
         // Add each hero to the tree map and keep track of the greatest id
         for (Product product : ProductArray) {
             products.put(product.getId(), product);
-            if (product.getId() > nextId)
-                nextId = product.getId();
+            if (product.getId() > currId)
+                currId = product.getId();
         }
         // Make the next id one greater than the maximum from the file
-        ++nextId;
+        ++currId;
         return true;
     }
 }
