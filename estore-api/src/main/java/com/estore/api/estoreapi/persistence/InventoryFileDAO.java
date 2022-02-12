@@ -135,6 +135,8 @@ public class InventoryFileDAO implements InventoryDAO {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * @author Isaac S McKinney
      */
     public Product[] getInventory() throws IOException {
