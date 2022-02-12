@@ -79,7 +79,7 @@ public class InventoryController {
      * @return an array of products that have the text
      * @author Alex Vernes
      */
-    public ResponseEntity<Product[]> searchforProducts(@RequestParam String name) {
+    public ResponseEntity<Product[]> searchforProduct(@RequestParam String name) {
         LOG.info("GET /products/?name="+name);
         try {
             return new ResponseEntity<>(inventoryDAO.searchForProduct(name), HttpStatus.OK);
