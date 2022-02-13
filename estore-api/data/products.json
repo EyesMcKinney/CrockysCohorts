@@ -1,1 +1,8 @@
-[{"id":11,"name":"Test product","price":0.0,"description":"Insert Description Here","quantity":0}]
+[
+    {"id":1,"name":"Crocy's Crocodile","price":25.0,"description":"Green crocodile plush. 5 inches tall. 3yrs +","quantity":1},
+    {"id":2,"name":"Puff Sleeve Sweater","price":80.0,"description":"Cropped sweater with puffed sleeves. Multiple colors available.","quantity":3},
+    {"id":3,"name":"Elephant","price":15.0,"description":"Grey elephant plush with tiny legs and large ears. 3yrs +","quantity":5},
+    {"id":4,"name":"Monkey","price":20.0,"description":"Small monkey holding a banana","quantity":2},
+    {"id":5,"name":"Narwhal","price":30.0,"description":"Large narwhal (14 inch diameter)","quantity":3},
+    {"id":6,"name":"Flower shirt","price":45.0,"description":"Cropped corset back shirt with flower border on bottom edge","quantity":1}
+]
