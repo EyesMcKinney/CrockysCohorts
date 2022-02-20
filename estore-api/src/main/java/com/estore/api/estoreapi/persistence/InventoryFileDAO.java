@@ -28,7 +28,7 @@ public class InventoryFileDAO implements InventoryDAO {
     /**
      * Local cache of {@link Product} objects
      */
-    Map<Integer, Product> products;
+    private Map<Integer, Product> products;
 
     /**
      * Converts between {@link Product} java objects and JSON text

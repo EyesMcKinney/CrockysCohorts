@@ -14,7 +14,7 @@ public class Product {
     private static final Logger LOG = Logger.getLogger(Product.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Product [id=%d, name=%s, price=%d, description=%s, quantity=%d]" ;
+    static final String STRING_FORMAT = "Product [id=%d, name=%s, price=%f, description=%s, quantity=%d]" ;
 
 
     /// id, name, description, price, stock quantity, photo eventually
@@ -115,9 +115,6 @@ public class Product {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, name) ;
+        return String.format(STRING_FORMAT, id, name, price, description, quantity) ;
     }
-
-
-
 }
