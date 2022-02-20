@@ -142,7 +142,7 @@ public class InventoryController {
     /**
      * Updates the {@linkplain Product product} with the provided {@linkplain Product product} object, if it exists
      * 
-     * @param hero The {@link Product product} to update
+     * @param product The {@link Product product} to update
      * 
      * @return ResponseEntity with updated {@link Product product} object and HTTP status of OK if updated<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>

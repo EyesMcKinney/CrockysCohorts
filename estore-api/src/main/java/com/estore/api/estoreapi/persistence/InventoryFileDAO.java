@@ -125,7 +125,7 @@ public class InventoryFileDAO implements InventoryDAO {
     }
 
     /**
-     ** {@inheritDoc}
+     * {@inheritDoc}
      * @author Holden Lalumiere
      */
     public Product updateProduct(Product product) throws IOException {
