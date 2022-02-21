@@ -1,1 +1,17 @@
-<p>product-info works!</p>
+<div *ngIf="product">
+
+    <h2 style="font-weight: bold;">{{product.name}} Details</h2>
+    <div><span>ID: </span>{{product.id}}</div>
+    <div>
+        <label for="product-name">Product: name</label>
+        
+        <div>  <!-- *ngIf to check if user is an admin-->
+            <input id="product-name" [(ngModel)]="product.name" placeholder="name">
+        </div>
+    </div>
+
+    <div>  <!-- *ngIf to check if user is an admin-->
+        <button type="button" (click)="save()">save</button>
+    </div>
+
+</div>
