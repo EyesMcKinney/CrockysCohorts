@@ -1,3 +1,9 @@
+/**
+ * HTTP Request mapings.
+ * 
+ * @author Holden Lalumiere, Tylin Hartman, Alex Vernes, Isaac McKinney, Stevie Alvarez
+ */
+
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
@@ -7,6 +13,9 @@ import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import {catchError, map, tap } from 'rxjs/operators';
 
+/**
+ * Handles HTTP Requests via respective methods.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -32,11 +41,17 @@ export class InventoryService {
 
 
     /**
+     * GET a {@link Product} from the server.
      * 
-     * @param id 
-     * @returns 
+     * @author Stevie Alvarez
+     * 
+     * @param id The ID of the desired product.
+     * @returns The desired product from storage.
      */
-    getProduct(id: number): Observable<Product> { return new Observable; }
+    getProduct(id: number): Observable<Product> { 
+        const url = `${this.productsUrl}/${id}`;
+        return this.http.get<Product>(url);
+    }
 
 
     /**
