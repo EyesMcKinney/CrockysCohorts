@@ -36,11 +36,24 @@ export class ProductInfoComponent implements OnInit {
      */
     @Input() product?: Product;
 
+
     ngOnInit(): void {
+        this.getProduct();
     }
 
-    getProduct(): void {}
 
+    /**
+     * GET a product.
+     */
+    getProduct(): void {
+        this.inventoryService.getProduct(
+            Number(this.route.snapshot.paramMap.get("id"))  // id routed to
+        ).subscribe(product => this.product = product);
+    }
+
+
+    /**
+     * 
+     */
     save(): void {}
-
 }
