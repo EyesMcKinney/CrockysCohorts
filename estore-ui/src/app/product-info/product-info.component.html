@@ -5,7 +5,28 @@
     <link type="text/css" rel="stylesheet" href="../app.component.css">
     <style type="text/css">
         .wrapper {  /* grid container */
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
+            grid-template-areas: 
+            "image image"
+            "description cost"
+            "description add_cart";
+        }
 
+        .image {
+            grid-area: image;
+        }
+
+        .desc {
+            grid-area: description;
+        }
+
+        .cost {
+            grid-area: cost;
+        }
+
+        .add_to_cart {
+            grid-area: add_cart;
         }
     </style>
 </head>
@@ -21,12 +42,10 @@
         <!--Insert product image here-->
         <div class="image"></div>
 
-        <!--horizontally divide
-                info on left
-                price and 'add to cart' button on right-->
+        <!--Text info-->
         <p class="desc">{{product.description}}</p>
         <span class="cost">{{product.price}}</span>
-        <button class="add-to-cart">Add To Cart</button>
+        <button type="button" class="add_to_cart">Add To Cart</button>
     </div>
 
 
