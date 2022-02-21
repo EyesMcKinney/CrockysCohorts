@@ -1,16 +1,32 @@
 <div *ngIf="product">
 
+    <!--Product header-->
     <h2 style="font-weight: bold;">{{product.name}} Details</h2>
     <div><span>ID: </span>{{product.id}}</div>
+
+    <!--Product info-->
     <div>
-        <label for="product-name">Product: name</label>
-        
-        <div>  <!-- *ngIf to check if user is an admin-->
-            <input id="product-name" [(ngModel)]="product.name" placeholder="name">
-        </div>
+        <!--Insert product image here-->
+
     </div>
 
+
+
+    <!--Edit product information-->
     <div>  <!-- *ngIf to check if user is an admin-->
+        <h2 style="font-weight: bold;">Edit {{product.name}}'s product Info</h2>
+        
+        <!--Edit Name-->
+        <label for="product-name">Product: name</label>  <!--Prompt-->
+        <input id="product-name" [(ngModel)]="product.name" placeholder="name">  <!--Enter change-->
+        
+        <!--Edit price-->
+
+        <!--Edit description-->
+
+        <!--Edit quantity-->
+
+        <!--Save Changes-->
         <button type="button" (click)="save()">save</button>
     </div>
 
