@@ -1,3 +1,10 @@
+/**
+ * Manages product information.
+ * 
+ * @author Stevie Alvarez
+ */
+
+
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -5,6 +12,12 @@ import { Location } from '@angular/common';
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
 
+
+/**
+ * Provides methods to interact with individual products.
+ * 
+ * @author Stevie Alvarez
+ */
 @Component({
   selector: 'app-product-info',
   templateUrl: './product-info.component.html',
@@ -12,9 +25,22 @@ import { InventoryService } from '../inventory.service';
 })
 export class ProductInfoComponent implements OnInit {
 
-  constructor() { }
+    constructor(
+        private route: ActivatedRoute, 
+        private inventoryService: InventoryService,
+        private location: Location
+    ) { }
 
-  ngOnInit(): void {
-  }
+    /**
+     * Product of interest.
+     */
+    @Input() product?: Product;
+
+    ngOnInit(): void {
+    }
+
+    getProduct(): void {}
+
+    save(): void {}
 
 }
