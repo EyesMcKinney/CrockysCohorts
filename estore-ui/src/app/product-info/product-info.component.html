@@ -1,3 +1,15 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Info display</title>
+    <link type="text/css" rel="stylesheet" href="../app.component.css">
+    <style type="text/css">
+        .wrapper {  /* grid container */
+
+        }
+    </style>
+</head>
+
 <div *ngIf="product">
 
     <!--Product header-->
@@ -5,9 +17,16 @@
     <div><span>ID: </span>{{product.id}}</div>
 
     <!--Product info-->
-    <div>
+    <div class="wrapper">
         <!--Insert product image here-->
+        <div class="image"></div>
 
+        <!--horizontally divide
+                info on left
+                price and 'add to cart' button on right-->
+        <p class="desc">{{product.description}}</p>
+        <span class="cost">{{product.price}}</span>
+        <button class="add-to-cart">Add To Cart</button>
     </div>
 
 
