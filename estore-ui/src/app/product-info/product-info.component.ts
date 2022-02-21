@@ -14,7 +14,7 @@ import { InventoryService } from '../inventory.service';
 
 
 /**
- * Provides methods to interact with individual products.
+ * Provides methods to interact with individual {@linkplain Product}.
  * 
  * @author Stevie Alvarez
  */
@@ -32,7 +32,7 @@ export class ProductInfoComponent implements OnInit {
     ) { }
 
     /**
-     * Product of interest.
+     * {@link Product} of interest.
      */
     @Input() product?: Product;
 
@@ -43,7 +43,7 @@ export class ProductInfoComponent implements OnInit {
 
 
     /**
-     * GET a product from storage.
+     * GET a {@link product Product} from storage.
      */
     getProduct(): void {
         this.inventoryService.getProduct(
@@ -53,13 +53,15 @@ export class ProductInfoComponent implements OnInit {
 
 
     /**
-     * 
+     * Load parent location/page.
      */
-    goBack(): void {}
+    goBack(): void {
+        this.location.back();
+    }
 
 
     /**
-     * Update the product information in storage.
+     * Update the {@link product Product} information in storage.
      */
     save(): void {
         if (this.product) {
