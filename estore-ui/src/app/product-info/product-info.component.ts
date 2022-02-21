@@ -43,7 +43,7 @@ export class ProductInfoComponent implements OnInit {
 
 
     /**
-     * GET a product.
+     * GET a product from storage.
      */
     getProduct(): void {
         this.inventoryService.getProduct(
@@ -55,5 +55,16 @@ export class ProductInfoComponent implements OnInit {
     /**
      * 
      */
-    save(): void {}
+    goBack(): void {}
+
+
+    /**
+     * Update the product information in storage.
+     */
+    save(): void {
+        if (this.product) {
+            this.inventoryService.updateProduct(this.product)
+                .subscribe(() => this.goBack());
+        }
+    }
 }
