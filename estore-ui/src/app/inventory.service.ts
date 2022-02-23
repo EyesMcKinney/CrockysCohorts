@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Observable, of } from 'rxjs';
-
 import { Product } from './product';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from './user';
 //import {catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -37,6 +35,9 @@ export class InventoryService {
      * @returns 
      */
     getProduct(id: number): Observable<Product> { return new Observable; }
+
+
+    getUser(name: string): Observable<User>{return new Observable;}
 
 
     /**
