@@ -80,4 +80,12 @@ export class ProductInfoComponent implements OnInit {
                 .subscribe(() => this.goBack());
         }
     }
+
+
+    /**
+     * 
+     */
+    delete(): void {
+
+    }
 }
