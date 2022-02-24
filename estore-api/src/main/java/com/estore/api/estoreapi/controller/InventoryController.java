@@ -46,6 +46,8 @@ public class InventoryController {
     /**
      * Responds to the GET request for a {@linkplain Product Product} for the given id
      * 
+     * @author Stevie Alvarez
+     * 
      * @param id The id used to locate the {@link Product Product}
      * 
      * @return ResponseEntity with {@link Product Product} object and HTTP status of OK if found<br>
@@ -167,9 +169,11 @@ public class InventoryController {
     }
     
     /**
-     * Deletes a {@linkplain Hero hero} with the given id
+     * Deletes a {@linkplain Product product} with the given id
      * 
-     * @param id The id of the {@link Hero hero} to deleted
+     * @author Stevie Alvarez
+     * 
+     * @param id The id of the {@link Product product} to deleted
      * 
      * @return ResponseEntity HTTP status of OK if deleted<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
