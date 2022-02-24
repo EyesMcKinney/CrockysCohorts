@@ -55,14 +55,28 @@
         <h2 style="font-weight: bold;">Edit {{product.name}}'s product Info</h2>
         
         <!--Edit Name-->
-        <label for="product-name">Product: name</label>  <!--Prompt-->
-        <input id="product-name" [(ngModel)]="product.name" placeholder="name">  <!--Enter change-->
-        
+        <div>
+            <label for="product-name">Product name: </label>  <!--Prompt-->
+            <input id="product-name" [(ngModel)]="product.name" placeholder="name">  <!--Enter change-->
+        </div>
+
         <!--Edit price-->
+        <div>
+            <label for="product-price">Product price: </label>
+            <input id="product-price" [(ngModel)]="product.price" placeholder="price">
+        </div>
 
         <!--Edit description-->
+        <div>
+            <label for="product-description">Product description: </label>
+            <input id="product-description" [(ngModel)]="product.description" placeholder="description">
+        </div>
 
         <!--Edit quantity-->
+        <div>
+            <label for="product-quantity">Product quantity: </label>
+            <input id="product-quantity" [(NgModel)]="product.quantity" placeholder="quantity"/>
+        </div>
 
         <!--Save Changes-->
         <button type="button" (click)="save()">save</button>
