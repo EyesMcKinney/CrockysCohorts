@@ -19,14 +19,20 @@ export class InventoryService {
     constructor(private http: HttpClient) { }
 
 
-    //private handleError<T>(operation = 'operation', result?: T) { }
+    private handleError<T>(operation = 'operation', result?: T) { return new Observable ; }
 
 
     /**
      * 
      * @returns 
      */
-    getInventory(): Observable<Product[]> { return new Observable; }
+    getInventory(): Observable<Product[]> { 
+      return this.http.get<Product[]>(this.productsUrl)
+      .pipe(
+        //tap(_ => this.log('fetched heroes')),
+       // catchError(this.handleError<Product[]>('getInventory', []))
+      );
+    }
 
 
     /**
@@ -34,7 +40,13 @@ export class InventoryService {
      * @param id 
      * @returns 
      */
-    getProduct(id: number): Observable<Product> { return new Observable; }
+    getProduct(id: number): Observable<Product> { 
+      const url = `${this.productsUrl}/${id}`;
+      return this.http.get<Product>(url).pipe(
+        //tap(_ => this.log(`fetched hero id=${id}`)),
+        //catchError(this.handleError<Hero>(`getHero id=${id}`))
+      );
+     }
 
 
     getUser(name: string): Observable<User>{return new Observable;}
@@ -45,7 +57,12 @@ export class InventoryService {
      * @param product 
      * @returns 
      */
-    updateProduct(product: Product): Observable<any> { return new Observable; }
+    updateProduct(product: Product): Observable<any> { 
+      return this.http.put(this.productsUrl, product, this.httpOptions).pipe(
+        //tap(_ => this.log(`updated hero id=${hero.id}`)),
+        //catchError(this.handleError<any>('updateHero'))
+      );
+     }
 
 
     /**
@@ -53,14 +70,26 @@ export class InventoryService {
      * @param product 
      * @returns 
      */
-    addProduct(product: Product): Observable<Product> { return new Observable; }
+    addProduct(product: Product): Observable<Product> { 
+      return this.http.post<Product>(this.productsUrl, product, this.httpOptions).pipe(
+        //tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
+        //catchError(this.handleError<Hero>('addHero'))
+      );
+     }
 
     /**
      * 
      * @param id 
      * @returns 
      */
-    deleteProduct(id: number): Observable<Product> { return new Observable; }
+    deleteProduct(id: number): Observable<Product> { 
+      const url = `${this.productsUrl}/${id}`;
+
+      return this.http.delete<Product>(url, this.httpOptions).pipe(
+        //tap(_ => this.log(`deleted hero id=${id}`)),
+        //catchError(this.handleError<Hero>('deleteHero'))
+      );
+     }
 
 
     /**
@@ -68,5 +97,16 @@ export class InventoryService {
      * @param prompt 
      * @returns 
      */
-    searchProducts(prompt: string): Observable<Product[]> { return new Observable; }
+    searchProducts(prompt: string): Observable<Product[]> { 
+      if (!prompt.trim()) {
+        // if not search term, return empty hero array.
+        return of([]);
+      }
+      return this.http.get<Product[]>(`${this.productsUrl}/?name=${prompt}`).pipe(
+        //tap(x => x.length ?
+          // this.log(`found heroes matching "${term}"`) :
+           //this.log(`no heroes matching "${term}"`)),
+       // catchError(this.handleError<Hero[]>('searchHeroes', []))
+      );
+     }
 }
