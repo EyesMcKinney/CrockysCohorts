@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user';
-//import {catchError, map, tap } from 'rxjs/operators';
+import {catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

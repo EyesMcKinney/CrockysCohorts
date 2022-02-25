@@ -1,1 +1,10 @@
-<p>homepage works!</p>
+<app-product-search></app-product-search>
+
+<h2></h2>
+<div class="products-menu">
+  <a *ngFor="browse page"
+      routerLink="/info/{{product.id}}">
+      {{product.name}}
+  </a>
+</div>
+
