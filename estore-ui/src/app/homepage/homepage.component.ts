@@ -18,6 +18,6 @@ export class HomepageComponent implements OnInit {
 
   getProducts(): void {
     this.inventoryService.getInventory()
-      .subscribe(products => this.products = products.slice(1, 5));
+      .subscribe(products => this.products = products);
   }
 }

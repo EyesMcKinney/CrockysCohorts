@@ -7,9 +7,9 @@ import { ProductsComponent } from './products/products.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { LoginpageComponent } from './loginpage/loginpage.component';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     ProductSearchComponent,
     ProductInfoComponent,
     HomepageComponent,
-    LoginComponent
+    LoginpageComponent
   ],
   //providers: [],
   bootstrap: [AppComponent]
