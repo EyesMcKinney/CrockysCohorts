@@ -35,7 +35,9 @@ export class InventoryService {
      * 
      * @returns 
      */
-    getInventory(): Observable<Product[]> { return new Observable; }
+    getInventory(): Observable<Product[]> { 
+        return this.http.get<Product[]>(this.productsUrl);
+    }
 
 
     /**
@@ -92,5 +94,10 @@ export class InventoryService {
      * @param prompt 
      * @returns 
      */
-    searchProducts(prompt: string): Observable<Product[]> { return new Observable; }
+    searchProducts(prompt: string): Observable<Product[]> { 
+        if (!prompt.trim()) {
+            return of([]);
+        }
+        return this.http.get<Product[]>(`${this.productsUrl}/?name=${prompt}`);
+    }
 }
