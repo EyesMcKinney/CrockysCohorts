@@ -5,7 +5,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user';
@@ -71,11 +71,16 @@ export class InventoryService {
     addProduct(product: Product): Observable<Product> { return new Observable; }
 
     /**
+     * Delete a {@link Product} from the server
      * 
-     * @param id 
-     * @returns 
+     * @param id the ID of the product
+     * @returns the product deleted
+     * @author Alex Vernes
      */
-    deleteProduct(id: number): Observable<Product> { return new Observable; }
+    deleteProduct(id: number): Observable<Product> { 
+        const url = `${this.productsUrl}/${id}`;
+        return this.http.delete<Product>(url, this.httpOptions);
+    }
 
 
     /**
