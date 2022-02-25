@@ -19,7 +19,7 @@ export class InventoryService {
     constructor(private http: HttpClient) { }
 
 
-    private handleError<T>(operation = 'operation', result?: T) { return new Observable ; }
+    //private handleError<T>(operation = 'operation', result?: T) { return new Observable ; }
 
 
     /**
@@ -41,9 +41,14 @@ export class InventoryService {
      * @returns 
      */
     getProduct(id: number): Observable<Product> { 
-      const url = `${this.productsUrl}/${id}`;
-      return this.http.get<Product>(url).pipe(
-        //tap(_ => this.log(`fetched hero id=${id}`)),
+      const url = `${this.productsUrl}/?id=${id}`;
+    return this.http.get<Product[]>(url)
+      .pipe(
+        map(products => products[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? 'fetched' : 'did not find';
+          //this.log(`${outcome} hero id=${id}`);
+        }),
         //catchError(this.handleError<Hero>(`getHero id=${id}`))
       );
      }

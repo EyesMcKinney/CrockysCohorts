@@ -12,6 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule
+  ],
   declarations: [
     AppComponent,
     ProductsComponent,
@@ -20,13 +26,7 @@ import { FormsModule } from '@angular/forms';
     HomepageComponent,
     LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
-  providers: [],
+  //providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

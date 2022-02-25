@@ -7,7 +7,7 @@ import { InventoryService } from '../inventory.service';
   templateUrl: './homepage.component.html',
   styleUrls: [ './homepage.component.css' ]
 })
-export class DashboardComponent implements OnInit {
+export class HomepageComponent implements OnInit {
   products: Product[] = [];
 
   constructor(private inventoryService: InventoryService) { }
@@ -18,6 +18,6 @@ export class DashboardComponent implements OnInit {
 
   getProducts(): void {
     this.inventoryService.getInventory()
-      .subscribe(products => this.products = this.products.slice(1, 5));
+      .subscribe(products => this.products = products.slice(1, 5));
   }
 }

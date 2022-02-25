@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
 
@@ -8,31 +10,32 @@ import { InventoryService } from '../inventory.service';
   styleUrls: ['./product-info.component.css']
 })
 export class ProductInfoComponent implements OnInit {
+  product: Product | undefined ;
 
-  products: Product[] = [] ;
-
-  constructor(private inventoryService: InventoryService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private inventoryService: InventoryService,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
-    this.getProducts() ;
+    this.getProduct() ;
   }
 
-  getProducts(): void {
-    this.inventoryService.getInventory()
-    .subscribe(products => this.products = products);
+  getProduct(): void {
+    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.inventoryService.getProduct(id)
+      .subscribe(product => this.product = product);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.inventoryService.addProduct({ name } as Product)
-      .subscribe(product => {
-        this.products.push(product);
-      });
+  goBack(): void {
+    this.location.back();
   }
 
-  delete(product: Product): void {
-    this.products = this.products.filter(h => h !== product);
-    this.inventoryService.deleteProduct(product.id).subscribe();
+  save(): void {
+    if (this.product) {
+      this.inventoryService.updateProduct(this.product)
+        .subscribe(() => this.goBack());
+    }
   }
 }

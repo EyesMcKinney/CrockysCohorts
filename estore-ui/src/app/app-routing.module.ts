@@ -6,11 +6,12 @@ import { ProductsComponent } from './products/products.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 
 const routes: Routes = [
-    { path: 'homepage', component: HomepageComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'products', component: ProductsComponent },
-    { path: 'info/:id', component: ProductInfoComponent },
-    { path: '', redirectTo: '/homepage', pathMatch: 'full' }
+  { path: '', redirectTo: '/homepage', pathMatch: 'full' },
+  { path: 'homepage', component: HomepageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'info/:id', component: ProductInfoComponent },
+  { path: '', redirectTo: '/homepage', pathMatch: 'full' }
 ];
 
 @NgModule({
