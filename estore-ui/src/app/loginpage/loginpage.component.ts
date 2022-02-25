@@ -10,10 +10,13 @@ import { LoginService } from '../login.service';
 })
 export class LoginpageComponent implements OnInit {
   user: User | undefined;
+  adminUser: Boolean | undefined; 
   // username: string |undefined ;
   // private user = new Subject<string>();
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService) {
+    this.adminUser = false ;
+  }
 
 
   ngOnInit(): void {}
@@ -24,12 +27,12 @@ export class LoginpageComponent implements OnInit {
 
 
     if( input == "admin"){
-      console.log("checking");
-      //take admin t
+      this.adminUser = true ; 
       
     }else{
-      this.loginService.getUser(input)
-        .subscribe();
+      this.adminUser = false ;
+      // this.loginService.getUser(input)
+      //   .subscribe();
     }
     
   }
