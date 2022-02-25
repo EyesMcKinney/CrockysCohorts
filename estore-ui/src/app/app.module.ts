@@ -7,26 +7,26 @@ import { ProductsComponent } from './products/products.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { LoginpageComponent } from './loginpage/loginpage.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProductsComponent,
-    ProductSearchComponent,
-    ProductInfoComponent,
-    HomepageComponent,
-    LoginComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  declarations: [
+    AppComponent,
+    ProductsComponent,
+    ProductSearchComponent,
+    ProductInfoComponent,
+    HomepageComponent,
+    LoginpageComponent
+  ],
+  //providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
