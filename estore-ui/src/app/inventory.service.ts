@@ -56,11 +56,15 @@ export class InventoryService {
 
 
     /**
+     * Update a {@link Product} product on the server
      * 
-     * @param product 
-     * @returns 
+     * @param product the product to update
+     * @returns the updated Product
+     * @author Holden Lalumiere
      */
-    updateProduct(product: Product): Observable<any> { return new Observable; }
+    updateProduct(product: Product): Observable<any> {
+        return this.http.put(this.productsUrl, product, this.httpOptions);
+    }
 
 
     /**
