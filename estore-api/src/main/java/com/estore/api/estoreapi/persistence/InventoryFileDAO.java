@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * Implements the functionality for JSON file-based peristance for Heroes
+ * Implements the functionality for JSON file-based peristance for Products
  * 
  * {@literal Component} Spring annotation instantiates a single instance of this
  * class and injects the instance into other classes as needed
@@ -46,7 +46,7 @@ public class InventoryFileDAO implements InventoryDAO {
     private String filename;
 
     /**
-     * Creates a Hero File Data Access Object
+     * Creates a Product File Data Access Object
      * 
      * @param filename Filename to read from and write to
      * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
