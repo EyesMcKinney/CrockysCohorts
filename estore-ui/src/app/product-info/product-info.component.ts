@@ -25,6 +25,7 @@ import { InventoryService } from '../inventory.service';
 })
 export class ProductInfoComponent implements OnInit {
 
+
     constructor(
         private route: ActivatedRoute, 
         private inventoryService: InventoryService,
@@ -83,9 +84,13 @@ export class ProductInfoComponent implements OnInit {
 
 
     /**
+     * Delete the {@link product Product} from storage. 
      * 
+     * @author Alex Vernes
      */
     delete(): void {
-
+        this.inventoryService.deleteProduct(
+            Number(this.route.snapshot.paramMap.get("id"))
+            ).subscribe(product => this.product = product);
     }
 }
