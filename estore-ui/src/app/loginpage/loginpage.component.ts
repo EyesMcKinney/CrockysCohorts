@@ -27,7 +27,7 @@ export class LoginpageComponent implements OnInit {
    * Load previous page.
    */
   goBack(): void {
-      //TODO special case for when admin logs in <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      if (this.user?.username == "admin") { return; }
       this.location.back();
   }
 
@@ -71,7 +71,6 @@ export class LoginpageComponent implements OnInit {
    */
   checkUser(): void {
     if(!this.user?.username) { return; }
-
 
     if( this.user.username == "admin"){
       this.adminUser = true ; 
