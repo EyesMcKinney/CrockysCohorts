@@ -35,10 +35,13 @@ export class LoginService {
   }
 
   /**
+   * POST (create/add) a {@link User User} to the server.
    * 
-   * @param user 
-   * @returns 
+   * @param user The {@link User User} to create
+   * @returns The new {@link User User} that's been made
    */
-  createUser(user: User): Observable<User> { return new Observable; }
+  createUser(user: User): Observable<User> { 
+      return this.http.post<User>(this.loginUrl, user, this.httpOptions);
+  }
 
 }
