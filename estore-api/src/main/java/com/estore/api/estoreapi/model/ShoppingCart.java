@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ShoppingCart implements Cart{
 
     @JsonProperty("shopping cart") private HashMap<Integer, Integer> products;
-    @JsonProperty("number of unique products") private int uniqueProducts;
     private InventoryDAO inventoryDAO;
 
     /**
@@ -23,7 +22,6 @@ public class ShoppingCart implements Cart{
      */
     public ShoppingCart(InventoryDAO inventoryDAO){
         this.products = new HashMap<Integer, Integer>();
-        this.uniqueProducts = 0;
         this.inventoryDAO = inventoryDAO;
     }
 
@@ -41,7 +39,6 @@ public class ShoppingCart implements Cart{
         else{
             // add the product
             products.put(product.getId(), 1);
-            uniqueProducts++;
         }
     }
 
@@ -54,7 +51,6 @@ public class ShoppingCart implements Cart{
      */
     public void removeProduct(Product product){
         products.remove(product.getId());
-        uniqueProducts--;
     }
 
     @Override
@@ -71,7 +67,6 @@ public class ShoppingCart implements Cart{
         if (amount <= 0){
             // remove the product
             products.remove(product.getId());
-            uniqueProducts--;
         }
         else{
             // change the product quantity
