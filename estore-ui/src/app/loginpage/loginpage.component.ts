@@ -27,8 +27,11 @@ export class LoginpageComponent implements OnInit {
    * Load previous page.
    */
   goBack(): void {
-      if (this.user?.username == "admin") { return; }
-      this.location.back();
+      if (this.user?.username == "admin") { 
+          return;
+      } else {
+        this.location.back();
+      }
   }
 
   /**
