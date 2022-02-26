@@ -4,12 +4,19 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * A shopping cart to be given to each user
+ * 
+ * @author Holden Lalumiere
+ */
 public class ShoppingCart implements Cart{
 
     @JsonProperty("shopping cart") private HashMap<Integer, Integer> products;
     @JsonProperty("number of unique products") private int uniqueProducts;
-    //TODO remove this if not needed    @JsonProperty("number of products") private int totalProducts;
 
+    /**
+     * Create a new shopping cart
+     */
     public ShoppingCart(){
         this.products = new HashMap<Integer, Integer>();
         this.uniqueProducts = 0;
@@ -92,7 +99,15 @@ public class ShoppingCart implements Cart{
     public boolean isEmpty(){
         return products.isEmpty();
     }
-    
+
+    @Override
+    /**
+     * Empties the shopping cart
+     */
+    public void clearCart(){
+        products.clear();
+    }
+
     //TODO when wishlist is implemented
     /*
     public moveProductToWishlist(){}
@@ -103,13 +118,6 @@ public class ShoppingCart implements Cart{
         //TODO when wishlist is implemented
     }
     */
-
-    /**
-     * Empties the shopping cart
-     */
-    public void clearCart(){
-        products.clear();
-    }
 
     //TODO idk if this will be used or not
     /**
