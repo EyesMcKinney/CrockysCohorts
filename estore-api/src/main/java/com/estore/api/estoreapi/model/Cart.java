@@ -2,13 +2,18 @@ package com.estore.api.estoreapi.model;
 
 public interface Cart {
 
-    public boolean addProduct(int id);
+    public void addProduct(Product product);
 
-    public boolean removeProduct(int id);
+    public void removeProduct(Product product);
 
-    public Product[] getProducts();
+    public void editProductQuantity(Product product, int amount);
 
-    public User getUser();
+    public boolean isProductOutOfStock(Product product);
 
-    public boolean clearCart();
+    public boolean isEmpty();
+
+
+    // public Product[] getProducts();
+
+    // public boolean clearCart();
 }
