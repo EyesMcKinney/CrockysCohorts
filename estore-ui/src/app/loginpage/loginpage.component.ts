@@ -16,7 +16,7 @@ export class LoginpageComponent implements OnInit {
 
   constructor(private loginService: LoginService) {
     this.adminUser = false ;
-    // initialize user to blank user: this.user = new User(""); // user w/ no name
+    // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
 
 
@@ -28,15 +28,30 @@ export class LoginpageComponent implements OnInit {
    * @param username name of the desired {@link User User} to login to
    */
   login(username: string): void {
+      username = username.trim();
+      if (!username) {return;}
+
       this.loginService.getUser(
-            username.trim()
+            username
         ).subscribe(user => this.user = user);
       this.checkUser();
   }
 
+  /**
+   * Create a new {@link User User} with provided username
+   * 
+   * @param username name of the desired {@link User User} to create
+   */
+  createUser(username: string): void {
+      username = username.trim();
+      if (!username) {return;}
 
-  createUser(username: string): void { }
-
+      this.loginService.createUser( { username } as User)
+      .subscribe(user => {
+          this.user = user;
+          this.goBack();
+      })
+  }
 
   /**
    * Determins if {@link User User} that's signed in is an admin or not
