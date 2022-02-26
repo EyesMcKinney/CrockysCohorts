@@ -25,12 +25,15 @@ import { InventoryService } from '../inventory.service';
 })
 export class ProductInfoComponent implements OnInit {
 
+    editable: Boolean | undefined; 
 
     constructor(
         private route: ActivatedRoute, 
         private inventoryService: InventoryService,
         private location: Location
-    ) { }
+    ) { 
+        this.editable = false ;
+    }
 
     /**
      * {@link Product} of interest.
