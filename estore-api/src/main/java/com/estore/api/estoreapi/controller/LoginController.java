@@ -1,10 +1,13 @@
 package com.estore.api.estoreapi.controller;
 
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.persistence.UserDAO;
 import com.estore.api.estoreapi.model.User;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Stevie Alvarez
  */
 @RestController
-@RequestMapping("user_login")
+@RequestMapping("login")
 public class LoginController {
     /**
      * Log messages in the server via standard IO
@@ -52,7 +55,20 @@ public class LoginController {
      */
     @GetMapping("/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
-        return null;
+        LOG.info("GET /login/" + username);
+
+        try {
+            User user = userDAO.getUser(username);
+            if (user != null) {
+                return new ResponseEntity<User>(user, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
