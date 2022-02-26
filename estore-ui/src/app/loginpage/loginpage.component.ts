@@ -27,7 +27,7 @@ export class LoginpageComponent implements OnInit {
    * Load previous page.
    */
   goBack(): void {
-      //TODO special case for when admin logs in
+      //TODO special case for when admin logs in <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       this.location.back();
   }
 
