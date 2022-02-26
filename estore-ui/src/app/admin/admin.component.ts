@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InventoryService } from '../inventory.service';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-admin',
@@ -7,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  products: Producst[] = [];
+  products: Product[] = [];
 
-  constructor() { }
+  constructor(private inventoryService: InventoryService) { }
 
   ngOnInit(): void {
+    this.getProducts();
+  }
+  
+  getProducts(): void {
+    this.inventoryService.getInventory()
+      .subscribe(products => this.products = products);
   }
 
 }
