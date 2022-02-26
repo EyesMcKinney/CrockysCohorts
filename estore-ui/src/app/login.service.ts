@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { User } from './user';
 
+
+/**
+ * User login HTTP Request mapings.
+ * 
+ * @author Tylin Hartman
+ * @author Stevie Alvarez
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -28,5 +35,8 @@ export class LoginService {
         //catchError(this.handleError<Hero>(`getHero id=${id}`))
       );
   }
+
+
+  createUser(user: User): Observable<User> { return new Observable; }
 
 }
