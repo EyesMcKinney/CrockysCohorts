@@ -34,4 +34,9 @@ public class User{
         this.shoppingCart.removeProduct(id);
         return true;
     }
+
+    @Override
+    public String toString(){
+        return "User: " + this.username + ", Cart : " + this.shoppingCart;
+    }
 }
