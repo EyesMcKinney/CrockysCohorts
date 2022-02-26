@@ -1,8 +1,10 @@
 package com.estore.api.estoreapi.model;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -14,13 +16,15 @@ public class ShoppingCart implements Cart{
 
     @JsonProperty("shopping cart") private HashMap<Integer, Integer> products;
     @JsonProperty("number of unique products") private int uniqueProducts;
+    private InventoryDAO inventoryDAO;
 
     /**
      * Create a new shopping cart
      */
-    public ShoppingCart(){
+    public ShoppingCart(InventoryDAO inventoryDAO){
         this.products = new HashMap<Integer, Integer>();
         this.uniqueProducts = 0;
+        this.inventoryDAO = inventoryDAO;
     }
 
     @Override
@@ -32,8 +36,7 @@ public class ShoppingCart implements Cart{
     public void addProduct(Product product){
         // if the cart already has this product
         if (products.containsKey(product.getId())){
-            // TODO ask whether to add to the quantity of the product, ignore it, or print a message that the item is in the cart
-
+            products.put(product.getId(), products.get(product.getId()));
         }
         else{
             // add the product
@@ -68,6 +71,7 @@ public class ShoppingCart implements Cart{
         if (amount <= 0){
             // remove the product
             products.remove(product.getId());
+            uniqueProducts--;
         }
         else{
             // change the product quantity
@@ -117,8 +121,9 @@ public class ShoppingCart implements Cart{
      * Buy everything currently in the cart
      * 
      * @return the total cost
+     * @throws IOException
      */
-    public int buyEntireCart(){
+    public int buyEntireCart() throws IOException{
         int total = 0;
 
         Iterator<Integer> iterateProducts = products.keySet().iterator();
@@ -127,7 +132,7 @@ public class ShoppingCart implements Cart{
             
             // sum up the purchase
             int quantity = products.get(i);
-            Product product; //TODO get the product by the id
+            Product product = inventoryDAO.getProduct(i);
             total += product.getPrice() * quantity;
 
             // decrement the quantity from the products
