@@ -11,4 +11,9 @@ public class User{
         this.username = username;
         this.shoppingCart = new ShoppingCart();
     }
+
+    public String getUser(){
+        return username;
+    }
+
 }
