@@ -6,7 +6,9 @@ import com.estore.api.estoreapi.persistence.UserDAO;
 import com.estore.api.estoreapi.model.User;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +50,7 @@ public class LoginController {
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
+    @GetMapping("/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         return null;
     }
@@ -62,6 +65,7 @@ public class LoginController {
      * ResponseEntity with HTTP status of CONFLICT if {@link User User} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
+    @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return null;
     }
