@@ -9,19 +9,19 @@ public interface UserDAO {
     /**
      * CREATE a {@linkplain User user} with the provided username.
      * 
-     * @param username The username for the new user
-     * @return A new user with the provided username
+     * @param user A {@link User user} to be created and stored
+     * @return A new {@link User user} if successful, null otherwise
      * @throws IOException If issue with underlying storage
      */
-    User createUser(String username) throws IOException;
+    User createUser(User user) throws IOException;
 
     /**
      * Retrieve a {@linkplain User user} with the provided username.
      * 
-     * @param user A {@link User user} to be created and stored
+     * @param username The name identifying the desired {@link User user}
      * @return A {@link User user} with the matching username,
      * null if {@link User user} could not be found
      * @throws IOException If issue with underlying storage
      */
-    User getUser(User user) throws IOException;
+    User getUser(String username) throws IOException;
 }
