@@ -3,7 +3,11 @@ package com.estore.api.estoreapi.controller;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.persistence.UserDAO;
+import com.estore.api.estoreapi.model.User;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,4 +34,15 @@ public class LoginController {
     public LoginController(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
+
+    /**
+     * 
+     * @param username
+     */
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        return null;
+    }
+
+    public ResponseEntity<User> createUser(@RequestBody User user)
 }
