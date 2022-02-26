@@ -3,7 +3,8 @@
 <div>
     <label for="username">Username: </label>
     <input id="username" #userName>
-    <button type="button" (click)="checkUser(userName.value)"></button>
+    <button type="button" (click)="signIn(userName.value)">Sign In</button>
+    <!--<button type="button" (click)="checkUser(userName.value)"></button>-->
 
     <a *ngIf="adminUser == true" routerLink="/products" >Products</a>
     <router-outlet ></router-outlet>

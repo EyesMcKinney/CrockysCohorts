@@ -19,7 +19,23 @@ export class LoginpageComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+      this.getUser();
+  }
+
+  /**
+   * Login to the {@link User User} from storage with the provided username
+   * 
+   * @param username name of the desired {@link User User} to login to
+   */
+  login(username: String): void {
+
+  }
+
+  getUser() {
+
+  }
+
 
   checkUser(input: string): void {
     input = input.trim();
