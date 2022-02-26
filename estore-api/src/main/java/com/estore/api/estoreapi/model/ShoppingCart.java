@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -56,6 +57,7 @@ public class ShoppingCart implements Cart{
     @Override
     /**
      * Change the amount of the product in the cart
+     * If the amount is more than there is stock it will set the amount to be the stock amount
      * Precondition: the product is already in the cart
      * 
      * @param product the product to add or remove quantity from
@@ -69,6 +71,10 @@ public class ShoppingCart implements Cart{
         }
         else{
             // change the product quantity
+            if (amount > product.getQuantity()){
+                amount = product.getQuantity();
+                //TODO display a message that that was too much?
+            }
             products.put(product.getId(), amount);
         }
     }
@@ -82,7 +88,6 @@ public class ShoppingCart implements Cart{
      */
     public boolean isProductOutOfStock(Product product){
         if(product.getQuantity() <= 0){
-            //TODO make it so this product cannot be purchased (I think this can be done on the store page?)
             return true;
         }
         else{
@@ -106,6 +111,31 @@ public class ShoppingCart implements Cart{
      */
     public void clearCart(){
         products.clear();
+    }
+
+    /**
+     * Buy everything currently in the cart
+     * 
+     * @return the total cost
+     */
+    public int buyEntireCart(){
+        int total = 0;
+
+        Iterator<Integer> iterateProducts = products.keySet().iterator();
+        while (iterateProducts.hasNext()){
+            int i = iterateProducts.next();
+            
+            // sum up the purchase
+            int quantity = products.get(i);
+            Product product; //TODO get the product by the id
+            total += product.getPrice() * quantity;
+
+            // decrement the quantity from the products
+            product.setQuantity(product.getQuantity() - quantity);
+        }
+
+        clearCart();
+        return total;
     }
 
     //TODO when wishlist is implemented
