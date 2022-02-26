@@ -211,7 +211,7 @@ public class InventoryFileDAO implements InventoryDAO {
         products = new TreeMap<>();
         currId = 0;
 
-        // Deserializes the JSON objects from the file into an array of heroes
+        // Deserializes the JSON objects from the file into an array of products
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
         Product[] ProductArray = oMapper.readValue(new File(filename),Product[].class);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
@@ -19,12 +20,12 @@ public class UserFileDAO implements UserDAO{
     private static final Logger LOG = Logger.getLogger(InventoryFileDAO.class.getName());
     
     /**
-     * Local cache of {@link Product} objects
+     * Local cache of {@link User} objects
      */
     private ArrayList<User> userList;
 
     /**
-     * Converts between {@link Product} java objects and JSON text
+     * Converts between {@link User} java objects and JSON text
      */
     private ObjectMapper oMapper;
 
@@ -34,7 +35,7 @@ public class UserFileDAO implements UserDAO{
     private String filename;
 
     /**
-     * Creates a Product File Data Access Object
+     * Creates a User File Data Access Object
      * 
      * @param filename Filename to read from and write to
      * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
@@ -47,22 +48,6 @@ public class UserFileDAO implements UserDAO{
         load();
     }
 
-    private boolean load() throws StreamReadException, DatabindException, IOException {
-        ArrayList<User> users = new ArrayList<User>();
-
-        // Deserializes the JSON objects from the file into an array of heoes
-        // readValue will throw an IOException if there's an issue with the file
-        // or reading from the file
-        User[] UserArray = oMapper.readValue(new File(filename), User[].class);
-
-        // Add each product to the tree map and keep track of the greatest id
-        for (User user : UserArray) {
-            users.add(user);
-        }
-        // Make the next id one greater than the maximum from the file
-        return true;
-    }
-
     @Override
     public User createUser(String text) throws IOException {
         synchronized(userList){
@@ -73,22 +58,12 @@ public class UserFileDAO implements UserDAO{
         }
     }
 
-    private Boolean save() throws StreamWriteException, DatabindException, IOException {
-        User[] userArray = searchForProduct(null);
-
-        // Serializes the Java Objects to JSON objects into the file
-        // writeValue will thrown an IOException if there is an issue
-        // with the file or reading from the file
-        oMapper.writeValue(new File(filename), userArray);
-        return true;
-    }
-
-    private User[] searchForProduct(String text) {
+    private User[] searchForUser(String text) {
         synchronized(userList) {
             ArrayList<User> UserArrayList = new ArrayList<>();
 
             for (User user : userList) {
-                if (text == null || user.getUser().contains(text)) {
+                if (text == null || user.getName().contains(text)) {
                     UserArrayList.add(user);
                 }
             }
@@ -97,5 +72,49 @@ public class UserFileDAO implements UserDAO{
             return UserArray;
         }
     }
+
+    @Override
+    public User[] findUsers(String text) throws IOException {
+        synchronized(userList) {
+            return searchForUser(text);
+        }
+    }
+
+    @Override
+    public User[] getUsers() throws IOException {
+        synchronized(userList) {
+            return searchForUser(null);
+        }
+    }
+
+    @Override
+    public ShoppingCart getCart(User user) throws IOException {
+        return user.getCart();
+    }
     
+    private Boolean save() throws StreamWriteException, DatabindException, IOException {
+        User[] userArray = searchForUser(null);
+
+        // Serializes the Java Objects to JSON objects into the file
+        // writeValue will thrown an IOException if there is an issue
+        // with the file or reading from the file
+        oMapper.writeValue(new File(filename), userArray);
+        return true;
+    }
+
+    private boolean load() throws StreamReadException, DatabindException, IOException {
+        ArrayList<User> users = new ArrayList<User>();
+
+        // Deserializes the JSON objects from the file into an array of users
+        // readValue will throw an IOException if there's an issue with the file
+        // or reading from the file
+        User[] UserArray = oMapper.readValue(new File(filename), User[].class);
+
+        // Add each user to the array and keep track of the greatest id
+        for (User user : UserArray) {
+            users.add(user);
+        }
+        // Make the next id one greater than the maximum from the file
+        return true;
+    }
 }
