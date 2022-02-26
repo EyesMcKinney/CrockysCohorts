@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { HeaderRoutingModule } from './header-routing.module';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { HeaderRoutingModule } from './header-routing.module';
     ProductSearchComponent,
     ProductInfoComponent,
     HomepageComponent,
-    LoginpageComponent
+    LoginpageComponent,
+    MessagesComponent
   ],
   //providers: [],
   bootstrap: [AppComponent]
