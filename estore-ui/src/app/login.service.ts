@@ -5,7 +5,7 @@ import { User } from './user';
 
 
 /**
- * User login HTTP Request mapings.
+ * {@linkplain User User} login HTTP Request mapings.
  * 
  * @author Tylin Hartman
  * @author Stevie Alvarez
@@ -23,20 +23,22 @@ export class LoginService {
   
   constructor(private http: HttpClient) { }
 
+  /**
+     * GET a {@link User User} from the server.
+     * 
+     * @param username The username of the desired {@link User User}.
+     * @returns The desired {@link User User} from storage
+   */
   getUser(username: string): Observable<User> {
-    const url = `${this.loginUrl}/?name=${"name"}`;
-    return this.http.get<User[]>(url)
-      .pipe(
-        map(users => users[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          //this.log(`${outcome} hero id=${id}`);
-        }),
-        //catchError(this.handleError<Hero>(`getHero id=${id}`))
-      );
+    const url = `${this.loginUrl}/${username}`;
+    return this.http.get<User>(url);
   }
 
-
+  /**
+   * 
+   * @param user 
+   * @returns 
+   */
   createUser(user: User): Observable<User> { return new Observable; }
 
 }
