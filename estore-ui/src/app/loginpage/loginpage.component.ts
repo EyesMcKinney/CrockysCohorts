@@ -55,6 +55,9 @@ export class LoginpageComponent implements OnInit {
   createUser(username: string): void {
       username = username.trim();
       if (!username) {return;}
+      if (username == "admin") {
+          //TODO use message service to print error message
+      }
 
       this.loginService.createUser( { username } as User)
       .subscribe(user => {
