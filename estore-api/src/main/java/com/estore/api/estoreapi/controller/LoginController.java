@@ -59,6 +59,7 @@ public class LoginController {
 
         try {
             User user = userDAO.getUser(username);
+
             if (user != null) {
                 return new ResponseEntity<User>(user, HttpStatus.OK);
             } else {
@@ -83,6 +84,20 @@ public class LoginController {
      */
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        return null;
+        LOG.info("POST /login " + user);
+
+        try {
+            User newUser = userDAO.createUser(user);
+
+            if (newUser != null) {
+                return new ResponseEntity<User>(newUser, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+            }
+            
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
