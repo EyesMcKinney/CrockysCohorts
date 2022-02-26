@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../user';
 import { LoginService } from '../login.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-loginpage',
@@ -14,13 +15,21 @@ export class LoginpageComponent implements OnInit {
   // username: string |undefined ;
   // private user = new Subject<string>();
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private location: Location) {
     this.adminUser = false ;
     // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
 
 
   ngOnInit(): void { }
+
+  /**
+   * Load previous page.
+   */
+  goBack(): void {
+      //TODO special case for when admin logs in
+      this.location.back();
+  }
 
   /**
    * Login to the {@link User User} from storage with the provided username
@@ -35,6 +44,7 @@ export class LoginpageComponent implements OnInit {
             username
         ).subscribe(user => this.user = user);
       this.checkUser();
+      this.goBack();
   }
 
   /**
@@ -49,8 +59,8 @@ export class LoginpageComponent implements OnInit {
       this.loginService.createUser( { username } as User)
       .subscribe(user => {
           this.user = user;
-          this.goBack();
-      })
+      });
+      this.goBack();
   }
 
   /**
