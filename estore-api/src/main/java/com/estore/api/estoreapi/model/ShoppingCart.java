@@ -34,7 +34,7 @@ public class ShoppingCart implements Cart{
     public void addProduct(Product product){
         // if the cart already has this product
         if (products.containsKey(product.getId())){
-            products.put(product.getId(), products.get(product.getId()));
+            products.put(product.getId(), products.get(product.getId()) + 1);
         }
         else{
             // add the product
