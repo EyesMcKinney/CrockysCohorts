@@ -5,14 +5,8 @@ import java.io.IOException;
 import com.estore.api.estoreapi.model.User;
 
 public interface UserDAO {
+
     
-    /**
-     * CREATE a {@linkplain User user} with the provided username.
-     * 
-     * @param user A {@link User user} to be created and stored
-     * @return A new {@link User user} if successful, null otherwise
-     * @throws IOException If issue with underlying storage
-     */
     User createUser(User user) throws IOException;
 
     /**
