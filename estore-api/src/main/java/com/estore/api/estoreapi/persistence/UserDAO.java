@@ -6,9 +6,6 @@ import com.estore.api.estoreapi.model.User;
 
 public interface UserDAO {
 
-    
-    User createUser(User user) throws IOException;
-
     /**
      * Retrieve a {@linkplain User user} with the provided username.
      * 
