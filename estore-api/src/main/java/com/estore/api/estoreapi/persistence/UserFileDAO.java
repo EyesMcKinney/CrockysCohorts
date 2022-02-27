@@ -15,6 +15,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Isaac S McKinney
+ */
+
 @Component
 public class UserFileDAO implements UserDAO{
     private static final Logger LOG = Logger.getLogger(InventoryFileDAO.class.getName());
@@ -48,6 +52,13 @@ public class UserFileDAO implements UserDAO{
         load();
     }
 
+    /**
+     * Creates a new user
+     * 
+     * @param text : string text is the username for the user
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     @Override
     public User createUser(String text) throws IOException {
         synchronized(userList){
@@ -58,10 +69,16 @@ public class UserFileDAO implements UserDAO{
         }
     }
 
+    /**
+     * find a user
+     * 
+     * @param text - text is user to search for
+     * 
+     * @return array of similar users
+     */
     private User[] searchForUser(String text) {
         synchronized(userList) {
             ArrayList<User> UserArrayList = new ArrayList<>();
-
             for (User user : userList) {
                 if (text == null || user.getName().contains(text)) {
                     UserArrayList.add(user);
@@ -73,6 +90,14 @@ public class UserFileDAO implements UserDAO{
         }
     }
 
+    /**
+     * 
+     * find users
+     * 
+     * @param text : string text is the username for the user to be found
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     @Override
     public User[] findUsers(String text) throws IOException {
         synchronized(userList) {
@@ -80,6 +105,11 @@ public class UserFileDAO implements UserDAO{
         }
     }
 
+    /**
+     * get all the users (currently)
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     @Override
     public User[] getUsers() throws IOException {
         synchronized(userList) {
@@ -87,14 +117,27 @@ public class UserFileDAO implements UserDAO{
         }
     }
 
+    /**
+     * get the cart of a certain user
+     * 
+     * @param user : User to get the cart for
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     @Override
     public ShoppingCart getCart(User user) throws IOException {
         return user.getCart();
     }
     
+    /**
+     * save the users
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     * @throws StreamWriteException
+     * @throws DatabindException
+     */
     private Boolean save() throws StreamWriteException, DatabindException, IOException {
         User[] userArray = searchForUser(null);
-
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
@@ -102,19 +145,22 @@ public class UserFileDAO implements UserDAO{
         return true;
     }
 
+    /**
+     * load the users
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     * @throws StreamWriteException
+     * @throws DatabindException
+     */
     private boolean load() throws StreamReadException, DatabindException, IOException {
         ArrayList<User> users = new ArrayList<User>();
-
         // Deserializes the JSON objects from the file into an array of users
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
         User[] UserArray = oMapper.readValue(new File(filename), User[].class);
-
-        // Add each user to the array and keep track of the greatest id
         for (User user : UserArray) {
             users.add(user);
         }
-        // Make the next id one greater than the maximum from the file
         return true;
     }
 }
