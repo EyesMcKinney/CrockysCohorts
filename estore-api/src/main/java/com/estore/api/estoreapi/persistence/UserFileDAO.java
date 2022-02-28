@@ -2,7 +2,9 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -73,9 +75,9 @@ public class UserFileDAO implements UserDAO{
      */
     @Override
     public User createUser(User user) throws IOException {
-        synchronized(userList){
+        synchronized(users){
             User newUser = new User(user.getName(), user.getCart());
-            userList.add(newUser);
+            users.put(newUser.getName(), newUser);
             save(); // may throw an IOException
             return newUser;
         }
@@ -89,11 +91,11 @@ public class UserFileDAO implements UserDAO{
      * @return array of similar users
      */
     private User[] searchForUser(String text) {
-        synchronized(userList) {
-            ArrayList<User> UserArrayList = new ArrayList<>();
-            for (User user : userList) {
-                if (text == null || user.getName().contains(text)) {
-                    UserArrayList.add(user);
+        synchronized(users) {
+            List<User> UserArrayList = new ArrayList<>();
+            for (String name : users.keySet()) {
+                if (text == null || name.contains(text)) {
+                    UserArrayList.add(users.get(name));
                 }
             }
             User[] UserArray = new User[UserArrayList.size()];
@@ -112,7 +114,7 @@ public class UserFileDAO implements UserDAO{
      */
     @Override
     public User[] findUsers(String text) throws IOException {
-        synchronized(userList) {
+        synchronized(users) {
             return searchForUser(text);
         }
     }
@@ -124,7 +126,7 @@ public class UserFileDAO implements UserDAO{
      */
     @Override
     public User[] getUsers() throws IOException {
-        synchronized(userList) {
+        synchronized(users) {
             return searchForUser(null);
         }
     }
