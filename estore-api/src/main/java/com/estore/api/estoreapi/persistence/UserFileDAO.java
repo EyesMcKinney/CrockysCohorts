@@ -64,9 +64,7 @@ public class UserFileDAO implements UserDAO{
     @Override
     public User getUser(String username) throws IOException {
         synchronized(users) {
-            // return users.get(username);
-            // TODO: Change userList from a list to a map, update methods accordingly
-            // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            return users.get(username);
         }
     }
 
