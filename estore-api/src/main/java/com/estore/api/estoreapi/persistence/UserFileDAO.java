@@ -2,7 +2,8 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.ShoppingCart;
@@ -27,7 +28,7 @@ public class UserFileDAO implements UserDAO{
     /**
      * Local cache of {@link User} objects
      */
-    private ArrayList<User> userList;
+    private Map<String, User> users;
 
     /**
      * Converts between {@link User} java objects and JSON text
@@ -60,7 +61,7 @@ public class UserFileDAO implements UserDAO{
      */
     @Override
     public User getUser(String username) throws IOException {
-        synchronized(userList) {
+        synchronized(users) {
             // return users.get(username);
             // TODO: Change userList from a list to a map, update methods accordingly
             // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -164,13 +165,13 @@ public class UserFileDAO implements UserDAO{
      * @throws DatabindException
      */
     private boolean load() throws StreamReadException, DatabindException, IOException {
-        ArrayList<User> users = new ArrayList<User>();
+        users = new HashMap<>();
         // Deserializes the JSON objects from the file into an array of users
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
         User[] UserArray = oMapper.readValue(new File(filename), User[].class);
         for (User user : UserArray) {
-            users.add(user);
+            users.put(user.getName(), user);
         }
         return true;
     }
