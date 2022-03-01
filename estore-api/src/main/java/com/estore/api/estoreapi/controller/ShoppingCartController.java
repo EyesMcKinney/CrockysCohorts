@@ -32,6 +32,7 @@ public class ShoppingCartController {
     private ShoppingCart shoppingCart;
 
 
+    // TODO change ShoppingCart to UserDAO stuff 
     public ShoppingCartController(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
