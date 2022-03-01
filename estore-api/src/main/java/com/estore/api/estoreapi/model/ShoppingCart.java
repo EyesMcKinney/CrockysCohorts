@@ -49,10 +49,10 @@ public class ShoppingCart implements Cart{
      * Removes a product from the cart
      * Precondition: the product is already in the cart
      * 
-     * @param product the product to remove
+     * @param id the id of the {@link Product Product} to remove
      */
-    public void removeProduct(Product product){
-        products.remove(product.getId());
+    public void removeProduct(int id){
+        products.remove(id);
     }
 
     @Override
