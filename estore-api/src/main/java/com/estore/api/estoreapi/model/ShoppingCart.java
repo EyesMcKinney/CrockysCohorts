@@ -19,6 +19,8 @@ public class ShoppingCart implements Cart{
 
     /**
      * Create a new shopping cart
+     * 
+     * @param inventoryDAO the entire inventory
      */
     public ShoppingCart(InventoryDAO inventoryDAO){
         this.products = new HashMap<Integer, Integer>();
@@ -29,7 +31,7 @@ public class ShoppingCart implements Cart{
     /**
      * Adds a product to the cart
      * 
-     * @param id the id of the {@link Product Product} to add
+     * @param id the id of the {@linkplain Product product} to add
      */
     public void addProduct(int id) throws IOException{
         // if the cart already has this product
@@ -49,7 +51,7 @@ public class ShoppingCart implements Cart{
      * Removes a product from the cart
      * Precondition: the product is already in the cart
      * 
-     * @param id the id of the {@link Product Product} to remove
+     * @param id the id of the {@linkplain Product product} to remove
      */
     public void removeProduct(int id){
         products.remove(id);
@@ -61,7 +63,7 @@ public class ShoppingCart implements Cart{
      * If the amount is more than there is stock it will set the amount to be the stock amount
      * Precondition: the product is already in the cart
      * 
-     * @param product the product to add or remove quantity from
+     * @param id the id of the {@linkplain Product product} to add or remove quantity from
      * @param amount the amount the quantity will change to
      */
     public void editProductQuantity(int id, int amount) throws IOException{
@@ -85,7 +87,7 @@ public class ShoppingCart implements Cart{
     /**
      * Checks to see if an item is in stock
      * 
-     * @param product the product to check if it is in stock
+     * @param id the id of the {@linkplain Product product} to check if it is in stock
      * @return true if the product is out of stock, false otherwise
      */
     public boolean isProductOutOfStock(int id) throws IOException{
@@ -152,7 +154,6 @@ public class ShoppingCart implements Cart{
     }
     */
 
-    //TODO idk if this will be used or not
     /**
      * Gets the map of products
      * 
