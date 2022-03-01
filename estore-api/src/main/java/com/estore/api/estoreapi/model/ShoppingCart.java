@@ -64,8 +64,9 @@ public class ShoppingCart implements Cart{
      * @param product the product to add or remove quantity from
      * @param amount the amount the quantity will change to
      */
-    public void editProductQuantity(Product product, int amount){
+    public void editProductQuantity(int id, int amount) throws IOException{
         // if the quantity will be 0
+        Product product = inventoryDAO.getProduct(id);
         if (amount <= 0){
             // remove the product
             products.remove(product.getId());
