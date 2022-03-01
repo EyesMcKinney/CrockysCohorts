@@ -8,7 +8,6 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from './user';
 //import {catchError, map, tap } from 'rxjs/operators';
 
 /**
@@ -52,9 +51,6 @@ export class InventoryService {
         const url = `${this.productsUrl}/${id}`;
         return this.http.get<Product>(url);
     }
-
-
-    getUser(name: string): Observable<User>{return new Observable;}
 
 
     /**

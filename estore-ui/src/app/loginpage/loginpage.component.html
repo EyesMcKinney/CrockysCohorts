@@ -1,11 +1,13 @@
-<h2>Login Page</h2>
+<h2>Login</h2>
 
 <div>
     <label for="username">Username: </label>
     <input id="username" #userName>
-    <button type="button" (click)="checkUser(userName.value)"></button>
+    <button type="button" (click)="login(userName.value)">Login</button>
+    <button type="button" (click)="createUser(userName.value)">Create Account</button>
 
     <a *ngIf="adminUser == true" routerLink="/products" >Products</a>
+    <!--<a *ngIf="adminUser == false" routerLink="/homepage">Homepage</a>-->
     <router-outlet ></router-outlet>
 </div>
 

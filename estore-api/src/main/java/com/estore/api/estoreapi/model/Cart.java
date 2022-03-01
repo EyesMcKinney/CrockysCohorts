@@ -43,6 +43,7 @@ public interface Cart {
      * 
      * @param  the product to check
      * @return true if the product is out of stock, false otherwise
+     * @throws IOException
      */
     public boolean isProductOutOfStock(int id) throws IOException;
 
