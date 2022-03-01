@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.model;
 import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -46,8 +47,8 @@ public class User{
      * @param id - id of the item to add
      * @return - true on success
      */
-    public Boolean addToCart(int id){
-        return this.shoppingCart.addProduct(id);
+    public void addToCart(int id) throws IOException {
+        this.shoppingCart.addProduct(id);
     }
 
     /**
@@ -55,8 +56,8 @@ public class User{
      * @param id - id of the item to add
      * @return - true on success
      */
-    public Boolean removeFromCart(int id){
-        return this.shoppingCart.removeProduct(id);
+    public void removeFromCart(int id){
+        this.shoppingCart.removeProduct(id);
     }
 
     /**
