@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * @author Alex Vernes
  */
 @RestController
-@RequestMapping("/shopping-cart")
+@RequestMapping("shopping-cart")
 public class ShoppingCartController {
     private static final Logger LOG = Logger.getLogger(ShoppingCartController.class.getName());
     private ShoppingCart shoppingCart;
