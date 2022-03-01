@@ -85,8 +85,8 @@ public class ShoppingCart implements Cart{
      * @param product the product to check if it is in stock
      * @return true if the product is out of stock, false otherwise
      */
-    public boolean isProductOutOfStock(Product product){
-        if(product.getQuantity() <= 0){
+    public boolean isProductOutOfStock(int id) throws IOException{
+        if(inventoryDAO.getProduct(id).getQuantity() <= 0){
             return true;
         }
         else{
