@@ -29,16 +29,18 @@ public class ShoppingCart implements Cart{
     /**
      * Adds a product to the cart
      * 
-     * @param product the product to add
+     * @param id the id of the {@link Product Product} to add
      */
-    public void addProduct(Product product){
+    public void addProduct(int id) throws IOException{
         // if the cart already has this product
-        if (products.containsKey(product.getId())){
-            products.put(product.getId(), products.get(product.getId()) + 1);
-        }
-        else{
-            // add the product
-            products.put(product.getId(), 1);
+        if (inventoryDAO.getProduct(id).getId() == id) {
+            if (products.containsKey(id)){
+                products.put(id, products.get(id) + 1);
+            }
+            else{
+                // add the product
+                products.put(id, 1);
+            }
         }
     }
 
