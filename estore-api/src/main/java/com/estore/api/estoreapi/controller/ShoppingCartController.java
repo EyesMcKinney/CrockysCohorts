@@ -1,5 +1,5 @@
 package com.estore.api.estoreapi.controller;
 
-public class CustomerController {
+public class ShoppingCartController {
     
 }

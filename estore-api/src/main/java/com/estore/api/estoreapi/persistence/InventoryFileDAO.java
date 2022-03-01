@@ -181,10 +181,10 @@ public class InventoryFileDAO implements InventoryDAO {
     }
 
     /**
-     * Saves the {@linkplain Hero heroes} from the map into the file as an array of JSON objects
+     * Saves the {@linkplain Product products} from the map into the file as an array of JSON objects
      * 
      * @author Isaac S McKinney
-     * @return true if the {@link Hero heroes} were written successfully
+     * @return true if the {@link Product products} were written successfully
      * 
      * @throws IOException when file cannot be accessed or written to
      */
@@ -199,7 +199,7 @@ public class InventoryFileDAO implements InventoryDAO {
     }
 
     /**
-     * Loads {@linkplain Hero heroes} from the JSON file into the map
+     * Loads {@linkplain Product products} from the JSON file into the map
      * <br>
      * Also sets next id to one more than the greatest id found in the file
      * @author Isaac S McKinney
@@ -211,12 +211,12 @@ public class InventoryFileDAO implements InventoryDAO {
         products = new TreeMap<>();
         currId = 0;
 
-        // Deserializes the JSON objects from the file into an array of heroes
+        // Deserializes the JSON objects from the file into an array of products
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
         Product[] ProductArray = oMapper.readValue(new File(filename),Product[].class);
 
-        // Add each hero to the tree map and keep track of the greatest id
+        // Add each product to the tree map and keep track of the greatest id
         for (Product product : ProductArray) {
             products.put(product.getId(), product);
             if (product.getId() > currId)

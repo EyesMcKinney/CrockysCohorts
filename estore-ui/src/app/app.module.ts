@@ -17,7 +17,8 @@ import { AdminComponent } from './admin/admin.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HeaderRoutingModule
   ],
   declarations: [
     AppComponent,
