@@ -162,5 +162,26 @@ public class ShoppingCart implements Cart{
     public HashMap<Integer, Integer> getProducts(){
         return products;
     }
+    
+    /**
+     * Gets the total cost of all products currently in the shopping cart
+     * 
+     * @return the total cost
+     * @throws IOException
+     * @author Alex Vernes
+     */
+    public int getTotalCost() throws IOException{
+        int total = 0;
+        Iterator<Integer> iterateProducts = products.keySet().iterator();
+        while (iterateProducts.hasNext()){
+            int i = iterateProducts.next();
+            
+            // sum up the purchase
+            int quantity = products.get(i);
+            Product product = inventoryDAO.getProduct(i);
+            total += product.getPrice() * quantity;
+        }
+        return total;
+    }
 
 }
