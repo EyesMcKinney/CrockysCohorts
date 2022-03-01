@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * @author Alex Vernes
  */
 @RestController
-@RequestMapping("shopping-cart")
+@RequestMapping("/shopping-cart")
 public class ShoppingCartController {
     private static final Logger LOG = Logger.getLogger(ShoppingCartController.class.getName());
     private ShoppingCart shoppingCart;
@@ -57,8 +57,8 @@ public class ShoppingCartController {
      * @return ResponseEntity with added {@linkplain Product product} 
      * and HTTP status of CREATED
      */
-    @PostMapping("")
-    public ResponseEntity<Integer> addProduct(@RequestBody int id) {
+    @PostMapping("/{id}")
+    public ResponseEntity<Integer> addProduct(@PathVariable int id) {
         LOG.info("POST /products " + id);
         try {
             shoppingCart.addProduct(id);
@@ -76,8 +76,8 @@ public class ShoppingCartController {
      * @return ResponseEntity with removed {@linkplain Product product} 
      * and HTTP status of OK
      */
-    @DeleteMapping("")
-    public ResponseEntity<Integer> removeProduct(@RequestBody int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Integer> removeProduct(@PathVariable int id) {
         LOG.info("DELETE /prodcuts/");
         shoppingCart.removeProduct(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
@@ -90,8 +90,8 @@ public class ShoppingCartController {
      * @param amount the amount the quantity will change to
      * @return ResponseEntity with HTTP status of OK
      */
-    @PutMapping("")
-    public ResponseEntity<Integer> editProductQuantity(@RequestBody int id, @RequestParam int amount) {
+    @PutMapping("/{id}-{amount}")
+    public ResponseEntity<Integer> editProductQuantity(@PathVariable int id, @RequestParam int amount) {
         LOG.info("PUT /products " + id + " quantity " + amount);
 
         try {
