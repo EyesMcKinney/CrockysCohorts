@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.model;
 
+import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.logging.Logger;
@@ -19,9 +20,9 @@ public class User{
      * Constructor for the user object
      * @param username - user name to be given to the user
      */
-    public User(@JsonProperty("username") String username, @JsonProperty("shoppingCart") ShoppingCart shoppingCart){
+    public User(@JsonProperty("username") String username, InventoryDAO inventoryDAO){
         this.username = username;
-        this.shoppingCart = shoppingCart;
+        this.shoppingCart = new ShoppingCart(inventoryDAO);
     }
 
     /**
