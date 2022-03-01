@@ -32,6 +32,7 @@ public class ShoppingCart implements Cart{
      * Adds a product to the cart
      * 
      * @param id the id of the {@linkplain Product product} to add
+     * @throws IOException
      */
     public void addProduct(int id) throws IOException{
         // if the cart already has this product
@@ -65,6 +66,7 @@ public class ShoppingCart implements Cart{
      * 
      * @param id the id of the {@linkplain Product product} to add or remove quantity from
      * @param amount the amount the quantity will change to
+     * @throws IOException
      */
     public void editProductQuantity(int id, int amount) throws IOException{
         // if the quantity will be 0
@@ -89,6 +91,7 @@ public class ShoppingCart implements Cart{
      * 
      * @param id the id of the {@linkplain Product product} to check if it is in stock
      * @return true if the product is out of stock, false otherwise
+     * @throws IOException
      */
     public boolean isProductOutOfStock(int id) throws IOException{
         if(inventoryDAO.getProduct(id).getQuantity() <= 0){
