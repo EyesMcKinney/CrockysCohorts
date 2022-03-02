@@ -134,7 +134,7 @@ public class InventoryController {
             if(newProduct != null)
                 return new ResponseEntity<>(newProduct, HttpStatus.CREATED) ;
             else
-                return new ResponseEntity<>(product, HttpStatus.CONFLICT) ;
+                return new ResponseEntity<>(HttpStatus.CONFLICT) ;
         } catch (IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
