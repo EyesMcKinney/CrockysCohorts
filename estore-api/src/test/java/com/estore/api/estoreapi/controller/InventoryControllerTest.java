@@ -1,7 +1,9 @@
 package com.estore.api.estoreapi.controller;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,6 +46,10 @@ public class InventoryControllerTest {
     }
 
 
+    /**
+     * Test {@link InventoryFileDAO}'s getProduct() method for existing product
+     * @throws IOException
+     */
     @Test
     public void testGetProduct() throws IOException {
         // setup
@@ -57,6 +63,10 @@ public class InventoryControllerTest {
         assertEquals(TEST_PRODUCT, response.getBody());
     }
 
+    /**
+     * Test {@link InventoryFileDAO}'s getProduct() method for non-existing product
+     * @throws IOException
+     */
     @Test
     public void testGetProductFailed() throws IOException {
         // setup
@@ -70,6 +80,26 @@ public class InventoryControllerTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * Test {@link InventoryFileDAO}'s getProduct() method for system storage issue 
+     * @throws IOException
+     */
+    @Test
+    public void testGetProductIOE() throws IOException {
+        // setup
+        doThrow(new IOException()).when(mockInventoryFileDAO).getProduct(TEST_PRODUCT.getId());
+    
+        // invoke
+        ResponseEntity<Product> response = inventoryController.getProduct(TEST_PRODUCT.getId());
+
+        // analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s createProduct() method for product creation
+     * @throws IOException
+     */
     @Test
     public void testCreateProduct() throws IOException {
         // setup
@@ -83,6 +113,10 @@ public class InventoryControllerTest {
         assertEquals(TEST_PRODUCT, response.getBody());
     }
 
+    /**
+     * Test {@link InventoryFileDAO}'s createProduct() method for product creation failure 
+     * @throws IOException
+     */
     @Test
     public void testCreateProductFailed() throws IOException {
         // setup
@@ -94,5 +128,72 @@ public class InventoryControllerTest {
         // analyze
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         assertNull(response.getBody());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s createProduct() method for system storage issue 
+     * @throws IOException
+     */
+    @Test
+    public void testCreateProductIOE() throws IOException {
+        // setup
+        doThrow(new IOException()).when(mockInventoryFileDAO).createProduct(TEST_PRODUCT);
+    
+        // invoke
+        ResponseEntity<Product> response = inventoryController.createProduct(TEST_PRODUCT);
+
+        // analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s searchforProduct() method for product array
+     * @throws IOException
+     */
+    @Test
+    public void testSearchForProduct() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.findProducts(TEST_PRODUCT.getName())).thenReturn(new Product[] {TEST_PRODUCT});
+
+        // invoke
+        ResponseEntity<Product[]> response = inventoryController.searchforProduct(TEST_PRODUCT.getName());
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(new Product[] {TEST_PRODUCT}, response.getBody());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s searchforProduct() method for product array
+     * @throws IOException
+     */
+    @Test
+    public void testSearchForProductDesc() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.findProducts(TEST_PRODUCT.getDescription())).thenReturn(new Product[] {TEST_PRODUCT});
+
+        // invoke
+        ResponseEntity<Product[]> response = inventoryController.searchforProduct(TEST_PRODUCT.getDescription());
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(new Product[] {TEST_PRODUCT}, response.getBody());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s searchforProduct() method for system storage issue
+     * @throws IOException
+     */
+    @Test
+    public void testSearchForProductIOE() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.findProducts(TEST_PRODUCT.getName())).thenReturn(new Product[] {TEST_PRODUCT});
+        doThrow(new IOException()).when(mockInventoryFileDAO).findProducts(TEST_PRODUCT.getName());
+    
+        // invoke
+        ResponseEntity<Product[]> response = inventoryController.searchforProduct(TEST_PRODUCT.getName());
+
+        // analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
