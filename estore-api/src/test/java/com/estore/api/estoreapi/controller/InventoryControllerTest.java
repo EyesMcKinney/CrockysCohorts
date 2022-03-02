@@ -196,4 +196,12 @@ public class InventoryControllerTest {
         // analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+
+    /// GETINVENTORY <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+    /// UPDATEPRODUCT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\
+    
+
+    /// DELETEPRODUCT
 }
