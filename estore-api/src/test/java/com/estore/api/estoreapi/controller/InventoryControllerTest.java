@@ -187,7 +187,6 @@ public class InventoryControllerTest {
     @Test
     public void testSearchForProductIOE() throws IOException {
         // setup
-        when(mockInventoryFileDAO.findProducts(TEST_PRODUCT.getName())).thenReturn(new Product[] {TEST_PRODUCT});
         doThrow(new IOException()).when(mockInventoryFileDAO).findProducts(TEST_PRODUCT.getName());
     
         // invoke
@@ -197,11 +196,105 @@ public class InventoryControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    /// GETINVENTORY <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    /**
+     * Test {@link InventoryFileDAO}'s getInventory() method for filled product array
+     * @throws IOException
+     */
+    @Test
+    public void testGetInventory() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.getInventory()).thenReturn(new Product[] {TEST_PRODUCT});
 
+        // invoke
+        ResponseEntity<Product[]> response = inventoryController.getInventory();
 
-    /// UPDATEPRODUCT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(new Product[] {TEST_PRODUCT}, response.getBody());
+    }
+
+        /**
+     * Test {@link InventoryFileDAO}'s getInventory() method for empty product array
+     * @throws IOException
+     */
+    @Test
+    public void testGetInventoryEmpty() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.getInventory()).thenReturn(new Product[] {});
+
+        // invoke
+        ResponseEntity<Product[]> response = inventoryController.getInventory();
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(new Product[] {}, response.getBody());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s getInventory() method for system storage issue
+     * @throws IOException
+     */
+    @Test
+    public void testGetInventoryIOE() throws IOException {
+        // setup
+        doThrow(new IOException()).when(mockInventoryFileDAO).getInventory();
     
+        // invoke
+        ResponseEntity<Product[]> response = inventoryController.getInventory();
 
-    /// DELETEPRODUCT
+        // analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /// UPDATEPRODUCT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    /**
+     * Test {@link InventoryFileDAO}'s updateProduct() method for updating existing product
+     * @throws IOException
+     */
+    @Test
+    public void testUpdateProduct() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.updateProduct(TEST_PRODUCT)).thenReturn(TEST_PRODUCT);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.updateProduct(TEST_PRODUCT);
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(TEST_PRODUCT, response.getBody());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s updateProduct() method for updating non-existing product
+     * @throws IOException
+     */
+    @Test
+    public void testUpdateProductDNE() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.updateProduct(TEST_PRODUCT)).thenReturn(null);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.updateProduct(TEST_PRODUCT);
+
+        // analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s updateProduct() method for system storage issue
+     * @throws IOException
+     */
+    @Test
+    public void testUpdateProductIOE() throws IOException {
+        // setup
+        doThrow(new IOException()).when(mockInventoryFileDAO).updateProduct(TEST_PRODUCT);
+    
+        // invoke
+        ResponseEntity<Product> response = inventoryController.updateProduct(TEST_PRODUCT);
+
+        // analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /// DELETEPRODUCT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 }
