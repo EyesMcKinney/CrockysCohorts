@@ -76,7 +76,7 @@ public class InventoryController {
 
     /**
      * Find all products which contain the given text in their name or description. 
-     * @param name the text checked against all product names and descriptions. 
+     * @param text the text checked against all product names and descriptions. 
      * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
@@ -84,10 +84,10 @@ public class InventoryController {
      * @author Alex Vernes
      */
     @GetMapping("/")
-    public ResponseEntity<Product[]> searchforProduct(@RequestParam String name) {
-        LOG.info("GET /products/?name="+name);
+    public ResponseEntity<Product[]> searchforProduct(@RequestParam String text) {
+        LOG.info("GET /products/?name="+text);
         try {
-            return new ResponseEntity<>(inventoryDAO.findProducts(name), HttpStatus.OK);
+            return new ResponseEntity<>(inventoryDAO.findProducts(text), HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
