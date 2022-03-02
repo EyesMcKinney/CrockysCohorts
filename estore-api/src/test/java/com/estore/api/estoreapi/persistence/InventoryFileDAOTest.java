@@ -25,7 +25,7 @@ public class InventoryFileDAOTest {
     //Mock
     private ObjectMapper mockObjectMapper;
 
-    //mock product list
+    //Mock product list
     private Product[] testProducts;
 
     @BeforeEach
@@ -96,12 +96,31 @@ public class InventoryFileDAOTest {
     }
 
     @Test
-    public void testFind(){
-        //todo
+    public void testFind() throws IOException{
+        Product[] result = assertDoesNotThrow(() -> mockFileDAO.findProducts("Plush"), "Unhandled!");
+
+        assertNotNull(result);
+        Product[] actual = new Product[1];
+        actual[0] = mockFileDAO.getProduct(2);
+        assertEquals(result[0], actual[0]); 
     }
 
+    @Test 
+    public void testFindMultiple() throws IOException{
+        Product[] result = assertDoesNotThrow(() -> mockFileDAO.findProducts("cozy"), "Unhandled!");
+        
+        assertNotNull(result);
+        Product[] actual = new Product[2];
+        actual[0] = mockFileDAO.getProduct(0);
+        actual[1] = mockFileDAO.getProduct(1);
+        assertEquals(result[0], actual[0]); 
+        assertEquals(result[1], actual[1]);
+    }
     @Test
-    public void testDelete(){
-        //todo
+    public void testDelete() throws IOException{
+        Boolean result = assertDoesNotThrow(() -> mockFileDAO.deleteProduct(testProducts[2].getId()), "Unhandled!");
+        assertNotNull(result);
+        Boolean actual = true;
+        assertEquals(actual, result);
     }
 }
