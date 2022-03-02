@@ -1,5 +1,7 @@
 package com.estore.api.estoreapi.controller;
 
+import static org.mockito.Mockito.mock;
+
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.persistence.InventoryFileDAO;
@@ -17,12 +19,13 @@ public class InventoryControllerTest {
     private InventoryDAO mockInventoryFileDAO;
 
     // Test objects
-    private final Product TEST_PRODUCT = new Product(11, "Crocy's Croc", 10.99, 2, "Crocy's Croc Description")
+    private final Product TEST_PRODUCT = new Product(11, "Crocy's Croc", 10.99, 2, "Crocy's Croc Description");
 
     /// run before each test
     @BeforeEach
     public void setup() {
-
+        mockInventoryFileDAO = mock(InventoryFileDAO.class);
+        inventoryController = new InventoryController(mockInventoryFileDAO);
     }
 
 
