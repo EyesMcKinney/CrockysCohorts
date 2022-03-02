@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -51,8 +52,47 @@ public class InventoryControllerTest {
         // invoke
         ResponseEntity<Product> response = inventoryController.getProduct(TEST_PRODUCT.getId());
 
-        // check
+        // analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(TEST_PRODUCT, response.getBody());
+    }
+
+    @Test
+    public void testGetProductFailed() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.getProduct(TEST_PRODUCT.getId())).thenReturn(null);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.getProduct(TEST_PRODUCT.getId());
+
+        // analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    public void testCreateProduct() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.createProduct(TEST_PRODUCT)).thenReturn(TEST_PRODUCT);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.createProduct(TEST_PRODUCT);
+
+        // analyze
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(TEST_PRODUCT, response.getBody());
+    }
+
+    @Test
+    public void testCreateProductFailed() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.createProduct(TEST_PRODUCT)).thenReturn(null);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.createProduct(TEST_PRODUCT);
+
+        // analyze
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertNull(response.getBody());
     }
 }
