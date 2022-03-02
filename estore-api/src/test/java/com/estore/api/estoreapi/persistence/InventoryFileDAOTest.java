@@ -94,4 +94,14 @@ public class InventoryFileDAOTest {
 
         assertThrows(IOException.class, () -> mockFileDAO.createProduct(product), "Unhandled!");
     }
+
+    @Test
+    public void testFind(){
+        //todo
+    }
+
+    @Test
+    public void testDelete(){
+        //todo
+    }
 }
