@@ -20,6 +20,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
+/**
+ * Unit tests for all public methods in {@linkplain InventoryController}
+ * 
+ * @author Stevie Alvarez
+ */
 @Tag("Controller-tier")
 public class InventoryControllerTest {
     // CuT (Conponent under Test)
@@ -246,7 +252,6 @@ public class InventoryControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    /// UPDATEPRODUCT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     /**
      * Test {@link InventoryFileDAO}'s updateProduct() method for updating existing product
      * @throws IOException
@@ -296,5 +301,51 @@ public class InventoryControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    /// DELETEPRODUCT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    /**
+     * Test {@link InventoryFileDAO}'s deleteProduct() method for deleting existing product
+     * @throws IOException
+     */
+    @Test
+    public void testDeleteProduct() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.deleteProduct(TEST_PRODUCT.getId())).thenReturn(true);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.deleteProduct(TEST_PRODUCT.getId());
+
+        // analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s deleteProduct() method for deleting non-existing product
+     * @throws IOException
+     */
+    @Test
+    public void testDeleteProductDNE() throws IOException {
+        // setup
+        when(mockInventoryFileDAO.deleteProduct(TEST_PRODUCT.getId())).thenReturn(false);
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.deleteProduct(TEST_PRODUCT.getId());
+
+        // analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    /**
+     * Test {@link InventoryFileDAO}'s deleteProduct() method for deleting existing product
+     * @throws IOException
+     */
+    @Test
+    public void testDeleteProductIOE() throws IOException {
+        // setup
+        doThrow(new IOException()).when(mockInventoryFileDAO).deleteProduct(TEST_PRODUCT.getId());
+
+        // invoke
+        ResponseEntity<Product> response = inventoryController.deleteProduct(TEST_PRODUCT.getId());
+
+        // analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }
