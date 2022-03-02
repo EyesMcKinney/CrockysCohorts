@@ -123,4 +123,12 @@ public class InventoryFileDAOTest {
         Boolean actual = true;
         assertEquals(actual, result);
     }
+
+    @Test
+    public void testDeleteFail() throws IOException{
+        Boolean result = assertDoesNotThrow(() -> mockFileDAO.deleteProduct(99), "Unhandled!");
+        assertNotNull(result);
+        Boolean actual = false;
+        assertEquals(actual, result);
+    }
 }
