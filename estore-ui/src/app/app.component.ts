@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent {
   title = 'Crocy\'s Crochet';
-  user?: User;
+  user?: User = undefined;
   subscription: Subscription | undefined;
 
   constructor(private loginService: LoginService) {}
