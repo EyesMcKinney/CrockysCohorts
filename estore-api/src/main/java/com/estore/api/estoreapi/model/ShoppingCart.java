@@ -14,6 +14,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ShoppingCart implements Cart{
 
+    /**
+     * Mapping of {@linkplain Product Product} ID to quantity in cart.
+     */
     @JsonProperty("shopping cart") private HashMap<Integer, Integer> products;
     private InventoryDAO inventoryDAO;
 

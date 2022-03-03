@@ -51,6 +51,7 @@ public class ShoppingCartController {
         try {
             User user = userDAO.getUser(username);
             ShoppingCart shoppingCart = userDAO.getCart(user);
+            // TODO: Check if passing a Map over to client works or if we should use different list
             HashMap<Integer, Integer> products = shoppingCart.getProducts();
             return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (IOException e) {
@@ -128,7 +129,6 @@ public class ShoppingCartController {
      * ReponseEntity with HTTP status of INTERNAL_SERVER_ERROR if problem with underlying storage
      */
     @DeleteMapping("")
-    // TODO ADV discuss if we actually need this method?
     public ResponseEntity<Double> buyEntireCart(@PathVariable String username) {
         LOG.info("Delete /products");
         try {
