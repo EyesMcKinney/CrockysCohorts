@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { User } from '../user';
 
 
@@ -19,6 +19,14 @@ export class HeaderComponent implements OnInit {
     @Input() currentUser?: User;
 
     ngOnInit(): void {
+    }
+
+    /**
+     * Update user on change
+     * @param changes 
+     */
+    ngOnChanges(changes: SimpleChange) {
+
     }
 
     // TODO: get input from root: https://angular.io/guide/inputs-outputs#watching-for-input-changes
