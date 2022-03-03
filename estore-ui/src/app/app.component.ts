@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from './user';
+import { LoginService } from './login.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,14 @@ import { User } from './user';
 export class AppComponent {
   title = 'Crocy\'s Crochet';
   user?: User;
+  subscription: Subscription | undefined;
 
-  constructor() {}
+  constructor(private loginService: LoginService) {}
+
+  public ngOnInit(): void {  // subscribe to user login
+      this.subscription = this.loginService.getLoggedInUser()
+          .subscribe(user => this.user = user);
+  }
 
   updateUser(newUser: User): void {
       this.user = newUser;
