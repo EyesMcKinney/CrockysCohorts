@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { HeaderComponent } from './header/header.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     ProductInfoComponent,
     HomepageComponent,
     LoginpageComponent,
-    HeaderComponent
+    HeaderComponent,
+    ShoppingCartComponent
   ],
   //providers: [],
   bootstrap: [AppComponent]

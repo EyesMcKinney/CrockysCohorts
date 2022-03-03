@@ -53,7 +53,7 @@ public class InventoryControllerTest {
 
 
     /**
-     * Test {@link InventoryFileDAO}'s getProduct() method for existing product
+     * Test {@link InventoryController}'s getProduct() method for existing product
      * @throws IOException
      */
     @Test
@@ -70,7 +70,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s getProduct() method for non-existing product
+     * Test {@link InventoryController}'s getProduct() method for non-existing product
      * @throws IOException
      */
     @Test
@@ -87,7 +87,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s getProduct() method for system storage issue 
+     * Test {@link InventoryController}'s getProduct() method for system storage issue 
      * @throws IOException
      */
     @Test
@@ -103,7 +103,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s createProduct() method for product creation
+     * Test {@link InventoryController}'s createProduct() method for product creation
      * @throws IOException
      */
     @Test
@@ -120,7 +120,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s createProduct() method for product creation failure 
+     * Test {@link InventoryController}'s createProduct() method for product creation failure 
      * @throws IOException
      */
     @Test
@@ -137,7 +137,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s createProduct() method for system storage issue 
+     * Test {@link InventoryController}'s createProduct() method for system storage issue 
      * @throws IOException
      */
     @Test
@@ -153,7 +153,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s searchforProduct() method for product array
+     * Test {@link InventoryController}'s searchforProduct() method for product array
      * @throws IOException
      */
     @Test
@@ -170,7 +170,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s searchforProduct() method for product array
+     * Test {@link InventoryController}'s searchforProduct() method for product array
      * @throws IOException
      */
     @Test
@@ -187,7 +187,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s searchforProduct() method for system storage issue
+     * Test {@link InventoryController}'s searchforProduct() method for system storage issue
      * @throws IOException
      */
     @Test
@@ -203,7 +203,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s getInventory() method for filled product array
+     * Test {@link InventoryController}'s getInventory() method for filled product array
      * @throws IOException
      */
     @Test
@@ -220,7 +220,7 @@ public class InventoryControllerTest {
     }
 
         /**
-     * Test {@link InventoryFileDAO}'s getInventory() method for empty product array
+     * Test {@link InventoryController}'s getInventory() method for empty product array
      * @throws IOException
      */
     @Test
@@ -237,7 +237,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s getInventory() method for system storage issue
+     * Test {@link InventoryController}'s getInventory() method for system storage issue
      * @throws IOException
      */
     @Test
@@ -253,7 +253,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s updateProduct() method for updating existing product
+     * Test {@link InventoryController}'s updateProduct() method for updating existing product
      * @throws IOException
      */
     @Test
@@ -270,7 +270,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s updateProduct() method for updating non-existing product
+     * Test {@link InventoryController}'s updateProduct() method for updating non-existing product
      * @throws IOException
      */
     @Test
@@ -286,7 +286,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s updateProduct() method for system storage issue
+     * Test {@link InventoryController}'s updateProduct() method for system storage issue
      * @throws IOException
      */
     @Test
@@ -302,7 +302,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s deleteProduct() method for deleting existing product
+     * Test {@link InventoryController}'s deleteProduct() method for deleting existing product
      * @throws IOException
      */
     @Test
@@ -318,7 +318,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s deleteProduct() method for deleting non-existing product
+     * Test {@link InventoryController}'s deleteProduct() method for deleting non-existing product
      * @throws IOException
      */
     @Test
@@ -334,7 +334,7 @@ public class InventoryControllerTest {
     }
 
     /**
-     * Test {@link InventoryFileDAO}'s deleteProduct() method for deleting existing product
+     * Test {@link InventoryController}'s deleteProduct() method for deleting existing product
      * @throws IOException
      */
     @Test
