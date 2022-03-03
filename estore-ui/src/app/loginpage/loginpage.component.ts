@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../user';
 import { LoginService } from '../login.service';
@@ -11,9 +11,8 @@ import { Location } from '@angular/common';
 })
 export class LoginpageComponent implements OnInit {
   user?: User | undefined;
+  @Output() newUser = new EventEmitter<User>();
   adminUser: Boolean | undefined; 
-  // username: string |undefined ;
-  // private user = new Subject<string>();
 
   constructor(private loginService: LoginService, private location: Location) {
     this.adminUser = false ;
@@ -27,6 +26,7 @@ export class LoginpageComponent implements OnInit {
    * Load previous page.
    */
   goBack(): void {
+      this.newUser.emit(this.user);  // <<<<<<<<<<<<<<< SEND USER DATA TO MAIN COMPONENT
       if (this.user?.username == "admin") { 
           return;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ROUTE TO ADMIN COMPONENT
       } else {
