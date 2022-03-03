@@ -10,7 +10,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { LoginpageComponent } from './loginpage/loginpage.component';
-import { HeaderRoutingModule } from './header-routing.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
@@ -18,8 +17,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    HeaderRoutingModule
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
