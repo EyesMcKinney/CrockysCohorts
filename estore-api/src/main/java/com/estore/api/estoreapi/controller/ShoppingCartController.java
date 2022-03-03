@@ -40,8 +40,7 @@ public class ShoppingCartController {
     /**
      * Responds to the GET request for all {@linkplain Product products} in the cart
      * 
-     * @id the id of the user's cart
-     * 
+     * @param username the username of the user
      * @return ResponseEntity with HashMap of <{@linkplain Product product}, quantity> 
      * and HTTP status of OK
      */
