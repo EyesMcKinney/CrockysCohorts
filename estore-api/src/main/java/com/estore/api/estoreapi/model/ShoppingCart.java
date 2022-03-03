@@ -126,8 +126,8 @@ public class ShoppingCart implements Cart{
      * @return the total cost
      * @throws IOException
      */
-    public int buyEntireCart() throws IOException{
-        int total = 0;
+    public double buyEntireCart() throws IOException{
+        double total = 0;
 
         Iterator<Integer> iterateProducts = products.keySet().iterator();
         while (iterateProducts.hasNext()){
@@ -173,8 +173,8 @@ public class ShoppingCart implements Cart{
      * @throws IOException
      * @author Alex Vernes
      */
-    public int getTotalCost() throws IOException{
-        int total = 0;
+    public double getTotalCost() throws IOException{
+        double total = 0;
         Iterator<Integer> iterateProducts = products.keySet().iterator();
         while (iterateProducts.hasNext()){
             int i = iterateProducts.next();

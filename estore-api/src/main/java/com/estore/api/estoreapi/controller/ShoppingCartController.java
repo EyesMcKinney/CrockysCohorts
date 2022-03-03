@@ -129,12 +129,12 @@ public class ShoppingCartController {
      */
     @DeleteMapping("")
     // TODO ADV discuss if we actually need this method?
-    public ResponseEntity<Integer> buyEntireCart(@PathVariable String username) {
+    public ResponseEntity<Double> buyEntireCart(@PathVariable String username) {
         LOG.info("Delete /products");
         try {
             User user = userDAO.getUser(username);
             ShoppingCart shoppingCart = userDAO.getCart(user);
-            int total = shoppingCart.buyEntireCart();
+            double total = shoppingCart.buyEntireCart();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -148,12 +148,12 @@ public class ShoppingCartController {
      * and HTTP status of OK
      */
     @GetMapping("")
-    public ResponseEntity<Integer> getTotalCost(@PathVariable String username) {
+    public ResponseEntity<Double> getTotalCost(@PathVariable String username) {
         LOG.info("GET cost");
         try {
             User user = userDAO.getUser(username);
             ShoppingCart shoppingCart = userDAO.getCart(user);
-            int total = shoppingCart.getTotalCost();
+            double total = shoppingCart.getTotalCost();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
