@@ -62,8 +62,8 @@ public class ShoppingCartController {
     /**
      * Adds a provided {@linkplain Product product} to {@linkplain ShoppingCart shoppingCart}
      * 
+     * @param username the username of the user
      * @param id the ID of the {@linkplain Product product} to add 
-     * 
      * @return ResponseEntity with added {@linkplain Product product} 
      * and HTTP status of CREATED
      */
@@ -83,8 +83,8 @@ public class ShoppingCartController {
     /**
      * Remove a {@linkplain Product product} from the cart
      * 
+     * @param username the username of the user
      * @param id the ID of the {@linkplain Product product} removed
-     * 
      * @return ResponseEntity with removed {@linkplain Product product} 
      * and HTTP status of OK
      */
@@ -105,6 +105,7 @@ public class ShoppingCartController {
     /**
      * Updates the {@linkplain Product product} with the provided quantity
      * 
+     * @param username the username of the user
      * @param id the ID of the {@linkplain Product product} to update the quantity of
      * @param amount the amount the quantity will change to
      * @return ResponseEntity with HTTP status of OK
@@ -125,6 +126,7 @@ public class ShoppingCartController {
     /**
      * Buys everything currently in the cart
      * 
+     * @param username the username of the user
      * @return ResponseEntity with the total cost and HTTP status of OK
      * ReponseEntity with HTTP status of INTERNAL_SERVER_ERROR if problem with underlying storage
      */
@@ -144,6 +146,7 @@ public class ShoppingCartController {
     /**
      * Responds to the GET request for the total cost of the {@linkplain ShoppingCart shoppingCart}
      * 
+     * @param username the username of the user
      * @return ResponseEntity with the total cost of the {@linkplain ShoppingCart shoppingCart} 
      * and HTTP status of OK
      */
