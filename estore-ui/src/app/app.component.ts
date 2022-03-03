@@ -9,4 +9,10 @@ import { User } from './user';
 export class AppComponent {
   title = 'Crocy\'s Crochet';
   user?: User;
+
+  constructor() {}
+
+  updateUser(newUser: User): void {
+      this.user = newUser;
+  }
 }

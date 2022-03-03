@@ -1,6 +1,7 @@
+<app-loginpage (newUser)="updateUser($event)"></app-loginpage>
 <h1>{{title}}</h1>
 <nav>
   <a routerLink="/homepage">Homepage</a>
   <a routerLink="/loginpage">Login</a>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet>  <!-- <router-outlet (newUser)="updateUser($event)"></router-outlet>-->
