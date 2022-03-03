@@ -28,7 +28,7 @@ export class LoginpageComponent implements OnInit {
    */
   goBack(): void {
       if (this.user?.username == "admin") { 
-          return;
+          return;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ROUTE TO ADMIN COMPONENT
       } else {
         this.location.back();
       }
