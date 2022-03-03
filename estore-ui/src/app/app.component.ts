@@ -10,7 +10,15 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent {
   title = 'Crocy\'s Crochet';
+
+  /**
+   * Current {@link User User} logged in.
+   */
   user?: User = undefined;
+
+  /**
+   * {@link Subscription Subscription} to subscribe to user changes.
+   */
   subscription: Subscription | undefined;
 
   constructor(private loginService: LoginService) {}
