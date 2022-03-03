@@ -13,15 +13,17 @@ public class User{
     private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     @JsonProperty("username") private String username;
+    @JsonProperty("id") private int id;
     @JsonProperty("shoppingCart") private ShoppingCart shoppingCart;
 
-    static final String STRING_FORMAT = "User [username=%s, shoppingCart=%s]" ;
+    static final String STRING_FORMAT = "User [id=%d, username=%s, shoppingCart=%s]" ;
 
     /**
      * Constructor for the user object
      * @param username - user name to be given to the user
      */
-    public User(@JsonProperty("username") String username, InventoryDAO inventoryDAO){
+    public User(@JsonProperty("id") int id, @JsonProperty("username") String username, InventoryDAO inventoryDAO){
+        this.id = id;
         this.username = username;
         this.shoppingCart = new ShoppingCart(inventoryDAO);
     }
