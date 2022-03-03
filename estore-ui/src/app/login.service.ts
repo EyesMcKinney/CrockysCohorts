@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, tap, Subject } from 'rxjs';
 import { User } from './user';
 
 
@@ -15,6 +15,7 @@ import { User } from './user';
 })
 export class LoginService {
 
+  private userUpdate = new Subject<User>();
   private loginUrl = 'http://localhost:8080/login';
 
   httpOptions = {
@@ -22,6 +23,23 @@ export class LoginService {
   };
   
   constructor(private http: HttpClient) { }
+
+  /**
+   * Access the current logged in {@link User User}.
+   * @returns the {@link User User} that's currently logged in
+   */
+  public getLoggedInUser(): Observable<User> {
+      return this.userUpdate.asObservable();
+  }
+
+  /**
+   * Update the current {@link User User} that's logged in.
+   * 
+   * @param newUser the {@link User User} that's logged in
+   */
+  public userLogin(newUser: User): void {
+      this.userUpdate.next(newUser);
+  }
 
   /**
      * GET a {@link User User} from the server.
