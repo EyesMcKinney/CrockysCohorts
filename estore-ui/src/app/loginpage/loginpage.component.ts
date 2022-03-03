@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./loginpage.component.css']
 })
 export class LoginpageComponent implements OnInit {
-  user?: User | undefined;
+  user?: User;
   //@Output() newUser = new EventEmitter<User>();
   adminUser: Boolean | undefined; 
 
@@ -21,6 +21,15 @@ export class LoginpageComponent implements OnInit {
 
 
   ngOnInit(): void { }
+
+  /**
+   * Update the current user in this {@link LoginpageComponent LoginpageComponent} and in {@link LoginService LoginService}.
+   * @param newUser {@link User User} that's signed in
+   */
+  setUser(newUser: User): void {
+      this.user = newUser;
+      this.loginService.userLogin(newUser);
+  }
 
   /**
    * Load previous page.
@@ -45,7 +54,7 @@ export class LoginpageComponent implements OnInit {
 
       this.loginService.getUser(
             username
-        ).subscribe(user => this.user = user);
+        ).subscribe(user => this.setUser(user));
       this.checkUser();
       this.goBack();
   }
@@ -63,9 +72,7 @@ export class LoginpageComponent implements OnInit {
       }
 
       this.loginService.createUser( { username } as User)
-      .subscribe(user => {
-          this.user = user;
-      });
+      .subscribe(user => this.setUser(user));
       this.goBack();
   }
 
