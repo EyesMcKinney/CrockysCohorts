@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
+import com.estore.api.estoreapi.model.User;
+import com.estore.api.estoreapi.persistence.UserDAO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,25 +29,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("shopping-cart")
 public class ShoppingCartController {
     private static final Logger LOG = Logger.getLogger(ShoppingCartController.class.getName());
-    private ShoppingCart shoppingCart;
+    private UserDAO userDAO;
 
 
     // TODO change ShoppingCart to UserDAO stuff 
-    public ShoppingCartController(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public ShoppingCartController(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     /**
      * Responds to the GET request for all {@linkplain Product products} in the cart
      * 
+     * @id the id of the user's cart
+     * 
      * @return ResponseEntity with HashMap of <{@linkplain Product product}, quantity> 
      * and HTTP status of OK
      */
     @GetMapping("")
-    public ResponseEntity<HashMap<Integer,Integer>> getProducts() {
+    public ResponseEntity<HashMap<Integer,Integer>> getProducts(@PathVariable String username) {
         LOG.info("GET /products");
-        HashMap<Integer, Integer> products = shoppingCart.getProducts();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        try {
+            User user = userDAO.getUser(username);
+            ShoppingCart shoppingCart = userDAO.getCart(user);
+            // TODO: Check if passing a Map over to client works or if we should use different list
+            HashMap<Integer, Integer> products = shoppingCart.getProducts();
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -57,9 +68,11 @@ public class ShoppingCartController {
      * and HTTP status of CREATED
      */
     @PostMapping("/{id}")
-    public ResponseEntity<Integer> addProduct(@PathVariable int id) {
+    public ResponseEntity<Integer> addProduct(@PathVariable String username, @PathVariable int id) {
         LOG.info("POST /products " + id);
         try {
+            User user = userDAO.getUser(username);
+            ShoppingCart shoppingCart = userDAO.getCart(user);
             shoppingCart.addProduct(id);
             return new ResponseEntity<>(id, HttpStatus.CREATED);
         } catch (IOException e) {
@@ -76,10 +89,17 @@ public class ShoppingCartController {
      * and HTTP status of OK
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> removeProduct(@PathVariable int id) {
+    public ResponseEntity<Integer> removeProduct(@PathVariable String username, @PathVariable int id) {
         LOG.info("DELETE /prodcuts/");
-        shoppingCart.removeProduct(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        try {
+            User user = userDAO.getUser(username);
+            ShoppingCart shoppingCart = userDAO.getCart(user);
+            shoppingCart.removeProduct(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
     }
 
     /**
@@ -90,10 +110,11 @@ public class ShoppingCartController {
      * @return ResponseEntity with HTTP status of OK
      */
     @PutMapping("/{id}-{amount}")
-    public ResponseEntity<Integer> editProductQuantity(@PathVariable int id, @RequestParam int amount) {
+    public ResponseEntity<Integer> editProductQuantity(@PathVariable String username, @PathVariable int id, @RequestParam int amount) {
         LOG.info("PUT /products " + id + " quantity " + amount);
-
         try {
+            User user = userDAO.getUser(username);
+            ShoppingCart shoppingCart = userDAO.getCart(user);
             shoppingCart.editProductQuantity(id, amount);
             return new ResponseEntity<>(id, HttpStatus.OK);
         } catch (IOException e) {
@@ -108,10 +129,12 @@ public class ShoppingCartController {
      * ReponseEntity with HTTP status of INTERNAL_SERVER_ERROR if problem with underlying storage
      */
     @DeleteMapping("")
-    public ResponseEntity<Integer> buyEntireCart() {
+    public ResponseEntity<Double> buyEntireCart(@PathVariable String username) {
         LOG.info("Delete /products");
         try {
-            int total = shoppingCart.buyEntireCart();
+            User user = userDAO.getUser(username);
+            ShoppingCart shoppingCart = userDAO.getCart(user);
+            double total = shoppingCart.buyEntireCart();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -125,10 +148,12 @@ public class ShoppingCartController {
      * and HTTP status of OK
      */
     @GetMapping("")
-    public ResponseEntity<Integer> getTotalCost() {
+    public ResponseEntity<Double> getTotalCost(@PathVariable String username) {
         LOG.info("GET cost");
         try {
-            int total = shoppingCart.getTotalCost();
+            User user = userDAO.getUser(username);
+            ShoppingCart shoppingCart = userDAO.getCart(user);
+            double total = shoppingCart.getTotalCost();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
