@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class LoginpageComponent implements OnInit {
   user?: User | undefined;
-  @Output() newUser = new EventEmitter<User>();
+  //@Output() newUser = new EventEmitter<User>();
   adminUser: Boolean | undefined; 
 
   constructor(private loginService: LoginService, private location: Location) {
@@ -26,7 +26,7 @@ export class LoginpageComponent implements OnInit {
    * Load previous page.
    */
   goBack(): void {
-      this.newUser.emit(this.user);  // <<<<<<<<<<<<<<< SEND USER DATA TO MAIN COMPONENT
+      //this.newUser.emit(this.user);  // <<<<<<<<<<<<<<< SEND USER DATA TO MAIN COMPONENT
       if (this.user?.username == "admin") { 
           return;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ROUTE TO ADMIN COMPONENT
       } else {
