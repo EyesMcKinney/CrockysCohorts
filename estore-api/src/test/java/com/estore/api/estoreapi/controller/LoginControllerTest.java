@@ -17,6 +17,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
+/**
+ * Unit tests for all public methods in {@linkplain LoginController}
+ * 
+ * @author Alex Vernes
+ */
 @Tag("Controller-tier")
 public class LoginControllerTest {
     // CuT
@@ -98,6 +104,10 @@ public class LoginControllerTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * Test {@linkplain LoginController}'s createUser() method for IOExceptions. 
+     * @throws IOException
+     */
     @Test
     public void testCreateUserError() throws IOException{
         doThrow(new IOException()).when(mockUserFileDAO).createUser(TEST_USER);
