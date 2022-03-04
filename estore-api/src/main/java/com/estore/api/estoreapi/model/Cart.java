@@ -31,7 +31,7 @@ public interface Cart {
      * @param product the product to change the quantity of
      * @param amount the quantity to change to
      */
-    public void editProductQuantity(int id, int amount) throws IOException;
+    public void editProductQuantity(Product product, int amount) throws IOException;
 
     /**
      * Remove all items from the cart
@@ -39,19 +39,17 @@ public interface Cart {
     public void clearCart();
 
     /**
-     * Check if the product is in stock
-     * 
-     * @param  the product to check
-     * @return true if the product is out of stock, false otherwise
-     * @throws IOException
-     */
-    public boolean isProductOutOfStock(int id) throws IOException;
-
-    /**
      * Check if the cart is empty
      * 
      * @return true if the cart is empty, false otherwise
      */
     public boolean isEmpty();
+
+    /**
+     * Gets the map of products
+     * 
+     * @return the map of products and their quantities
+     */
+    public Product[] getProducts();
 
 }
