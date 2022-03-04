@@ -19,7 +19,7 @@ public class ShoppingCart implements Cart{
     /**
      * Create a new shopping cart
      */
-    public ShoppingCart(){
+    public ShoppingCart(){  // TODO: load shopping cart from file w/r/t user id
         this.products = new ArrayList<>();
     }
 
