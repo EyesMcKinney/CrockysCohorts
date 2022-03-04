@@ -12,6 +12,7 @@ import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.core.sym.Name;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,6 +32,8 @@ public class UserFileDAO implements UserDAO{
      * Local cache of {@link User} objects
      */
     private Map<String, User> users;
+
+    private static int currId = 0;
 
     /**
      * Converts between {@link User} java objects and JSON text
@@ -59,6 +62,12 @@ public class UserFileDAO implements UserDAO{
         load();
     }
 
+    private synchronized static int nextId(){
+        int id = currId;
+        ++currId;
+        return id;
+    }
+
     /**
      * {@inheritDoc}
      * 
@@ -77,7 +86,7 @@ public class UserFileDAO implements UserDAO{
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users){
-            User newUser = new User(user.getName(), this.inventoryDAO);
+            User newUser = new User(nextId(), user.getName(), this.inventoryDAO);
             users.put(newUser.getName(), newUser);
             save(); // may throw an IOException
             return newUser;
