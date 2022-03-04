@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { AdminComponent } from './admin/admin.component';
+import { HeaderRoutingModule } from './header-routing.module';
 
 @NgModule({
   imports: [
