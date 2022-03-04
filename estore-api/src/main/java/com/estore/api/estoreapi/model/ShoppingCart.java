@@ -21,6 +21,7 @@ public class ShoppingCart implements Cart{
      */
     public ShoppingCart(){  // TODO: load shopping cart from file w/r/t user id
         this.products = new ArrayList<>();
+        load();
     }
 
     @Override
@@ -147,6 +148,26 @@ public class ShoppingCart implements Cart{
             total += product.getPrice() * product.getQuantity();
         }
         return total;
+    }
+
+    /**
+     * Load a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart} w/r/t user id.
+     */
+    private void load() {
+        // TODO
+    }
+
+    /**
+     * Load a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart} w/r/t user id.
+     */
+    private void save() {
+        // TODO
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
     }
 
 }
