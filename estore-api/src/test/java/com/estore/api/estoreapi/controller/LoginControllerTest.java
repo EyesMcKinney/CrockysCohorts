@@ -32,7 +32,7 @@ public class LoginControllerTest {
     private UserFileDAO mockUserFileDAO;
 
     // Test objects
-    private final User TEST_USER = new User("username", null);
+    private final User TEST_USER = new User(1, "username", null);
 
     @BeforeEach
     public void setup() {
@@ -70,6 +70,21 @@ public class LoginControllerTest {
         // Check
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
+    }
+
+    /**
+     * Test {@linkplain LoginController}'s getUser() method for IOExceptions. 
+     * @throws IOException
+     */
+    @Test
+    public void testGetUserError() throws IOException{
+        doThrow(new IOException()).when(mockUserFileDAO).getUser(TEST_USER.getName());
+
+        // Invoke
+        ResponseEntity<User> response = loginController.getUser(TEST_USER.getName());
+
+        // Check
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     /**
