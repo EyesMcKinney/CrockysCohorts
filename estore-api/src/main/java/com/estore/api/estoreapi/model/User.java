@@ -46,20 +46,20 @@ public class User{
 
     /**
      * add an item to the cart
-     * @param id - id of the item to add
+     * @param product the item to add
      * @return - true on success
      */
-    public void addToCart(int id) throws IOException {
-        this.shoppingCart.addProduct(id);
+    public void addToCart(Product product) throws IOException {
+        this.shoppingCart.addProduct(product);
     }
 
     /**
      * remove an item to the cart
-     * @param id - id of the item to add
+     * @param product the item to add
      * @return - true on success
      */
-    public void removeFromCart(int id){
-        this.shoppingCart.removeProduct(id);
+    public void removeFromCart(Product product){
+        this.shoppingCart.removeProduct(product);
     }
 
     /**
@@ -67,6 +67,6 @@ public class User{
      */
     @Override
     public String toString(){
-        return "User: " + this.username + ", Cart : " + this.shoppingCart;
+        return String.format(STRING_FORMAT, id, username);
     }
 }
