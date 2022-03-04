@@ -163,7 +163,7 @@ public class UserFileDAO implements UserDAO{
      * {@inheritDoc}
      */
     @Override
-    public boolean removeFromCart(User user, Product product) throws IOException {
+    public void removeFromCart(User user, Product product) throws IOException {
         user.removeFromCart(product);
     }
     
