@@ -67,6 +67,20 @@ public class ShoppingCartControllerTests {
 	}
 
     /**
+     * Test when get products gets an error, see if it returns INTERNAL_SERVER_ERROR
+     */
+    @Test
+    void testGetProductsError() throws IOException {
+        doThrow(new IOException()).when(mockUserDAO).getUser(user.getName());
+
+        // invoke
+        ResponseEntity<HashMap<Integer, Integer>> response = shoppingCartController.getProducts(user.getName());
+    
+        // check
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /**
      * Test if add product returns CREATED and the product's id
      */
     @Test
@@ -104,6 +118,20 @@ public class ShoppingCartControllerTests {
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(TEST_PRODUCT.getId(), response.getBody());
+    }
+
+    /**
+     * Test when remove product gets an error, see if it returns INTERNAL_SERVER_ERROR
+     */
+    @Test
+    void testRemoveProductError() throws IOException {
+        doThrow(new IOException()).when(mockUserDAO).getUser(user.getName());
+
+        // invoke
+        ResponseEntity<Integer> response = shoppingCartController.removeProduct(user.getName(), TEST_PRODUCT.getId());
+    
+        // check
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     /**
