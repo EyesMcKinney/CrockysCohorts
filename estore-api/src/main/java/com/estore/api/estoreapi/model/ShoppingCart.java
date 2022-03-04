@@ -24,10 +24,10 @@ public class ShoppingCart implements Cart{
         load();
     }
 
-    @Override
     /**
      * {@inheritDoc}
      */
+    @Override
     public void addProduct(Product product) throws IOException{
         // if the cart already has this product
         int i = products.indexOf(product);
@@ -63,7 +63,7 @@ public class ShoppingCart implements Cart{
             // remove the product
             products.remove(product);
         }
-        else if (i != 1) {
+        else if (i != -1) {
             product = products.get(i);
             product.setQuantity(amount);
         }
@@ -71,20 +71,20 @@ public class ShoppingCart implements Cart{
         return product;
     }
 
-    @Override
     /**
      * Checks if the shopping cart is empty
      * 
      * @return true if it is empty, false otherwise
      */
+    @Override
     public boolean isEmpty(){
         return products.isEmpty();
     }
 
-    @Override
     /**
      * Empties the shopping cart
      */
+    @Override
     public void clearCart(){
         products.clear();
     }
