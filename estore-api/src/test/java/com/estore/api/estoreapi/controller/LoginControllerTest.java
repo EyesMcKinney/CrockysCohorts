@@ -32,7 +32,7 @@ public class LoginControllerTest {
     private UserFileDAO mockUserFileDAO;
 
     // Test objects
-    private final User TEST_USER = new User(1, "username", null);
+    private final User TEST_USER = new User(1, "username");
 
     @BeforeEach
     public void setup() {
