@@ -78,9 +78,7 @@ public interface UserDAO {
     /**
      * Remove a {@linkplain Product Product} to a {@linkplain User User}'s cart.
      * 
-     * @return true if successful, false otherwise
-     * 
      * @throws IOException if an issue with underlying storage
      */
-    boolean removeFromCart(User user, Product product) throws IOException;
+    void removeFromCart(User user, Product product) throws IOException;
 }
