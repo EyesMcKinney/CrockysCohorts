@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.core.exc.StreamReadException;
@@ -40,8 +41,6 @@ public class UserFileDAO implements UserDAO{
      */
     private ObjectMapper oMapper;
 
-    private InventoryDAO inventoryDAO;
-
     /**
      * Name of file to read from and write to
      */
@@ -55,10 +54,9 @@ public class UserFileDAO implements UserDAO{
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public UserFileDAO(@Value("${users.file}") String filename, ObjectMapper oMapper, InventoryDAO inventoryDAO) throws IOException {
+    public UserFileDAO(@Value("${users.file}") String filename, ObjectMapper oMapper) throws IOException {
         this.filename = filename;
         this.oMapper = oMapper;
-        this.inventoryDAO = inventoryDAO;
         load();
     }
 
@@ -86,7 +84,7 @@ public class UserFileDAO implements UserDAO{
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users){
-            User newUser = new User(nextId(), user.getName(), this.inventoryDAO);
+            User newUser = new User(nextId(), user.getName());
             users.put(newUser.getName(), newUser);
             save(); // may throw an IOException
             return newUser;
@@ -151,6 +149,22 @@ public class UserFileDAO implements UserDAO{
     @Override
     public ShoppingCart getCart(User user) throws IOException {
         return user.getCart();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addToCart(User user, Product product) throws IOException {
+        user.addToCart(product);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeFromCart(User user, Product product) throws IOException {
+        user.removeFromCart(product);
     }
     
     /**
