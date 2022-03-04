@@ -17,36 +17,35 @@ public class ShoppingCart implements Cart{
     /**
      * Mapping of {@linkplain Product Product} ID to quantity in cart.
      */
-    @JsonProperty("shopping cart") private HashMap<Integer, Integer> products;
-    private InventoryDAO inventoryDAO;
+    @JsonProperty("shopping cart") private HashMap<Product, Integer> products;
+    // TODO: When using objects as keys, each object is treated distinct even if they're identical
+    // so, when you get one product from the client once, you will get a diff instance than another time
+    // therefore using products as keys is a placeholder till an alternate option is decided on
 
     /**
      * Create a new shopping cart
      * 
      * @param inventoryDAO the entire inventory
      */
-    public ShoppingCart(InventoryDAO inventoryDAO){
-        this.products = new HashMap<Integer, Integer>();
-        this.inventoryDAO = inventoryDAO;
+    public ShoppingCart(){
+        this.products = new HashMap<Product, Integer>();
     }
 
     @Override
     /**
      * Adds a product to the cart
      * 
-     * @param id the id of the {@linkplain Product product} to add
+     * @param product the id of the {@linkplain Product product} to add
      * @throws IOException
      */
-    public void addProduct(int id) throws IOException{
+    public void addProduct(Product product) throws IOException{
         // if the cart already has this product
-        if (inventoryDAO.getProduct(id).getId() == id) {
-            if (products.containsKey(id)){
-                products.put(id, products.get(id) + 1);
-            }
-            else{
-                // add the product
-                products.put(id, 1);
-            }
+        if (products.containsKey(product)){
+            products.put(product, products.get(product) + 1);
+        }
+        else{
+            // add the product
+            products.put(product, 1);
         }
     }
 
@@ -57,8 +56,8 @@ public class ShoppingCart implements Cart{
      * 
      * @param id the id of the {@linkplain Product product} to remove
      */
-    public void removeProduct(int id){
-        products.remove(id);
+    public void removeProduct(Product product){
+        products.remove(product);
     }
 
     @Override

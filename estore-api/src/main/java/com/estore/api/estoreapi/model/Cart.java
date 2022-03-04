@@ -14,7 +14,7 @@ public interface Cart {
      * 
      * @param product the product to add
      */
-    public void addProduct(int id) throws IOException;
+    public void addProduct(Product product) throws IOException;
 
     /**
      * Remove a product from the cart
@@ -22,7 +22,7 @@ public interface Cart {
      * 
      * @param product the product to remove
      */
-    public void removeProduct(int id) throws IOException;
+    public void removeProduct(Product product) throws IOException;
 
     /**
      * Change the product quantity in the cart

@@ -16,16 +16,16 @@ public class User{
     @JsonProperty("id") private int id;
     @JsonProperty("shoppingCart") private ShoppingCart shoppingCart;
 
-    static final String STRING_FORMAT = "User [id=%d, username=%s, shoppingCart=%s]" ;
+    static final String STRING_FORMAT = "User [id=%d, username=%s]" ;
 
     /**
      * Constructor for the user object
      * @param username - user name to be given to the user
      */
-    public User(@JsonProperty("id") int id, @JsonProperty("username") String username, InventoryDAO inventoryDAO){
+    public User(@JsonProperty("id") int id, @JsonProperty("username") String username){
         this.id = id;
         this.username = username;
-        this.shoppingCart = new ShoppingCart(inventoryDAO);
+        this.shoppingCart = new ShoppingCart();
     }
 
     /**
