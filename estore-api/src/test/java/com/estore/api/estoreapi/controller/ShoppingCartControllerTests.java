@@ -8,7 +8,6 @@ import java.io.IOException;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
-import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
 import org.junit.jupiter.api.BeforeEach;
