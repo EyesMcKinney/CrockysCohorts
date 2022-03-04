@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.core.sym.Name;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,12 +34,12 @@ public class UserFileDAO implements UserDAO{
      */
     private Map<String, User> users;
 
+    private static int currId = 0;
+
     /**
      * Converts between {@link User} java objects and JSON text
      */
     private ObjectMapper oMapper;
-
-    private InventoryDAO inventoryDAO;
 
     /**
      * Name of file to read from and write to
@@ -52,11 +54,16 @@ public class UserFileDAO implements UserDAO{
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public UserFileDAO(@Value("${users.file}") String filename, ObjectMapper oMapper, InventoryDAO inventoryDAO) throws IOException {
+    public UserFileDAO(@Value("${users.file}") String filename, ObjectMapper oMapper) throws IOException {
         this.filename = filename;
         this.oMapper = oMapper;
-        this.inventoryDAO = inventoryDAO;
         load();
+    }
+
+    private synchronized static int nextId(){
+        int id = currId;
+        ++currId;
+        return id;
     }
 
     /**
@@ -77,7 +84,7 @@ public class UserFileDAO implements UserDAO{
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users){
-            User newUser = new User(user.getName(), this.inventoryDAO);
+            User newUser = new User(nextId(), user.getName());
             users.put(newUser.getName(), newUser);
             save(); // may throw an IOException
             return newUser;
@@ -142,6 +149,22 @@ public class UserFileDAO implements UserDAO{
     @Override
     public ShoppingCart getCart(User user) throws IOException {
         return user.getCart();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addToCart(User user, Product product) throws IOException {
+        user.addToCart(product);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeFromCart(User user, Product product) throws IOException {
+        user.removeFromCart(product);
     }
     
     /**

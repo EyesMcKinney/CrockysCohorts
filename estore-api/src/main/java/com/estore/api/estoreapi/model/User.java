@@ -13,17 +13,19 @@ public class User{
     private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     @JsonProperty("username") private String username;
+    @JsonProperty("id") private int id;
     @JsonProperty("shoppingCart") private ShoppingCart shoppingCart;
 
-    static final String STRING_FORMAT = "User [username=%s, shoppingCart=%s]" ;
+    static final String STRING_FORMAT = "User [id=%d, username=%s]" ;
 
     /**
      * Constructor for the user object
      * @param username - user name to be given to the user
      */
-    public User(@JsonProperty("username") String username, InventoryDAO inventoryDAO){
+    public User(@JsonProperty("id") int id, @JsonProperty("username") String username){
+        this.id = id;
         this.username = username;
-        this.shoppingCart = new ShoppingCart(inventoryDAO);
+        this.shoppingCart = new ShoppingCart();
     }
 
     /**
@@ -44,20 +46,20 @@ public class User{
 
     /**
      * add an item to the cart
-     * @param id - id of the item to add
+     * @param product the item to add
      * @return - true on success
      */
-    public void addToCart(int id) throws IOException {
-        this.shoppingCart.addProduct(id);
+    public void addToCart(Product product) throws IOException {
+        this.shoppingCart.addProduct(product);
     }
 
     /**
      * remove an item to the cart
-     * @param id - id of the item to add
+     * @param product the item to add
      * @return - true on success
      */
-    public void removeFromCart(int id){
-        this.shoppingCart.removeProduct(id);
+    public void removeFromCart(Product product){
+        this.shoppingCart.removeProduct(product);
     }
 
     /**
@@ -65,6 +67,6 @@ public class User{
      */
     @Override
     public String toString(){
-        return "User: " + this.username + ", Cart : " + this.shoppingCart;
+        return String.format(STRING_FORMAT, id, username);
     }
 }

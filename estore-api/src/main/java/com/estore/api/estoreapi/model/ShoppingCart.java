@@ -1,10 +1,10 @@
 package com.estore.api.estoreapi.model;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -14,108 +14,77 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ShoppingCart implements Cart{
 
-    @JsonProperty("shopping cart") private HashMap<Integer, Integer> products;
-    private InventoryDAO inventoryDAO;
+    @JsonProperty("shopping-cart")List<Product> products;
 
     /**
      * Create a new shopping cart
-     * 
-     * @param inventoryDAO the entire inventory
      */
-    public ShoppingCart(InventoryDAO inventoryDAO){
-        this.products = new HashMap<Integer, Integer>();
-        this.inventoryDAO = inventoryDAO;
+    public ShoppingCart(){  // TODO: load shopping cart from file w/r/t user id
+        this.products = new ArrayList<>();
+        load();
     }
 
-    @Override
     /**
-     * Adds a product to the cart
-     * 
-     * @param id the id of the {@linkplain Product product} to add
-     * @throws IOException
+     * {@inheritDoc}
      */
-    public void addProduct(int id) throws IOException{
+    @Override
+    public void addProduct(Product product) throws IOException{
         // if the cart already has this product
-        if (inventoryDAO.getProduct(id).getId() == id) {
-            if (products.containsKey(id)){
-                products.put(id, products.get(id) + 1);
-            }
-            else{
-                // add the product
-                products.put(id, 1);
-            }
+        int i = products.indexOf(product);
+        product.setQuantity(1);
+        if (i != -1){
+            product = products.get(i);
+            product.setQuantity(product.getQuantity() + 1);
+        }
+        else{
+            // add the product
+            products.add(product);
         }
     }
 
-    @Override
     /**
-     * Removes a product from the cart
-     * Precondition: the product is already in the cart
-     * 
-     * @param id the id of the {@linkplain Product product} to remove
+     * {@inheritDoc}
      */
-    public void removeProduct(int id){
-        products.remove(id);
+    @Override
+    public void removeProduct(Product product){
+        products.remove(product);
     }
 
-    @Override
     /**
-     * Change the amount of the product in the cart
-     * If the amount is more than there is stock it will set the amount to be the stock amount
-     * Precondition: the product is already in the cart
-     * 
-     * @param id the id of the {@linkplain Product product} to add or remove quantity from
-     * @param amount the amount the quantity will change to
-     * @throws IOException
+     * {@inheritDoc}
      */
-    public void editProductQuantity(int id, int amount) throws IOException{
+    @Override
+    public Product editProductQuantity(Product product, int amount) throws IOException{
+        int i = products.indexOf(product);
+        product.setQuantity(0);
+
         // if the quantity will be 0
-        Product product = inventoryDAO.getProduct(id);
         if (amount <= 0){
             // remove the product
-            products.remove(product.getId());
+            products.remove(product);
         }
-        else{
-            // change the product quantity
-            if (amount > product.getQuantity()){
-                amount = product.getQuantity();
-                //TODO display a message that that was too much?
-            }
-            products.put(product.getId(), amount);
+        else if (i != -1) {
+            product = products.get(i);
+            product.setQuantity(amount);
         }
+
+        return product;
     }
 
-    @Override
-    /**
-     * Checks to see if an item is in stock
-     * 
-     * @param id the id of the {@linkplain Product product} to check if it is in stock
-     * @return true if the product is out of stock, false otherwise
-     * @throws IOException
-     */
-    public boolean isProductOutOfStock(int id) throws IOException{
-        if(inventoryDAO.getProduct(id).getQuantity() <= 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    @Override
     /**
      * Checks if the shopping cart is empty
      * 
      * @return true if it is empty, false otherwise
      */
+    @Override
     public boolean isEmpty(){
         return products.isEmpty();
     }
 
-    @Override
     /**
      * Empties the shopping cart
      */
+    @Override
     public void clearCart(){
         products.clear();
     }
@@ -126,20 +95,16 @@ public class ShoppingCart implements Cart{
      * @return the total cost
      * @throws IOException
      */
-    public int buyEntireCart() throws IOException{
-        int total = 0;
+    public double buyEntireCart() throws IOException{
+        double total = 0;
+        Product product;
 
-        Iterator<Integer> iterateProducts = products.keySet().iterator();
+        Iterator<Product> iterateProducts = products.iterator();
         while (iterateProducts.hasNext()){
-            int i = iterateProducts.next();
+            product = iterateProducts.next();
             
             // sum up the purchase
-            int quantity = products.get(i);
-            Product product = inventoryDAO.getProduct(i);
-            total += product.getPrice() * quantity;
-
-            // decrement the quantity from the products
-            product.setQuantity(product.getQuantity() - quantity);
+            total += product.getPrice() * product.getQuantity();
         }
 
         clearCart();
@@ -158,12 +123,10 @@ public class ShoppingCart implements Cart{
     */
 
     /**
-     * Gets the map of products
-     * 
-     * @return the map of products and their quantities
+     * {@inheritDoc}
      */
-    public HashMap<Integer, Integer> getProducts(){
-        return products;
+    public Product[] getProducts(){
+        return (Product[])products.toArray();
     }
     
     /**
@@ -173,18 +136,38 @@ public class ShoppingCart implements Cart{
      * @throws IOException
      * @author Alex Vernes
      */
-    public int getTotalCost() throws IOException{
-        int total = 0;
-        Iterator<Integer> iterateProducts = products.keySet().iterator();
+    public double getTotalCost() throws IOException{
+        double total = 0;
+        Iterator<Product> iterateProducts = products.iterator();
+        Product product;
+
         while (iterateProducts.hasNext()){
-            int i = iterateProducts.next();
+            product = iterateProducts.next();
             
             // sum up the purchase
-            int quantity = products.get(i);
-            Product product = inventoryDAO.getProduct(i);
-            total += product.getPrice() * quantity;
+            total += product.getPrice() * product.getQuantity();
         }
         return total;
+    }
+
+    /**
+     * Load a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart} w/r/t user id.
+     */
+    private void load() {
+        // TODO
+    }
+
+    /**
+     * Load a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart} w/r/t user id.
+     */
+    private void save() {
+        // TODO
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
     }
 
 }
