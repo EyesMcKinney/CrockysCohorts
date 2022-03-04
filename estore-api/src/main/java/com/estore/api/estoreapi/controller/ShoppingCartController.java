@@ -108,7 +108,8 @@ public class ShoppingCartController {
      * @param username the username of the user
      * @param product the {@linkplain Product product} to update the quantity of
      * @param amount the amount the quantity will change to
-     * @return ResponseEntity with HTTP status of OK
+     * @return ResponseEntity with updated {@linkplain Product product}
+     * and HTTP status of OK
      */
     @PutMapping("/{id}-{amount}")
     public ResponseEntity<Product> editProductQuantity(@PathVariable String username, @RequestBody Product product, @RequestParam int amount) {

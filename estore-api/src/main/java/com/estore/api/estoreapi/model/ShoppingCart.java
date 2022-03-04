@@ -34,7 +34,7 @@ public class ShoppingCart implements Cart{
         product.setQuantity(1);
         if (i != -1){
             product = products.get(i);
-            product.setQuantity(product.getQuantity() + 1);;
+            product.setQuantity(product.getQuantity() + 1);
         }
         else{
             // add the product
@@ -65,7 +65,7 @@ public class ShoppingCart implements Cart{
         }
         else if (i != 1) {
             product = products.get(i);
-            product.setQuantity(amount);;
+            product.setQuantity(amount);
         }
 
         return product;
