@@ -30,8 +30,9 @@ public interface Cart {
      * 
      * @param product the product to change the quantity of
      * @param amount the quantity to change to
+     * @return the {@link Product Product} updated
      */
-    public void editProductQuantity(Product product, int amount) throws IOException;
+    public Product editProductQuantity(Product product, int amount) throws IOException;
 
     /**
      * Remove all items from the cart

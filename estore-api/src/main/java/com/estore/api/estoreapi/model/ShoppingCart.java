@@ -53,9 +53,10 @@ public class ShoppingCart implements Cart{
      * {@inheritDoc}
      */
     @Override
-    public void editProductQuantity(Product product, int amount) throws IOException{
+    public Product editProductQuantity(Product product, int amount) throws IOException{
         int i = products.indexOf(product);
-        
+        product.setQuantity(0);
+
         // if the quantity will be 0
         if (amount <= 0){
             // remove the product
@@ -65,6 +66,8 @@ public class ShoppingCart implements Cart{
             product = products.get(i);
             product.setQuantity(amount);;
         }
+
+        return product;
     }
 
     @Override
