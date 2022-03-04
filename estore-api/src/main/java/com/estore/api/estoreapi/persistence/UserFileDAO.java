@@ -158,6 +158,14 @@ public class UserFileDAO implements UserDAO{
     public void addToCart(User user, Product product) throws IOException {
         user.addToCart(product);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeFromCart(User user, Product product) throws IOException {
+        user.removeFromCart(product);
+    }
     
     /**
      * save the users
