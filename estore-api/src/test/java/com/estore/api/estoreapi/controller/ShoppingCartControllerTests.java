@@ -135,8 +135,9 @@ public class ShoppingCartControllerTests {
      * Test if edit product quantity returns OK and the product
      */
     @Test
-    void testEditProductQuantity(){
+    void testEditProductQuantity() throws IOException {
         // invoke
+        when(mockShoppingCart.editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
         ResponseEntity<Product> response = shoppingCartController.editProductQuantity(user.getName(), TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // check
