@@ -155,7 +155,7 @@ public class UserFileDAO implements UserDAO{
      * {@inheritDoc}
      */
     @Override
-    public boolean addToCart(User user, Product product) throws IOException {
+    public void addToCart(User user, Product product) throws IOException {
         user.addToCart(product);
     }
     
