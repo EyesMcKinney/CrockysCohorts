@@ -73,6 +73,21 @@ public class LoginControllerTest {
     }
 
     /**
+     * Test {@linkplain LoginController}'s getUser() method for IOExceptions. 
+     * @throws IOException
+     */
+    @Test
+    public void testGetUserError() throws IOException{
+        doThrow(new IOException()).when(mockUserFileDAO).getUser(TEST_USER.getName());
+
+        // Invoke
+        ResponseEntity<User> response = loginController.getUser(TEST_USER.getName());
+
+        // Check
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /**
      * Test {@linkplain LoginController}'s createUser() method for user creation. 
      * @throws IOException
      */
