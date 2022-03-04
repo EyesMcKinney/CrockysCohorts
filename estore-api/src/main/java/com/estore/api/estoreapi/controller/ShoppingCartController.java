@@ -150,7 +150,7 @@ public class ShoppingCartController {
      * @return ResponseEntity with the total cost of the {@linkplain ShoppingCart shoppingCart} 
      * and HTTP status of OK
      */
-    @GetMapping("")
+    @GetMapping("cost")
     public ResponseEntity<Double> getTotalCost(@PathVariable String username) {
         LOG.info("GET cost");
         try {
