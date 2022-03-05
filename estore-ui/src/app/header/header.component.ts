@@ -14,9 +14,13 @@ import { User } from '../user';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor() { }
+    admin:boolean | undefined;
 
-    @Input() currentUser?: User;
+    @Input() currentUser: User;
+
+    constructor() {
+        this.currentUser = {id:-1, username:"dummy user"} as User;
+    }
 
     ngOnInit(): void {
     }
@@ -26,6 +30,11 @@ export class HeaderComponent implements OnInit {
      * @param changes 
      */
     ngOnChanges(changes: SimpleChange) {
+        //if (changes.currentValue) { // check if user logged in is admin 
+
+        //} else {  // otherwise, its a user
+
+        //}
 
     }
 

@@ -14,14 +14,16 @@ export class AppComponent {
   /**
    * Current {@link User User} logged in.
    */
-  user?: User = undefined;
+  user: User;
 
   /**
    * {@link Subscription Subscription} to subscribe to user changes.
    */
   subscription: Subscription | undefined;
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService) {
+      this.user = {id:-1, username:"dummy user"} as User;
+  }
 
   public ngOnInit(): void {  // subscribe to user login
       this.subscription = this.loginService.getLoggedInUser()

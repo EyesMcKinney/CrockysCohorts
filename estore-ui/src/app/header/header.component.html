@@ -1,14 +1,17 @@
 <nav>
     <a routerLink="/homepage">Homepage</a>
-    <a routerLink="/loginpage">Login</a>
     <!--<header-router-outlet></header-router-outlet>-->
-
-    <div *ngIf="">  <!-- *nfIf="user == undefined"-->
-
+    <!--*ngIf="admin=undefined"-->
+    <div *ngIf="currentUser.id == -1">  <!--When no one's logged in -> login page-->
+        <a routerLink="/loginpage">Login</a>
     </div>
-        <!--When no one's logged in: Login link-->
 
-        <!--When user logged in: shopping cart link (and logout option?)-->
-
-        <!--When admin logged in: admin component template link(?) (and logout option?)-->
+    <div *ngIf="currentUser.id >= 1"><!--When user logged in: shopping cart link (and logout option?)-->
+        <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->
+    </div>
+        
+    
+    <div *ngIf="currentUser.id == 0"><!--When admin logged in: admin component template link(?) (and logout option?)-->
+        <!--<a routerLink="/admin">Admin</a> ADMIN COMPONENT HAS YET TO BE IMPLEMENTED-->
+    </div>
 </nav>
