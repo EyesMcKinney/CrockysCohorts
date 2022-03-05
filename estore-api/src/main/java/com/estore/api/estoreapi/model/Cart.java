@@ -13,16 +13,18 @@ public interface Cart {
      * Add a product to the cart
      * 
      * @param product the product to add
+     * @throws IOException if an issue with underlying storage
      */
-    public void addProduct(int id) throws IOException;
+    public void addProduct(Product product) throws IOException;
 
     /**
      * Remove a product from the cart
      * Precondition: the product is already in the cart
      * 
      * @param product the product to remove
+     * @throws IOException if an issue with underlying storage
      */
-    public void removeProduct(int id) throws IOException;
+    public void removeProduct(Product product) throws IOException;
 
     /**
      * Change the product quantity in the cart
@@ -30,8 +32,10 @@ public interface Cart {
      * 
      * @param product the product to change the quantity of
      * @param amount the quantity to change to
+     * @throws IOException if an issue with underlying storage
+     * @return the {@link Product Product} updated
      */
-    public void editProductQuantity(int id, int amount) throws IOException;
+    public Product editProductQuantity(Product product, int amount) throws IOException;
 
     /**
      * Remove all items from the cart
@@ -39,19 +43,17 @@ public interface Cart {
     public void clearCart();
 
     /**
-     * Check if the product is in stock
-     * 
-     * @param  the product to check
-     * @return true if the product is out of stock, false otherwise
-     * @throws IOException
-     */
-    public boolean isProductOutOfStock(int id) throws IOException;
-
-    /**
      * Check if the cart is empty
      * 
      * @return true if the cart is empty, false otherwise
      */
     public boolean isEmpty();
+
+    /**
+     * Gets the array of products
+     * 
+     * @return the array of products and their quantities
+     */
+    public Product[] getProducts();
 
 }
