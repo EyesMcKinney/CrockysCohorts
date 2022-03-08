@@ -11,6 +11,7 @@ import { Observable, Subject } from 'rxjs';
 export class ShoppingCartComponent implements OnInit {
 
   items = this.cartService.getItems();
+  item:any;
 
   constructor(private cartService: CartService) { }
 
@@ -18,4 +19,12 @@ export class ShoppingCartComponent implements OnInit {
     
   }
 
+  delete() {
+    this.items.splice(this.items.indexOf(this.item), 1);
+  }
+
+  buy(){
+    this.items = [];
+    this.cartService.clearCart();
+  }
 }
