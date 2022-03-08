@@ -1,1 +1,6 @@
-<p>shopping-cart Works</p>
+<h2>Shopping Cart</h2>
+
+<div class="cart-items" *ngFor="let item of items">
+  <span>{{ item.name }}</span>
+  <span>{{ item.price }}</span>
+</div>

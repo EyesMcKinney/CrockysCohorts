@@ -36,6 +36,7 @@
     <!--Product header-->
     <h2 style="font-weight: bold;">{{product.name}} Details</h2>
     <div><span>ID: </span>{{product.id}}</div>
+    
 
     <!--Product info-->
     <div class="wrapper">
@@ -45,7 +46,7 @@
         <!--Text info-->
         <p class="desc">{{product.description}}</p>
         <span class="cost">{{product.price}}</span>
-        <button type="button" class="add_to_cart">Add To Cart</button>
+        <button type="button" (click)="addToCart(product)">Add To Cart</button>
     </div>
 
 
