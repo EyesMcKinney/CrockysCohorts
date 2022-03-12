@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ShoppingCart implements Cart{
 
-    @JsonProperty("shopping-cart")List<Product> products;
+    List<Product> products;
 
     /**
      * Create a new shopping cart
