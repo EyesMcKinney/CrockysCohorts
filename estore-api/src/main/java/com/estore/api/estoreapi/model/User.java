@@ -14,7 +14,7 @@ public class User{
 
     @JsonProperty("username") private String username;
     @JsonProperty("id") private int id;
-    @JsonProperty("shoppingCart") private ShoppingCart shoppingCart;
+    private ShoppingCart shoppingCart;
 
     static final String STRING_FORMAT = "User [id=%d, username=%s]" ;
 
