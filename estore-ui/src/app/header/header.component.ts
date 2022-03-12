@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
         //} else {  // otherwise, its a user
 
         //}
+        console.log("user: " + this.currentUser.username + " logged in")
 
     }
 
