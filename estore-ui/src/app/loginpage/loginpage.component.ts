@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Location } from '@angular/common';
+import { AppRoutingModule } from '../app-routing.module';
 
 @Component({
   selector: 'app-loginpage',
@@ -13,7 +14,7 @@ export class LoginpageComponent implements OnInit {
   user?: User;
   adminUser: Boolean | undefined; 
 
-  constructor(private loginService: LoginService, private location: Location) {
+  constructor(private loginService: LoginService, private location: Location, private router: AppRoutingModule) {
     this.adminUser = false ;
     // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
@@ -37,6 +38,7 @@ export class LoginpageComponent implements OnInit {
       if (this.user?.username == "admin") { 
           return;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ROUTE TO ADMIN COMPONENT
       } else {
+        //this.router.navigate(); navigate method doesn't exist??? this shouldn't be a problem... <<<<<<<<<<<<<<<<
         this.location.back();
       }
   }

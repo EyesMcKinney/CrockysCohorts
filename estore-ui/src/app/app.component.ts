@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User } from './user';
 import { LoginService } from './login.service';
 import { Subscription } from 'rxjs';
+import { MessageService } from './message.service';
 
 @Component({
   selector: 'app-root',
@@ -21,16 +22,17 @@ export class AppComponent {
    */
   subscription: Subscription | undefined;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private message: MessageService) {
       this.user = {id:-1, username:"dummy user"} as User;
   }
 
   public ngOnInit(): void {  // subscribe to user login
       this.subscription = this.loginService.getLoggedInUser()
-          .subscribe(user => this.user = user);
+          .subscribe(user => this.updateUser(user));
   }
 
   updateUser(newUser: User): void {
       this.user = newUser;
+      this.message.add("@app component: user: " + this.user.username + " logged in")
   }
 }

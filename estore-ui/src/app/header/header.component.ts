@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { User } from '../user';
+import { MessageService } from '../message.service';
 
 
 /**
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
     @Input() currentUser: User;
 
-    constructor() {
+    constructor(private message: MessageService) {
         this.currentUser = {id:-1, username:"dummy user"} as User;
     }
 
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
     }
 
     /**
-     * Update user on change
+     * Update user on change (not when property/field of user is updated)
      * @param changes 
      */
     ngOnChanges(changes: SimpleChange) {
@@ -35,7 +36,7 @@ export class HeaderComponent implements OnInit {
         //} else {  // otherwise, its a user
 
         //}
-        console.log("user: " + this.currentUser.username + " logged in")
+        this.message.add("@header component: user: " + this.currentUser.username + " logged in");
 
     }
 

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap, Subject } from 'rxjs';
 import { User } from './user';
+import { MessageService } from './message.service';
 
 
 /**
@@ -22,13 +23,14 @@ export class LoginService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private message: MessageService) { }
 
   /**
    * Access the current logged in {@link User User}.
    * @returns the {@link User User} that's currently logged in
    */
   public getLoggedInUser(): Observable<User> {
+      this.message.add("@login service: getLoggedInUser() called")
       return this.userUpdate.asObservable();
   }
 
@@ -38,6 +40,7 @@ export class LoginService {
    * @param newUser the {@link User User} that's logged in
    */
   public userLogin(newUser: User): void {
+      this.message.add("@login service: userLogin: user: " + newUser.username);
       this.userUpdate.next(newUser);
   }
 
