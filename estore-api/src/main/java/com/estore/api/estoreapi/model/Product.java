@@ -34,8 +34,8 @@ public class Product {
      * @param id The product id
      * @param name The product name
      * @param price The price of 1 unit of the product
-     * @param description The product description
      * @param quantity The amount of product currently in stock
+     * @param description The product description
      * 
      * {@literal @}JsonProperty is used in serialization and deserialization
      * of the JSON object to the Java object in mapping the fields.  If a field
@@ -46,10 +46,10 @@ public class Product {
                     @JsonProperty("price") double price, @JsonProperty("quantity") int quantity,
                     @JsonProperty("description") String description) {
         
-        this.id = id ;
+        this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = quantity ;
+        this.quantity = quantity;
         this.description = description;
 
     }
