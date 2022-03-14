@@ -1,6 +1,8 @@
 package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.ResponseEntity;
 
 @Tag("Controller-tier")
 public class ShoppingCartTest {
@@ -55,6 +56,36 @@ public class ShoppingCartTest {
         // Check
         assertEquals(0, shoppingCart.getProducts().length);
     }
+
+
+    /**
+     * Test if is empty returns false when shopping cart has a product
+     */
+    @Test
+    void testIsEmptyFalse() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Invoke
+        boolean empty = shoppingCart.isEmpty();
+        
+        // Check
+        assertFalse(empty);
+    }
+
+    /**
+     * Test if is empty returns true when shopping cart has no products
+     */
+    @Test
+    void testIsEmptyTrue() throws IOException{
+        // Invoke
+        boolean empty = shoppingCart.isEmpty();
+        
+        // Check
+        assertTrue(empty);
+    }
+
+
+
 
 
 
