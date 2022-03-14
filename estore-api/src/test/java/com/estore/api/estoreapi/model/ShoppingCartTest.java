@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class ShoppingCartTest {
     
     // CuT
-    private ShoppingCart shoppingCart;    
+    private ShoppingCart shoppingCart;
 
     // Test objects
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
