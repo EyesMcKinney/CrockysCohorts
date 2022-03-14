@@ -68,6 +68,7 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
     public void addToCart(int id, Product product) throws IOException {
         ShoppingCart cart = getCart(id);
         cart.addProduct(product);
+        save();
     }
 
     /**
@@ -77,6 +78,7 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
     public void removeFromCart(int id, Product product) throws IOException {
         ShoppingCart cart = getCart(id);
         cart.removeProduct(product);
+        save();
     }
 
     /**
@@ -129,6 +131,38 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
             carts.put(cart.getId(), cart);
         }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Product editQuantity(int id, Product product, int amount) throws IOException {
+        return carts.get(id).editProductQuantity(product, amount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void clearCart(int id) throws IOException {
+        carts.get(id).clearCart();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double buyCart(int id) throws IOException {
+        return carts.get(id).buyEntireCart();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getCost(int id) throws IOException {
+        return carts.get(id).getTotalCost();
     }
     
 }
