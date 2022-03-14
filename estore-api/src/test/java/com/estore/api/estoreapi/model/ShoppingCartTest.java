@@ -20,26 +20,29 @@ public class ShoppingCartTest {
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
 
     /**
-     * TODO
+     * Make a new shoping cart before each test
      */
+    @BeforeEach
     void setup(){
         shoppingCart = new ShoppingCart();
     }
 
     /**
-     * TODO
-     * @throws IOException
+     * Test if add product adds a product to the array
      */
     @Test
 	void testAddProduct() throws IOException {
         // Invoke
         shoppingCart.addProduct(TEST_PRODUCT);
 
-
         // Check
         Product addedProduct = shoppingCart.getProducts()[0];
         assertEquals(TEST_PRODUCT, addedProduct);
         assertEquals(TEST_PRODUCT.getQuantity(), addedProduct.getQuantity());
     }
+
+    
+
+
 
 }

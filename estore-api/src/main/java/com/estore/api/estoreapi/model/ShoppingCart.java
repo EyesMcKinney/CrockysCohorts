@@ -126,7 +126,7 @@ public class ShoppingCart implements Cart{
      * {@inheritDoc}
      */
     public Product[] getProducts(){
-        return (Product[])products.toArray();
+        return products.toArray(new Product[products.size()]);
     }
     
     /**
