@@ -84,10 +84,11 @@ public class InventoryController {
      * @author Alex Vernes
      */
     @GetMapping("/")
-    public ResponseEntity<Product[]> searchforProduct(@RequestParam String text) {
+    public ResponseEntity<Product[]> searchforProduct(@RequestParam("name") String text) {
         LOG.info("GET /products/?name="+text);
         try {
-            return new ResponseEntity<>(inventoryDAO.findProducts(text), HttpStatus.OK);
+            Product[] products = inventoryDAO.findProducts(text);
+            return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
