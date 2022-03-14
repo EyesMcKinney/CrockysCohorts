@@ -19,20 +19,19 @@
 })
 export class ProductAddComponent implements OnInit {
 
+  /**
+  * {@link Product} of interest.
+  */
+   @Input() product?: Product;
+
   constructor(
     private route: ActivatedRoute, 
     private inventoryService: InventoryService,
     private location: Location
   ) { }
 
-  /**
-  * {@link Product} of interest.
-  */
-  @Input() product?: Product;
 
-  ngOnInit(): void {
-    this.getProduct();
-  }
+  ngOnInit(): void {}
 
   /**
   * GET a {@link product Product} from storage.
@@ -52,36 +51,21 @@ export class ProductAddComponent implements OnInit {
   }
 
 
-  /**
-  * Add the {@link product Product} to the users cart.
-  * 
-  * <p>
-  * Add the {@link product Product} to the users cart, and update
-  * the change to the server (save the cart). If the user is not
-  * signed-in, redirect them to the login page. 
-  */
-  addToCart(): void { }
-
 
   /**
   * Update the {@link product Product} information in storage.
   */
-  save(): void {
-    if (this.product) {
-        this.inventoryService.updateProduct(this.product)
-            .subscribe(() => this.goBack());
-    }
+  add(
+    name: string, price: string, quantity: string,
+    description: string ): void 
+  {
+    name = name.trim();
+    description = description.trim() ;
+    
+
+    if (!name) { return; }
+    //this.inventoryService.addProduct({ name, price, quantity, description } as Product) ;
   }
 
 
-  /**
-  * Delete the {@link product Product} from storage. 
-  * 
-  * @author Alex Vernes
-  */
-  delete(): void {
-    this.inventoryService.deleteProduct(
-        Number(this.route.snapshot.paramMap.get("id"))
-        ).subscribe(product => this.product = product);
-  }
 }

@@ -66,11 +66,15 @@ export class InventoryService {
 
 
     /**
+     * Adds a new {@link Product} to server 
      * 
      * @param product 
-     * @returns 
+     * @returns the product to be added
+     * @author Tylin Hartman
      */
-    addProduct(product: Product): Observable<Product> { return new Observable; }
+    addProduct(product: Product): Observable<Product> { 
+        return this.http.post<Product>(this.productsUrl, product, this.httpOptions); 
+    }
 
     /**
      * Delete a {@link Product} from the server
