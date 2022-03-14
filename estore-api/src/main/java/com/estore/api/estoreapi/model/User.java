@@ -14,7 +14,6 @@ public class User{
 
     @JsonProperty("username") private String username;
     @JsonProperty("id") private int id;
-    private ShoppingCart shoppingCart;
 
     static final String STRING_FORMAT = "User [id=%d, username=%s]" ;
 
@@ -25,7 +24,6 @@ public class User{
     public User(@JsonProperty("id") int id, @JsonProperty("username") String username){
         this.id = id;
         this.username = username;
-        this.shoppingCart = new ShoppingCart();
     }
 
     /**
@@ -34,32 +32,6 @@ public class User{
      */
     public String getName(){
         return username;
-    }
-
-    /**
-     * get the shopping cart of the user
-     * @return the users cart
-     */
-    public ShoppingCart getCart(){
-        return shoppingCart;
-    }
-
-    /**
-     * add an item to the cart
-     * @param product the item to add
-     * @return - true on success
-     */
-    public void addToCart(Product product) throws IOException {
-        this.shoppingCart.addProduct(product);
-    }
-
-    /**
-     * remove an item to the cart
-     * @param product the item to add
-     * @return - true on success
-     */
-    public void removeFromCart(Product product){
-        this.shoppingCart.removeProduct(product);
     }
 
     /**
