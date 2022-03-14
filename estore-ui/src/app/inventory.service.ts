@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MessageService } from './message.service';
 //import {catchError, map, tap } from 'rxjs/operators';
 
 /**
@@ -24,7 +25,9 @@ export class InventoryService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private messageService: MessageService) { }
 
 
     //private handleError<T>(operation = 'operation', result?: T) { }
@@ -90,10 +93,34 @@ export class InventoryService {
      * @param prompt 
      * @returns 
      */
-    searchProducts(prompt: string): Observable<Product[]> { 
-        if (!prompt.trim()) {
+    searchProducts(text: string): Observable<Product[]> { 
+        if (!text.trim()) {
             return of([]);
         }
-        return this.http.get<Product[]>(`${this.productsUrl}/?name=${prompt}`);
+        return this.http.get<Product[]>(`${this.productsUrl}/?name=${text}`).pipe(
+            tap(x => x.length ?
+               this.log(`found products matching "${text}"`) :
+               this.log(`no products matching "${text}"`)),
+            catchError(this.handleError<Product[]>('searchProducts', []))
+        );
     }
+
+    private log(message: string) {
+        this.messageService.add(`InventoryService: ${message}`);
+
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+    
+          // TODO: send the error to remote logging infrastructure
+          console.error(error); // log to console instead
+    
+          // TODO: better job of transforming error for user consumption
+          this.log(`${operation} failed: ${error.message}`);
+    
+          // Let the app keep running by returning an empty result.
+          return of(result as T);
+        };
+      }
 }
