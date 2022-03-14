@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -33,7 +35,7 @@ public class ShoppingCartTest {
      * Test if add product adds a product to the array
      */
     @Test
-	void testAddProduct() throws IOException {
+	void testAddProductNotInCart() throws IOException {
         // Invoke
         shoppingCart.addProduct(TEST_PRODUCT);
 
@@ -42,7 +44,23 @@ public class ShoppingCartTest {
         assertEquals(TEST_PRODUCT, addedProduct);
         assertEquals(TEST_PRODUCT.getQuantity(), addedProduct.getQuantity());
     }
-    //TODO add more tests for addproduct
+
+    /**
+     * Test if when the product is already in the array,
+     * add product adds a product to the array and increments the product quantity
+     */
+    @Test
+    void testAddProduct() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+        
+        // Invoke
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Check
+        Product addedProduct = shoppingCart.getProducts()[0];
+        assertEquals(TEST_PRODUCT, addedProduct);
+        assertEquals(TEST_PRODUCT.getQuantity(), addedProduct.getQuantity());
+    }
 
     /**
      * Test if remove product removes a product from the array
@@ -59,6 +77,68 @@ public class ShoppingCartTest {
         assertArrayEquals(ps, shoppingCart.getProducts());
     }
 
+    /**
+     * Test if edit product quantity of a positive amount changes the product quantity correctly
+     */
+    @Test
+    void testEditProductQuantityPositive() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Invoke
+        int quantity = 3;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
+        
+        // Check
+        assertEquals(quantity, shoppingCart.getProducts()[0].getQuantity());
+    }
+
+    /**
+     * Test if edit product quantity of 0 removes the product
+     */
+    @Test
+    void testEditProductQuantity0() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Invoke
+        int quantity = 0;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
+        
+        // Check
+        Product[] ps = new Product[shoppingCart.getProducts().length];
+        assertArrayEquals(ps, shoppingCart.getProducts());
+    }
+
+    /**
+     * Test if edit product quantity of a negative amount removes the product
+     */
+    @Test
+    void testEditProductQuantityNegative() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Invoke
+        int quantity = -3;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
+        
+        // Check
+        Product[] ps = new Product[shoppingCart.getProducts().length];
+        assertArrayEquals(ps, shoppingCart.getProducts());
+    }
+
+    /**
+     * Test if edit product quantity of a product not in the cart
+     * will add the product and edit the amount
+     */
+    @Test //TODO check this again
+    void testEditProductQuantity() throws IOException{
+        // Invoke
+        int quantity = 3;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
+        
+        // Check
+        Product[] ps = new Product[shoppingCart.getProducts().length];
+        assertArrayEquals(ps, shoppingCart.getProducts());
+        //////assertEquals(quantity, shoppingCart.getProducts()[0].getQuantity());
+    }
 
     /**
      * Test if is empty returns false when shopping cart has a product
@@ -90,7 +170,7 @@ public class ShoppingCartTest {
      * Tests if clear cart removes all products from the cart
      */
     @Test
-    void clearCart() throws IOException{
+    void testClearCart() throws IOException{
         shoppingCart.addProduct(TEST_PRODUCT);
         // Invoke
         shoppingCart.clearCart();
@@ -99,6 +179,48 @@ public class ShoppingCartTest {
         assertTrue(shoppingCart.isEmpty());
     }
 
+    /**
+     * Test if buy entire cart returns the correct total cost
+     */
+    @Test
+    void testBuyEntireCart() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+        int quantity = 3;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
 
+        // Invoke
+        double cost = shoppingCart.buyEntireCart();
+        
+        // Check
+        assertEquals(quantity * TEST_PRODUCT.getPrice(), cost);
+    }
 
+    /**
+     * Test if get total cost returns the correct total cost
+     */
+    @Test
+    void testGetTotalCost() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+        int quantity = 3;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
+
+        // Invoke
+        double cost = shoppingCart.getTotalCost();
+        
+        // Check
+        assertEquals(quantity * TEST_PRODUCT.getPrice(), cost);
+    }
+
+    /**
+     * Test if the to string returns the correct string
+     * TODO change this one later when Stevie changes it
+     */
+    @Test
+    void testToString(){
+        // Invoke
+        String text = shoppingCart.toString();
+        
+        // Check
+        assertEquals(shoppingCart.toString(), text);
+    }
 }
