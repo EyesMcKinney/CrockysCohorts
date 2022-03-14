@@ -31,58 +31,37 @@
     </style>
 </head>
 
-<div *ngIf="product">
 
-    <!--Product header-->
-    <h2 style="font-weight: bold;">{{product.name}} Details</h2>
-    <div><span>ID: </span>{{product.id}}</div>
-
-    <!--Product info-->
-    <div class="wrapper">
-        <!--Insert product image here-->
-        <div class="image"></div>
-
-        <!--Text info-->
-        <p class="desc">{{product.description}}</p>
-        <span class="cost">{{product.price}}</span>
-        <button type="button" class="add_to_cart">Add To Cart</button>
-    </div>
-
-
-
-    <!--Edit product information-->
+    <!--New product information-->
     <div>  <!-- *ngIf to check if user is an admin-->
-        <h2 style="font-weight: bold;">Edit {{product.name}}'s product Info</h2>
+        <h2 style="font-weight: bold;">Create New Product</h2>
         
-        <!--Edit Name-->
+        <!--New Name-->
         <div>
             <label for="product-name">Product name: </label>  <!--Prompt-->
             <input id="product-name" [(ngModel)]="product.name" placeholder="name">  <!--Enter change-->
         </div>
 
-        <!--Edit price-->
+        <!--New price-->
         <div>
             <label for="product-price">Product price: </label>
             <input id="product-price" [(ngModel)]="product.price" placeholder="price">
         </div>
 
-        <!--Edit description-->
+        <!--New description-->
         <div>
             <label for="product-description">Product description: </label>
             <input id="product-description" [(ngModel)]="product.description" placeholder="description">
         </div>
 
-        <!--Edit quantity-->
+        <!--New quantity-->
         <div>
             <label for="product-quantity">Product quantity: </label>
             <input id="product-quantity" [(ngModel)]="product.quantity" placeholder="quantity"/>
         </div>
 
-        <!--Save Changes-->
-        <button type="button" (click)="save()">save</button>
-
-        <!-- Delete Product -->
-        <button type = "button" (click) = "delete()">delete</button>
+        <!-- Add Product -->
+        <button type = "button" (click) = "add()">Create</button>
 
     </div>
 

@@ -54,17 +54,6 @@ export class ProductEditComponent implements OnInit {
 
 
   /**
-   * Add the {@link product Product} to the users cart.
-   * 
-   * <p>
-   * Add the {@link product Product} to the users cart, and update
-   * the change to the server (save the cart). If the user is not
-   * signed-in, redirect them to the login page. 
-   */
-  addToCart(): void { }
-
-
-  /**
    * Update the {@link product Product} information in storage.
    */
   save(): void {
