@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.model;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,7 +55,8 @@ public class ShoppingCartTest {
         shoppingCart.removeProduct(TEST_PRODUCT);
         
         // Check
-        assertEquals(0, shoppingCart.getProducts().length);
+        Product[] ps = new Product[shoppingCart.getProducts().length];
+        assertArrayEquals(ps, shoppingCart.getProducts());
     }
 
 
@@ -84,8 +86,18 @@ public class ShoppingCartTest {
         assertTrue(empty);
     }
 
-
-
+    /**
+     * Tests if clear cart removes all products from the cart
+     */
+    @Test
+    void clearCart() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+        // Invoke
+        shoppingCart.clearCart();
+        
+        // Check
+        assertTrue(shoppingCart.isEmpty());
+    }
 
 
 
