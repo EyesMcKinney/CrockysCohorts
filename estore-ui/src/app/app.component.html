@@ -19,4 +19,10 @@
 </nav>
 <router-outlet></router-outlet>
 
+<nav *ngIf="otherUser==true">
+  <a routerLink="/shoppingcart">Shopping Cart</a>
+  <button (click)="logOut()">Log Out</button>
+</nav>
+<router-outlet></router-outlet>
+
 

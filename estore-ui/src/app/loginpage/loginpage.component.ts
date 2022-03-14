@@ -80,21 +80,6 @@ export class LoginpageComponent implements OnInit {
       this.goBack();
   }
 
-  /**
-   * Determins if {@link User User} that's signed in is an admin or not
-   */
-  checkUser(): void {
-    if(!this.user?.username) { return; }
-
-    if( this.user.username == "admin"){
-      this.adminUser = true ; 
-      
-    }else{
-      this.adminUser = false ;
-      // this.loginService.getUser(input)
-      //   .subscribe();
-    }
-  }
 
 
 }
