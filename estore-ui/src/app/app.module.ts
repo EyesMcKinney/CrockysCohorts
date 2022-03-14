@@ -13,6 +13,7 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { ProductAddComponent } from './product-add/product-add.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     HomepageComponent,
     LoginpageComponent,
     ShoppingCartComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    ProductAddComponent
   ],
   //providers: [],
   bootstrap: [AppComponent]
