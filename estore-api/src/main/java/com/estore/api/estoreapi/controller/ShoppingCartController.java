@@ -1,12 +1,10 @@
 package com.estore.api.estoreapi.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
-import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.ShoppingCartDAO;
 
 import org.springframework.http.HttpStatus;
