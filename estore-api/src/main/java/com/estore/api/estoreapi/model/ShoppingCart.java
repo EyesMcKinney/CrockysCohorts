@@ -2,8 +2,9 @@ package com.estore.api.estoreapi.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,35 +19,39 @@ public class ShoppingCart implements Cart{
     private static final Logger LOG = Logger.getLogger(ShoppingCart.class.getName());
 
     @JsonProperty("id")int id;
-    @JsonProperty("shopping-cart")List<Product> products;
-
-    static final String STRING_FORMAT = "Cart [id=%d, shopping-cart=%s]" ;
+    @JsonProperty("shopping-cart")Product[] products;
 
     /**
      * Create a new shopping cart
      */
-    public ShoppingCart(){  // TODO: load shopping cart from file w/r/t user id
-        this.products = new ArrayList<>();
+    public ShoppingCart(@JsonProperty("id")int id, @JsonProperty("shopping-cart")Product[] productArr) {
+        this.id = id;
+        this.products = productArr;
     }
     
     public int getId() {
         return id;
     }
 
+    private void add(Product product) {
+        products = Arrays.copyOf(products, products.length + 1);
+        products[products.length - 1] = product;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addProduct(Product product) throws IOException{
+    public void addProduct(Product product) throws IOException {
         // if the cart already has this product
-        int i = products.indexOf(product);
+        int i = Arrays.binarySearch(products, product);
         if (i != -1){
-            product = products.get(i);
+            product = products[i];
             product.setQuantity(product.getQuantity() + 1);
         }
         else{
             product.setQuantity(1);
-            products.add(product);
+            add(product);
         }
     }
 
@@ -54,28 +59,32 @@ public class ShoppingCart implements Cart{
      * {@inheritDoc}
      */
     @Override
-    public void removeProduct(Product product){
-        products.remove(product);
+    public void removeProduct(Product product) {
+        ArrayList<Product> arr = new ArrayList<>();
+        Collections.addAll(arr, products);
+        arr.remove(product);
+        products = new Product[arr.size()];
+        arr.toArray(products);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Product editProductQuantity(Product product, int amount) throws IOException{
-        int i = products.indexOf(product);
-        product.setQuantity(0);
+    public Product editProductQuantity(Product product, int amount) throws IOException {
+        int i = Arrays.binarySearch(products, product);
 
         // if the quantity will be 0
         if (amount <= 0){
             // remove the product
-            products.remove(product);
+            removeProduct(product);
         }
         else if (i != -1) {
-            product = products.get(i);
+            product = products[i];
             product.setQuantity(amount);
         }
 
+        product.setQuantity(0);
         return product;
     }
 
@@ -85,16 +94,16 @@ public class ShoppingCart implements Cart{
      * @return true if it is empty, false otherwise
      */
     @Override
-    public boolean isEmpty(){
-        return products.isEmpty();
+    public boolean isEmpty() {
+        return 0 == products.length;
     }
 
     /**
      * Empties the shopping cart
      */
     @Override
-    public void clearCart(){
-        products.clear();
+    public void clearCart() {
+        products = new Product[0];
     }
 
     /**
@@ -103,11 +112,11 @@ public class ShoppingCart implements Cart{
      * @return the total cost
      * @throws IOException
      */
-    public double buyEntireCart() throws IOException{
+    public double buyEntireCart() throws IOException {
         double total = 0;
         Product product;
 
-        Iterator<Product> iterateProducts = products.iterator();
+        Iterator<Product> iterateProducts = Arrays.asList(products).iterator();
         while (iterateProducts.hasNext()){
             product = iterateProducts.next();
             
@@ -133,8 +142,8 @@ public class ShoppingCart implements Cart{
     /**
      * {@inheritDoc}
      */
-    public Product[] getProducts(){
-        return (Product[])products.toArray();
+    public Product[] getProducts() {
+        return products;
     }
     
     /**
@@ -144,9 +153,9 @@ public class ShoppingCart implements Cart{
      * @throws IOException
      * @author Alex Vernes
      */
-    public double getTotalCost() throws IOException{
+    public double getTotalCost() throws IOException {
         double total = 0;
-        Iterator<Product> iterateProducts = products.iterator();
+        Iterator<Product> iterateProducts = Arrays.asList(products).iterator();
         Product product;
 
         while (iterateProducts.hasNext()){
@@ -157,11 +166,4 @@ public class ShoppingCart implements Cart{
         }
         return total;
     }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
-    }
-
 }

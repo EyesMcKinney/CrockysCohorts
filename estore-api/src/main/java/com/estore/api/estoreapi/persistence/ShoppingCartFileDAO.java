@@ -99,41 +99,6 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
     }
 
     /**
-     * save the users
-     * 
-     * @throws IOException when file cannot be accessed or read from
-     * @throws StreamWriteException
-     * @throws DatabindException
-     */
-    private Boolean save() throws IOException {
-        ShoppingCart[] cartArray = makeArray();
-        // Serializes the Java Objects to JSON objects into the file
-        // writeValue will thrown an IOException if there is an issue
-        // with the file or reading from the file
-        oMapper.writeValue(new File(filename), cartArray);
-        return true;
-    }
-
-    /**
-     * load the {@linkplain ShoppingCart ShoppingCart's}
-     * 
-     * @throws IOException when file cannot be accessed or read from
-     * @throws StreamWriteException
-     * @throws DatabindException
-     */
-    private boolean load() throws IOException {
-        carts = new HashMap<>();
-        // Deserializes the JSON objects from the file into an array of users
-        // readValue will throw an IOException if there's an issue with the file
-        // or reading from the file
-        ShoppingCart[] cartArray = oMapper.readValue(new File(filename), ShoppingCart[].class);
-        for (ShoppingCart cart : cartArray) {
-            carts.put(cart.getId(), cart);
-        }
-        return true;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -169,5 +134,39 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
     public double getCost(int id) throws IOException {
         return carts.get(id).getTotalCost();
     }
-    
+
+    /**
+     * save the users
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     * @throws StreamWriteException
+     * @throws DatabindException
+     */
+    private Boolean save() throws IOException {
+        ShoppingCart[] cartArray = makeArray();
+        // Serializes the Java Objects to JSON objects into the file
+        // writeValue will thrown an IOException if there is an issue
+        // with the file or reading from the file
+        oMapper.writeValue(new File(filename), cartArray);
+        return true;
+    }
+
+    /**
+     * load the {@linkplain ShoppingCart ShoppingCart's}
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     * @throws StreamWriteException
+     * @throws DatabindException
+     */
+    private boolean load() throws IOException {
+        carts = new HashMap<>();
+        // Deserializes the JSON objects from the file into an array of users
+        // readValue will throw an IOException if there's an issue with the file
+        // or reading from the file
+        ShoppingCart[] cartArray = oMapper.readValue(new File(filename), ShoppingCart[].class);
+        for (ShoppingCart cart : cartArray) {
+            carts.put(cart.getId(), cart);
+        }
+        return true;
+    }
 }
