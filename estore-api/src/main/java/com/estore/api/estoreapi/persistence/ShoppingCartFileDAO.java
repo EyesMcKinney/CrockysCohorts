@@ -56,7 +56,7 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
      */
     @Override
     public ShoppingCart getCart(int id) throws IOException {
-        return user.getCart();
+        return carts.get(id);
     }
 
     /**
@@ -64,7 +64,8 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
      */
     @Override
     public void addToCart(int id, Product product) throws IOException {
-        user.addToCart(product);
+        ShoppingCart cart = getCart(id);
+        cart.addProduct(product);
     }
 
     /**
@@ -92,7 +93,7 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
     }
 
     /**
-     * load the users
+     * load the {@linkplain ShoppingCart ShoppingCart's}
      * 
      * @throws IOException when file cannot be accessed or read from
      * @throws StreamWriteException
