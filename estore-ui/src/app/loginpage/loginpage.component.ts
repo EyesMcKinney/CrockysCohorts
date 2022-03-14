@@ -4,6 +4,7 @@ import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Location } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginpage',
@@ -14,7 +15,7 @@ export class LoginpageComponent implements OnInit {
   user?: User;
   adminUser: Boolean | undefined; 
 
-  constructor(private loginService: LoginService, private location: Location, private router: AppRoutingModule) {
+  constructor(private loginService: LoginService, private location: Location, private router: Router) {
     this.adminUser = false ;
     // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
@@ -54,9 +55,11 @@ export class LoginpageComponent implements OnInit {
 
       this.loginService.getUser(
             username
-        ).subscribe(user => this.setUser(user));
-      this.checkUser();
-      this.goBack();
+        ).subscribe(user => {
+            this.setUser(user);
+            this.checkUser();
+            this.goBack();
+        });
   }
 
   /**
