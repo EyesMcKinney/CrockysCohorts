@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AdminComponent } from './admin/admin.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { AdminComponent } from './admin/admin.component';
     ProductInfoComponent,
     HomepageComponent,
     LoginpageComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    ProductEditComponent
   ],
   //providers: [],
   bootstrap: [AppComponent]
