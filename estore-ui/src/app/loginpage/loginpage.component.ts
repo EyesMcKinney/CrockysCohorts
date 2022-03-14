@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 import { AdminComponent } from '../admin/admin.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 @Component({
   selector: 'app-loginpage',
@@ -13,13 +14,12 @@ import { AdminComponent } from '../admin/admin.component';
   styleUrls: ['./loginpage.component.css']
 })
 export class LoginpageComponent implements OnInit {
-  user?: User | undefined;
+  user?: User;
   adminUser: Boolean | undefined; 
-  // username: string |undefined ;
-  // private user = new Subject<string>();
 
   constructor(private loginService: LoginService, private location: Location, 
     private appComponent: AppComponent, private router: Router) {
+
     this.adminUser = false ;
     // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
@@ -28,12 +28,22 @@ export class LoginpageComponent implements OnInit {
   ngOnInit(): void { }
 
   /**
+   * Update the current user in this {@link LoginpageComponent LoginpageComponent} and in {@link LoginService LoginService}.
+   * @param newUser {@link User User} that's signed in
+   */
+  setUser(newUser: User): void {
+      this.user = newUser;
+      this.loginService.userLogin(newUser);
+  }
+
+  /**
    * Load previous page.
    */
   goBack(): void {
       if (this.user?.username == "admin") { 
-          return;
+          return;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ROUTE TO ADMIN COMPONENT
       } else {
+        //this.router.navigate(); navigate method doesn't exist??? this shouldn't be a problem... <<<<<<<<<<<<<<<<
         this.location.back();
       }
   }
@@ -53,12 +63,11 @@ export class LoginpageComponent implements OnInit {
       }else{
         this.loginService.getUser(
             username
-        ).subscribe(user => this.user = user);
-      }
-      //this.checkUser();
-      
-      
-      //this.goBack();
+        ).subscribe(user => {
+            this.setUser(user);
+            this.checkUser();
+            this.goBack();
+        });
   }
 
   /**
@@ -74,9 +83,7 @@ export class LoginpageComponent implements OnInit {
       }
 
       this.loginService.createUser( { username } as User)
-      .subscribe(user => {
-          this.user = user;
-      });
+      .subscribe(user => this.setUser(user));
       this.goBack();
   }
 

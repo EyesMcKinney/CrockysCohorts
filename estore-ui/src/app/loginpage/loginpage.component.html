@@ -2,6 +2,7 @@
 
 <div>
     <label for="username">Username: </label>
+    <!--<input id="username" [(ngModule)]="loginUser.username" #userName>-->
     <input id="username" #userName>
     <button type="button" (click)="login(userName.value)">Login</button>
     <button type="button" (click)="createUser(userName.value)">Create Account</button>

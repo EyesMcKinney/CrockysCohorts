@@ -8,10 +8,12 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { HeaderComponent } from './header/header.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -34,9 +36,11 @@ import { RouterModule } from '@angular/router';
     ProductInfoComponent,
     HomepageComponent,
     LoginpageComponent,
-    ShoppingCartComponent,
     ProductEditComponent,
     ProductAddComponent
+    HeaderComponent,
+    ShoppingCartComponent,
+    MessagesComponent
   ],
   //providers: [],
   bootstrap: [AppComponent]
