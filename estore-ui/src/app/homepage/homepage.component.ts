@@ -21,8 +21,5 @@ export class HomepageComponent implements OnInit {
     this.inventoryService.getInventory()
       .subscribe(products => this.products = products);
   }
-  
-  tester(): void{
-    this.appcomp.adminUser = !this.appcomp.adminUser ;
-  }
+
 }

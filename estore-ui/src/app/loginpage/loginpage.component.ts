@@ -4,6 +4,8 @@ import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Location } from '@angular/common';
 import { AppComponent } from '../app.component';
+import { Router } from '@angular/router';
+import { AdminComponent } from '../admin/admin.component';
 
 @Component({
   selector: 'app-loginpage',
@@ -16,7 +18,8 @@ export class LoginpageComponent implements OnInit {
   // username: string |undefined ;
   // private user = new Subject<string>();
 
-  constructor(private loginService: LoginService, private location: Location, private appComponent: AppComponent) {
+  constructor(private loginService: LoginService, private location: Location, 
+    private appComponent: AppComponent, private router: Router) {
     this.adminUser = false ;
     // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
@@ -44,11 +47,17 @@ export class LoginpageComponent implements OnInit {
       this.appComponent.changeAdminUser ; 
       username = username.trim();
       if (!username) {return;}
-
-      this.loginService.getUser(
+      if(username == "admin"){
+        this.appComponent.changeAdminUser() ;
+        this.router.navigate(['admin']);
+      }else{
+        this.loginService.getUser(
             username
         ).subscribe(user => this.user = user);
-      this.checkUser();
+      }
+      //this.checkUser();
+      
+      
       //this.goBack();
   }
 

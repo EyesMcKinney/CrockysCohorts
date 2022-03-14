@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ export class AppComponent {
   adminUser: Boolean | undefined ;
   otherUser: Boolean | undefined ;
 
-  constructor() {
+  constructor( private router: Router ) {
     this.adminUser = false ;
     this.otherUser = false ;
   }
@@ -22,6 +23,13 @@ export class AppComponent {
   changeOtherUser(): void {
     this.otherUser = !this.otherUser ; 
   }
+
+  logOut(): void {
+    this.adminUser = false ; 
+    this.otherUser = false ;
+    this.router.navigate(['homepage']);
+  }
+
 
 }
 
