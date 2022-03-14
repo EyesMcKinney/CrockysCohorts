@@ -43,5 +43,13 @@ export class LoginService {
   createUser(user: User): Observable<User> { 
       return this.http.post<User>(this.loginUrl, user, this.httpOptions);
   }
+/**
+   * Set boolean object to true
+   * 
+   * Return true
+   */
+  returnTrue(): Boolean {
+    return true ;
+  }
 
 }

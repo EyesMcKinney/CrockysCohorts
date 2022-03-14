@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Crocy\'s Crochet';
+  adminUser: Boolean | undefined ;
+  otherUser: Boolean | undefined ;
+
+  constructor() {
+    this.adminUser = false ;
+    this.otherUser = false ;
+  }
+
+  changeAdminUser(): void {
+    this.adminUser == true ; 
+  }
+
 }
+
+
