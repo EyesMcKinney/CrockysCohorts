@@ -27,8 +27,6 @@ public class ShoppingCartControllerTests {
     // mock object
     private ShoppingCart mockShoppingCart;
     private ShoppingCartDAO mockShoppingCartDAO;
-    private UserDAO mockUserDAO;
-    //private User user;
 
     // test objects
     int id = 1;
@@ -41,12 +39,7 @@ public class ShoppingCartControllerTests {
     void setup() throws IOException{
         mockShoppingCart = mock(ShoppingCart.class);
         mockShoppingCartDAO = mock(ShoppingCartDAO.class);
-        //mockUserDAO = mock(UserDAO.class);
-        //user = new User(id, "frank");
         shoppingCartController = new ShoppingCartController(mockShoppingCartDAO);
-
-        //when(mockUserDAO.getUser(id)).thenReturn(user);
-        //when(mockUserDAO.getCart(user)).thenReturn(mockShoppingCartDAO);
     }
 
     /**
@@ -100,7 +93,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testAddProductError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCartDAO).addProduct(id, TEST_PRODUCT);
+        doThrow(new IOException()).when(mockShoppingCartDAO).getCart(id);
 
         // invoke
         ResponseEntity<Product> response = shoppingCartController.addProduct(id, TEST_PRODUCT);
@@ -155,7 +148,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testEditProductQuantityError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCartDAO).editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
+        doThrow(new IOException()).when(mockShoppingCartDAO).getCart(id);
 
         // invoke
         ResponseEntity<Product> response = shoppingCartController.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
@@ -187,7 +180,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testBuyEntireCartError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCartDAO).buyEntireCart(id);
+        doThrow(new IOException()).when(mockShoppingCartDAO).getCart(id);
 
         // invoke
         ResponseEntity<Double> response = shoppingCartController.buyEntireCart(id);
