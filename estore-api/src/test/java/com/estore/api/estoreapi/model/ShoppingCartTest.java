@@ -4,11 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -93,22 +90,6 @@ public class ShoppingCartTest {
     }
 
     /**
-     * Test if edit product quantity of 0 removes the product
-     */
-    @Test
-    void testEditProductQuantity0() throws IOException{
-        shoppingCart.addProduct(TEST_PRODUCT);
-
-        // Invoke
-        int quantity = 0;
-        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
-        
-        // Check
-        Product[] ps = new Product[shoppingCart.getProducts().length];
-        assertArrayEquals(ps, shoppingCart.getProducts());
-    }
-
-    /**
      * Test if edit product quantity of a negative amount removes the product
      */
     @Test
@@ -128,16 +109,29 @@ public class ShoppingCartTest {
      * Test if edit product quantity of a product not in the cart
      * will add the product and edit the amount
      */
-    @Test //TODO check this again
-    void testEditProductQuantity() throws IOException{
+    @Test
+    void testEditProductQuantityItemInCart() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
         // Invoke
         int quantity = 3;
         shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
         
         // Check
-        Product[] ps = new Product[shoppingCart.getProducts().length];
-        assertArrayEquals(ps, shoppingCart.getProducts());
-        //////assertEquals(quantity, shoppingCart.getProducts()[0].getQuantity());
+        assertEquals(quantity, shoppingCart.getProducts()[0].getQuantity());
+    }
+
+    /**
+     * Test if edit product quantity of a product not in the cart,
+     * will do nothing with that product
+     */
+    @Test
+    void testEditProductQuantityNotInCart() throws IOException{
+        // Invoke
+        int quantity = 3;
+        shoppingCart.editProductQuantity(TEST_PRODUCT, quantity);
+        
+        // Check
+        assertEquals(0, TEST_PRODUCT.getQuantity());
     }
 
     /**
