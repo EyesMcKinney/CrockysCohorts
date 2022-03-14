@@ -40,8 +40,21 @@ public class ShoppingCartTest {
         assertEquals(TEST_PRODUCT, addedProduct);
         assertEquals(TEST_PRODUCT.getQuantity(), addedProduct.getQuantity());
     }
+    //TODO add more tests for addproduct
 
-    
+    /**
+     * Test if remove product removes a product from the array
+     */
+    @Test
+    void testRemoveProduct() throws IOException{
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Invoke
+        shoppingCart.removeProduct(TEST_PRODUCT);
+        
+        // Check
+        assertEquals(0, shoppingCart.getProducts().length);
+    }
 
 
 
