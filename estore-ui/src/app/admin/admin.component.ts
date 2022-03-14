@@ -1,3 +1,9 @@
+/**
+ * Manages the admin page
+ * 
+ * @author Tylin Hartman
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../inventory.service';
 import { Product } from '../product';
@@ -9,6 +15,7 @@ import { Product } from '../product';
 })
 export class AdminComponent implements OnInit {
 
+  /** Array of products */
   products: Product[] = [];
 
   constructor(private inventoryService: InventoryService) { }
@@ -17,6 +24,9 @@ export class AdminComponent implements OnInit {
     this.getProducts();
   }
   
+  /**
+   * Retrieves inventory to be displayed
+   */
   getProducts(): void {
     this.inventoryService.getInventory()
       .subscribe(products => this.products = products);

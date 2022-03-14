@@ -1,9 +1,10 @@
 <h2></h2>
-
+<!--Link to add a new product compontent-->
 <div>
   <a routerLink="add">New Product</a>
 </div>
 
+<!--Display all of the products-->
 <div class="products-menu">
   <a *ngFor="let product of products"
       routerLink="/edit/{{product.id}}">
