@@ -96,7 +96,7 @@ public class ShoppingCart implements Cart{
                 break;
             }
         }
-        
+
         // if the quantity will be 0
         if (amount <= 0){
             // remove the product
@@ -107,7 +107,6 @@ public class ShoppingCart implements Cart{
             product.setQuantity(amount);
         }
 
-        product.setQuantity(0);
         return product;
     }
 

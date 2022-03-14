@@ -210,7 +210,6 @@ public class ShoppingCartTest {
 
     /**
      * Test if the to string returns the correct string
-     * TODO change this one later when Stevie changes it
      */
     @Test
     void testToString(){
