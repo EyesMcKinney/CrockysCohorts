@@ -20,10 +20,11 @@ export class AppComponent {
   /**
    * {@link Subscription Subscription} to subscribe to user changes.
    */
-  subscription: Subscription | undefined;
+  subscription!: Subscription;
 
   constructor(private loginService: LoginService, private message: MessageService) {
       this.user = {id:-1, username:"dummy user"} as User;
+      this.subscription = this.loginService.getLoggedInUser().subscribe(user => this.user = user);
   }
 
   public ngOnInit(): void {  // subscribe to user login
