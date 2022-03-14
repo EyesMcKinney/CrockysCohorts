@@ -73,7 +73,8 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
      */
     @Override
     public void removeFromCart(int id, Product product) throws IOException {
-        user.removeFromCart(product);
+        ShoppingCart cart = getCart(id);
+        cart.removeProduct(product);
     }
 
     /**
