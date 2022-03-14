@@ -1,0 +1,21 @@
+<nav>
+    <a routerLink="/homepage">Homepage</a>
+    <!--<header-router-outlet></header-router-outlet>-->
+    <!--*ngIf="admin=undefined"-->
+    <div *ngIf="currentUser.id == -1">  <!--When no one's logged in -> login page-->
+        <a routerLink="/loginpage">Login</a>
+    </div>
+
+    <div *ngIf="currentUser.id >= 1"><!--When user logged in: shopping cart link (and logout option?)-->
+        <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->
+    </div>
+
+    <div>
+        <!--search bar-->
+    </div>
+        
+    
+    <div *ngIf="currentUser.id == 0"><!--When admin logged in: admin component template link(?) (and logout option?)-->
+        <!--<a routerLink="/admin">Admin</a> ADMIN COMPONENT HAS YET TO BE IMPLEMENTED-->
+    </div>
+</nav>
