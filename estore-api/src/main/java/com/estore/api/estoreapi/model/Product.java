@@ -117,4 +117,5 @@ public class Product {
     public String toString() {
         return String.format(STRING_FORMAT, id, name, price, description, quantity) ;
     }
+
 }

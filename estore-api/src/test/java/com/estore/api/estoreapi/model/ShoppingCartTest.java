@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -18,6 +19,7 @@ public class ShoppingCartTest {
     private ShoppingCart shoppingCart;
 
     // Test objects
+    Product[] productArr;
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
 
     /**
@@ -25,7 +27,8 @@ public class ShoppingCartTest {
      */
     @BeforeEach
     void setup(){
-        shoppingCart = new ShoppingCart(0, null);
+        productArr = new Product[0];
+        shoppingCart = new ShoppingCart(3, productArr);
     }
 
     /**

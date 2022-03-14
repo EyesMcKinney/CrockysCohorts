@@ -55,7 +55,13 @@ public class ShoppingCart implements Cart{
     @Override
     public void addProduct(Product product) throws IOException {
         // if the cart already has this product
-        int i = Arrays.binarySearch(products, product);
+        int i = -1;
+        for (int j = 0; j < products.length; j++){
+            if (product.getId() == products[j].getId()){
+                i = j;
+                break;
+            }
+        }
         if (i != -1){
             product = products[i];
             product.setQuantity(product.getQuantity() + 1);
@@ -83,8 +89,14 @@ public class ShoppingCart implements Cart{
      */
     @Override
     public Product editProductQuantity(Product product, int amount) throws IOException {
-        int i = Arrays.binarySearch(products, product);
-
+        int i = -1;
+        for (int j = 0; j < products.length; j++){
+            if (product.getId() == products[j].getId()){
+                i = j;
+                break;
+            }
+        }
+        
         // if the quantity will be 0
         if (amount <= 0){
             // remove the product
