@@ -71,7 +71,7 @@ public interface ShoppingCartDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    double buyCart(int id) throws IOException;
+    double buyEntireCart(int id) throws IOException;
 
     /**
      * Get the cost of a {@linkplain User User's} {@linkplain ShoppingCart ShoppingCart}.
@@ -81,5 +81,5 @@ public interface ShoppingCartDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    double getCost(int id) throws IOException;
+    double getTotalCost(int id) throws IOException;
 }

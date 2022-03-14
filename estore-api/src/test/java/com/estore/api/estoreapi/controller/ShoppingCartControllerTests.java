@@ -8,6 +8,7 @@ import java.io.IOException;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
+import com.estore.api.estoreapi.persistence.ShoppingCartDAO;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +26,12 @@ public class ShoppingCartControllerTests {
 
     // mock object
     private ShoppingCart mockShoppingCart;
+    private ShoppingCartDAO mockShoppingCartDAO;
     private UserDAO mockUserDAO;
-    private User user;
+    //private User user;
 
     // test objects
+    int id = 1;
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
 
     /**
@@ -37,25 +40,28 @@ public class ShoppingCartControllerTests {
     @BeforeEach
     void setup() throws IOException{
         mockShoppingCart = mock(ShoppingCart.class);
-        mockUserDAO = mock(UserDAO.class);
-        user = new User(1, "frank");
-        shoppingCartController = new ShoppingCartController(mockUserDAO);
+        mockShoppingCartDAO = mock(ShoppingCartDAO.class);
+        //mockUserDAO = mock(UserDAO.class);
+        //user = new User(id, "frank");
+        shoppingCartController = new ShoppingCartController(mockShoppingCartDAO);
 
-        when(mockUserDAO.getUser(user.getName())).thenReturn(user);
-        when(mockUserDAO.getCart(user)).thenReturn(mockShoppingCart);
+        //when(mockUserDAO.getUser(id)).thenReturn(user);
+        //when(mockUserDAO.getCart(user)).thenReturn(mockShoppingCartDAO);
     }
 
     /**
      * Test if get products returns OK and the correct Product's array
+     * @throws IOException
      */
     @Test
-	void testGetProducts() {
+	void testGetProducts() throws IOException {
         Product[] products = new Product[1];
         products[0] = TEST_PRODUCT;
+        when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
         when(mockShoppingCart.getProducts()).thenReturn(products);
-
+        
         // invoke
-        ResponseEntity<Product[]> response = shoppingCartController.getProducts(user.getName());
+        ResponseEntity<Product[]> response = shoppingCartController.getProducts(id);
     
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -67,10 +73,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testGetProductsError() throws IOException {
-        doThrow(new IOException()).when(mockUserDAO).getUser(user.getName());
+        doThrow(new IOException()).when(mockUserDAO).getUser(id);
 
         // invoke
-        ResponseEntity<Product[]> response = shoppingCartController.getProducts(user.getName());
+        ResponseEntity<Product[]> response = shoppingCartController.getProducts(id);
     
         // check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
@@ -82,7 +88,7 @@ public class ShoppingCartControllerTests {
     @Test
     void testAddProduct(){
         // invoke
-        ResponseEntity<Product> response = shoppingCartController.addProduct(user.getName(), TEST_PRODUCT);
+        ResponseEntity<Product> response = shoppingCartController.addProduct(id, TEST_PRODUCT);
     
         // check
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -94,10 +100,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testAddProductError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCart).addProduct(TEST_PRODUCT);
+        doThrow(new IOException()).when(mockShoppingCartDAO).addProduct(TEST_PRODUCT);
 
         // invoke
-        ResponseEntity<Product> response = shoppingCartController.addProduct(user.getName(), TEST_PRODUCT);
+        ResponseEntity<Product> response = shoppingCartController.addProduct(id, TEST_PRODUCT);
     
         // check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
@@ -109,7 +115,7 @@ public class ShoppingCartControllerTests {
     @Test
     void testRemoveProduct(){
         // invoke
-        ResponseEntity<Product> response = shoppingCartController.removeProduct(user.getName(), TEST_PRODUCT);
+        ResponseEntity<Product> response = shoppingCartController.removeProduct(id, TEST_PRODUCT);
 
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -121,10 +127,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testRemoveProductError() throws IOException {
-        doThrow(new IOException()).when(mockUserDAO).getUser(user.getName());
+        doThrow(new IOException()).when(mockUserDAO).getUser(id);
 
         // invoke
-        ResponseEntity<Product> response = shoppingCartController.removeProduct(user.getName(), TEST_PRODUCT);
+        ResponseEntity<Product> response = shoppingCartController.removeProduct(id, TEST_PRODUCT);
     
         // check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
@@ -136,8 +142,8 @@ public class ShoppingCartControllerTests {
     @Test
     void testEditProductQuantity() throws IOException {
         // invoke
-        when(mockShoppingCart.editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
-        ResponseEntity<Product> response = shoppingCartController.editProductQuantity(user.getName(), TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
+        when(mockShoppingCartDAO.editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
+        ResponseEntity<Product> response = shoppingCartController.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -149,10 +155,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testEditProductQuantityError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCart).editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
+        doThrow(new IOException()).when(mockShoppingCartDAO).editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // invoke
-        ResponseEntity<Product> response = shoppingCartController.editProductQuantity(user.getName(), TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
+        ResponseEntity<Product> response = shoppingCartController.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
@@ -164,11 +170,11 @@ public class ShoppingCartControllerTests {
     @Test
     void testBuyEntireCart() throws IOException{
         // simulates having 1 TEST_PRODUCT in the shopping cart
-        when(mockShoppingCart.buyEntireCart()).thenReturn(TEST_PRODUCT.getPrice());
+        when(mockShoppingCartDAO.buyEntireCart(id)).thenReturn(TEST_PRODUCT.getPrice());
 
 
         // invoke
-        ResponseEntity<Double> response = shoppingCartController.buyEntireCart(user.getName());
+        ResponseEntity<Double> response = shoppingCartController.buyEntireCart(id);
 
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -181,10 +187,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testBuyEntireCartError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCart).buyEntireCart();
+        doThrow(new IOException()).when(mockShoppingCartDAO).buyEntireCart(id);
 
         // invoke
-        ResponseEntity<Double> response = shoppingCartController.buyEntireCart(user.getName());
+        ResponseEntity<Double> response = shoppingCartController.buyEntireCart(id);
 
         // check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
@@ -196,10 +202,10 @@ public class ShoppingCartControllerTests {
     @Test
     void testGetTotalCost() throws IOException{
         // simulates having 1 TEST_PRODUCT in the shopping cart
-        when(mockShoppingCart.getTotalCost()).thenReturn(TEST_PRODUCT.getPrice());
+        when(mockShoppingCartDAO.getTotalCost(id)).thenReturn(TEST_PRODUCT.getPrice());
 
         // invoke
-        ResponseEntity<Double> response = shoppingCartController.getTotalCost(user.getName());
+        ResponseEntity<Double> response = shoppingCartController.getTotalCost(id);
 
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -211,10 +217,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testGetTotalCostError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCart).getTotalCost();
+        doThrow(new IOException()).when(mockShoppingCartDAO).getCart(id);
 
         // invoke
-        ResponseEntity<Double> response = shoppingCartController.getTotalCost(user.getName());
+        ResponseEntity<Double> response = shoppingCartController.getTotalCost(id);
 
         // check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
