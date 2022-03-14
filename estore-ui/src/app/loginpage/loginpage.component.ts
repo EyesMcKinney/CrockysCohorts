@@ -70,21 +70,21 @@ export class LoginpageComponent implements OnInit {
         });
   }
 
-  /**
+/**
    * Create a new {@link User User} with provided username
    * 
    * @param username name of the desired {@link User User} to create
    */
   createUser(username: string): void {
-      username = username.trim();
-      if (!username) {return;}
-      if (username == "admin") {
-          //TODO use message service to print error message
-      }
+    username = username.trim();
+    if (!username) {return;}
+    if (username == "admin") {
+        //TODO use message service to print error message
+    }
 
-      this.loginService.createUser( { username } as User)
-      .subscribe(user => this.setUser(user));
-      this.goBack();
+    this.loginService.createUser( { username } as User)
+    .subscribe(user => this.setUser(user));
+    this.goBack();
   }
 
 
