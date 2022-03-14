@@ -35,6 +35,14 @@ public class User{
     }
 
     /**
+     * Get the ID of the user
+     * @return the ID of the user
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * for testing purposes, puts the user into a readable format
      */
     @Override
