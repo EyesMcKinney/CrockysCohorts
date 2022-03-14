@@ -81,13 +81,14 @@ public class InventoryController {
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * 
-     * @author Alex Vernes
+     * @author Alex Vernes and Isaac McKinney
      */
     @GetMapping("/")
-    public ResponseEntity<Product[]> searchforProduct(@RequestParam String text) {
+    public ResponseEntity<Product[]> searchforProduct(@RequestParam("name") String text) {
         LOG.info("GET /products/?name="+text);
         try {
-            return new ResponseEntity<>(inventoryDAO.findProducts(text), HttpStatus.OK);
+            Product[] products = inventoryDAO.findProducts(text);
+            return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

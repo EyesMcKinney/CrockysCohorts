@@ -2,8 +2,6 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
 
-import com.estore.api.estoreapi.model.Product;
-import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 
 /**
@@ -56,29 +54,4 @@ public interface UserDAO {
      * @throws IOException if an issue with underlying storage
      */
     User[] getUsers() throws IOException;
-
-    /**
-     * get the shopping cart of the user
-     * 
-     * @param user user to get the shopping cart for
-     * 
-     * @return User's shopping Cart 
-     * 
-     * @throws IOException
-     */
-    ShoppingCart getCart(User user) throws IOException;
-
-    /**
-     * Add a {@linkplain Product Product} to a {@linkplain User User}'s cart.
-     * 
-     * @throws IOException if an issue with underlying storage
-     */
-    void addToCart(User user, Product product) throws IOException;
-
-    /**
-     * Remove a {@linkplain Product Product} to a {@linkplain User User}'s cart.
-     * 
-     * @throws IOException if an issue with underlying storage
-     */
-    void removeFromCart(User user, Product product) throws IOException;
 }

@@ -11,12 +11,13 @@ import { Location } from '@angular/common';
 
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
+import { CartService } from '../cart.service';
 
 
 /**
  * Provides methods to interact with individual {@linkplain Product}.
  * 
- * @author Stevie Alvarez
+ * @author Stevie Alvarez and Isaac McKinney
  */
 @Component({
   selector: 'app-product-info',
@@ -29,7 +30,8 @@ export class ProductInfoComponent implements OnInit {
     constructor(
         private route: ActivatedRoute, 
         private inventoryService: InventoryService,
-        private location: Location
+        private location: Location,
+        private cartService: CartService
     ) { }
 
     /**
@@ -69,7 +71,10 @@ export class ProductInfoComponent implements OnInit {
      * the change to the server (save the cart). If the user is not
      * signed-in, redirect them to the login page. 
      */
-    addToCart(): void { }
+     addToCart(product: Product) {
+        this.cartService.addToCart(product);
+        window.alert('Your product has been added to the cart!');
+    }
 
 
     /**
@@ -93,4 +98,5 @@ export class ProductInfoComponent implements OnInit {
             Number(this.route.snapshot.paramMap.get("id"))
             ).subscribe(product => this.product = product);
     }
+    
 }

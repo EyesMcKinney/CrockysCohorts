@@ -138,34 +138,6 @@ public class UserFileDAO implements UserDAO{
             return searchForUser(null);
         }
     }
-
-    /**
-     * get the cart of a certain user
-     * 
-     * @param user : User to get the cart for
-     * 
-     * @throws IOException when file cannot be accessed or read from
-     */
-    @Override
-    public ShoppingCart getCart(User user) throws IOException {
-        return user.getCart();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addToCart(User user, Product product) throws IOException {
-        user.addToCart(product);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeFromCart(User user, Product product) throws IOException {
-        user.removeFromCart(product);
-    }
     
     /**
      * save the users
