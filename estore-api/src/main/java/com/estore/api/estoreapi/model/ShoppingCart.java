@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,15 +14,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Holden Lalumiere
  */
 public class ShoppingCart implements Cart{
+    private static final Logger LOG = Logger.getLogger(ShoppingCart.class.getName());
 
+    @JsonProperty("id")int id;
     @JsonProperty("shopping-cart")List<Product> products;
+
+    static final String STRING_FORMAT = "Cart [id=%d, shopping-cart=%s]" ;
 
     /**
      * Create a new shopping cart
      */
     public ShoppingCart(){  // TODO: load shopping cart from file w/r/t user id
         this.products = new ArrayList<>();
-        load();
     }
 
     /**
@@ -148,20 +152,6 @@ public class ShoppingCart implements Cart{
             total += product.getPrice() * product.getQuantity();
         }
         return total;
-    }
-
-    /**
-     * Load a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart} w/r/t user id.
-     */
-    private void load() {
-        // TODO
-    }
-
-    /**
-     * Load a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart} w/r/t user id.
-     */
-    private void save() {
-        // TODO
     }
 
     @Override
