@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
 })
 export class AppComponent {
   title = 'Crocy\'s Crochet';
-
+  
   /**
    * Current {@link User User} logged in.
    */
