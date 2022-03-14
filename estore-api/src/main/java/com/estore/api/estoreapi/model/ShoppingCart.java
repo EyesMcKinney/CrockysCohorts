@@ -106,6 +106,9 @@ public class ShoppingCart implements Cart{
             product = products[i];
             product.setQuantity(amount);
         }
+        else{
+            product.setQuantity(0);
+        }
 
         return product;
     }
