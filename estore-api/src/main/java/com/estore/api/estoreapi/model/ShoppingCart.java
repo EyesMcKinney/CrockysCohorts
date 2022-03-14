@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * A shopping cart to be given to each user
  * 
  * @author Holden Lalumiere
+ * @author Stevie Alvarez
  */
 public class ShoppingCart implements Cart{
     private static final Logger LOG = Logger.getLogger(ShoppingCart.class.getName());
@@ -26,6 +27,10 @@ public class ShoppingCart implements Cart{
      */
     public ShoppingCart(){  // TODO: load shopping cart from file w/r/t user id
         this.products = new ArrayList<>();
+    }
+    
+    public int getId() {
+        return id;
     }
 
     /**
