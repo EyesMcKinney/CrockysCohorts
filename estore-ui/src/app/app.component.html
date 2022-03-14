@@ -4,14 +4,19 @@
     <title>Product Info display</title>
     <link type="text/css" rel="stylesheet" href="app.component.css">
 </head>
+
 <h1>{{title}}</h1>
+
 <nav *ngIf="adminUser==false&&otherUser==false">
   <a routerLink="/homepage">Homepage</a>
   <a routerLink="/loginpage">Login</a>
 </nav>
 <router-outlet></router-outlet>
+
 <nav *ngIf="adminUser==true">
   <a routerLink="/admin">Admin</a>
   <button (click)="changeAdminUser()">Log Out</button>
 </nav>
 <router-outlet></router-outlet>
+
+
