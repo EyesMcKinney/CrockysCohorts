@@ -73,7 +73,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testGetProductsError() throws IOException {
-        doThrow(new IOException()).when(mockUserDAO).getUser(id);
+        doThrow(new IOException()).when(mockShoppingCartDAO).getCart(id);
 
         // invoke
         ResponseEntity<Product[]> response = shoppingCartController.getProducts(id);
@@ -100,7 +100,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testAddProductError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCartDAO).addProduct(TEST_PRODUCT);
+        doThrow(new IOException()).when(mockShoppingCartDAO).addProduct(id, TEST_PRODUCT);
 
         // invoke
         ResponseEntity<Product> response = shoppingCartController.addProduct(id, TEST_PRODUCT);
@@ -127,7 +127,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testRemoveProductError() throws IOException {
-        doThrow(new IOException()).when(mockUserDAO).getUser(id);
+        doThrow(new IOException()).when(mockShoppingCartDAO).getCart(id);
 
         // invoke
         ResponseEntity<Product> response = shoppingCartController.removeProduct(id, TEST_PRODUCT);
@@ -142,7 +142,7 @@ public class ShoppingCartControllerTests {
     @Test
     void testEditProductQuantity() throws IOException {
         // invoke
-        when(mockShoppingCartDAO.editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
+        when(mockShoppingCartDAO.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
         ResponseEntity<Product> response = shoppingCartController.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // check
@@ -155,7 +155,7 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testEditProductQuantityError() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCartDAO).editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
+        doThrow(new IOException()).when(mockShoppingCartDAO).editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // invoke
         ResponseEntity<Product> response = shoppingCartController.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
