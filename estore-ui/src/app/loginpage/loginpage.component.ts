@@ -3,10 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Location } from '@angular/common';
-import { AppComponent } from '../app.component';
-import { Router } from '@angular/router';
-import { AdminComponent } from '../admin/admin.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginpage',
@@ -17,9 +15,7 @@ export class LoginpageComponent implements OnInit {
   user?: User;
   adminUser: Boolean | undefined; 
 
-  constructor(private loginService: LoginService, private location: Location, 
-    private appComponent: AppComponent, private router: Router) {
-
+  constructor(private loginService: LoginService, private location: Location, private router: Router) {
     this.adminUser = false ;
     // initialize user to blank user(maybe? might not be necessary): this.user = new User(""); // user w/ no name
   }
@@ -54,14 +50,10 @@ export class LoginpageComponent implements OnInit {
    * @param username name of the desired {@link User User} to login to
    */
   login(username: string): void {
-      this.appComponent.changeAdminUser ; 
       username = username.trim();
       if (!username) {return;}
-      if(username == "admin"){
-        this.appComponent.changeAdminUser() ;
-        this.router.navigate(['admin']);
-      }else{
-        this.loginService.getUser(
+
+      this.loginService.getUser(
             username
         ).subscribe(user => {
             this.setUser(user);
@@ -70,32 +62,32 @@ export class LoginpageComponent implements OnInit {
         });
   }
 
-/**
+  /**
    * Create a new {@link User User} with provided username
    * 
    * @param username name of the desired {@link User User} to create
    */
   createUser(username: string): void {
-    username = username.trim();
-    if (!username) {return;}
-    if (username == "admin") {
-        //TODO use message service to print error message
-    }
+      username = username.trim();
+      if (!username) {return;}
+      if (username == "admin") {
+          //TODO use message service to print error message
+      }
 
-    this.loginService.createUser( { username } as User)
-    .subscribe(user => this.setUser(user));
-    this.goBack();
+      this.loginService.createUser( { username } as User)
+      .subscribe(user => this.setUser(user));
+      this.goBack();
   }
-
 
   /**
    * Determins if {@link User User} that's signed in is an admin or not
    */
-   checkUser(): void {
+  checkUser(): void {
     if(!this.user?.username) { return; }
 
     if( this.user.username == "admin"){
       this.adminUser = true ; 
+      
       
     }else{
       this.adminUser = false ;
@@ -103,7 +95,5 @@ export class LoginpageComponent implements OnInit {
       //   .subscribe();
     }
   }
-
-
 
 }

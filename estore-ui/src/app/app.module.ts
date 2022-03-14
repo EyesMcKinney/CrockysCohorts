@@ -37,7 +37,7 @@ import { RouterModule } from '@angular/router';
     HomepageComponent,
     LoginpageComponent,
     ProductEditComponent,
-    ProductAddComponent
+    ProductAddComponent,
     HeaderComponent,
     ShoppingCartComponent,
     MessagesComponent

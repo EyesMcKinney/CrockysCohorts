@@ -15,9 +15,33 @@ export class AppComponent {
   adminUser: Boolean | undefined ;
   otherUser: Boolean | undefined ;
 
-  constructor( private router: Router ) {
-    this.adminUser = false ;
-    this.otherUser = false ;
+  
+  /**
+   * Current {@link User User} logged in.
+   */
+  user: User;
+
+  /**
+   * {@link Subscription Subscription} to subscribe to user changes.
+   */
+  subscription!: Subscription;
+
+  constructor(private loginService: LoginService, private message: MessageService, private router: Router) {
+      this.adminUser = false ;
+      this.otherUser = false ;
+      this.user = {id:-1, username:"dummy user"} as User;
+      this.subscription = this.loginService.getLoggedInUser().subscribe(user => this.user = user);
+      
+  }
+
+  public ngOnInit(): void {  // subscribe to user login
+      this.subscription = this.loginService.getLoggedInUser()
+          .subscribe(user => this.updateUser(user));
+  }
+
+  updateUser(newUser: User): void {
+      this.user = newUser;
+      this.message.add("@app component: user: " + this.user.username + " logged in")
   }
 
   changeAdminUser(): void {
@@ -32,32 +56,6 @@ export class AppComponent {
     this.adminUser = false ; 
     this.otherUser = false ;
     this.router.navigate(['homepage']);
-  }
-
-  
-  /**
-   * Current {@link User User} logged in.
-   */
-  user: User;
-
-  /**
-   * {@link Subscription Subscription} to subscribe to user changes.
-   */
-  subscription!: Subscription;
-
-  constructor(private loginService: LoginService, private message: MessageService) {
-      this.user = {id:-1, username:"dummy user"} as User;
-      this.subscription = this.loginService.getLoggedInUser().subscribe(user => this.user = user);
-  }
-
-  public ngOnInit(): void {  // subscribe to user login
-      this.subscription = this.loginService.getLoggedInUser()
-          .subscribe(user => this.updateUser(user));
-  }
-
-  updateUser(newUser: User): void {
-      this.user = newUser;
-      this.message.add("@app component: user: " + this.user.username + " logged in")
   }
 }
 
