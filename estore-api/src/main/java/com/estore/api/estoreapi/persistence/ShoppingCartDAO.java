@@ -36,9 +36,50 @@ public interface ShoppingCartDAO {
      * Remove a {@linkplain Product Product} to a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart}.
      * 
      * @param id id of {@link User User}
-     * @param product
+     * @param product {@link Product Product} to remove to {@link User User}'s {@link ShoppingCart ShoppingCart}
      * 
      * @throws IOException if an issue with underlying storage
      */
     void removeFromCart(int id, Product product) throws IOException;
+
+    /**
+     * Update the quanitity of a {@linkplain Product Product} in a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart}.
+     * 
+     * @param id id of {@link User User}
+     * @param product {@link Product Product} to update from a {@link User User}'s {@link ShoppingCart ShoppingCart}
+     * @param amount the amount to update the {@link Product Product} quantity to
+     * @return the updated {@link Product Product}
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    Product editQuantity(int id, Product product, int amount) throws IOException;
+
+    /**
+     * Clear a {@linkplain User User's} {@linkplain ShoppingCart ShoppingCart}.
+     * 
+     * @param id id of {@link User User}
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    void clearCart(int id) throws IOException;
+
+    /**
+     * Purchase a {@linkplain User User's} {@linkplain ShoppingCart ShoppingCart}.
+     * 
+     * @param id id of {@link User User}
+     * @return cost of the cart
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    double buyCart(int id) throws IOException;
+
+    /**
+     * Get the cost of a {@linkplain User User's} {@linkplain ShoppingCart ShoppingCart}.
+     * 
+     * @param id id of {@link User User}
+     * @return cost of the cart
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    double getCost(int id) throws IOException;
 }
