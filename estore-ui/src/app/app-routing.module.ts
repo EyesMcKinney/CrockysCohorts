@@ -1,3 +1,8 @@
+/**
+ * Router information for application
+ * 
+ * @author Tylin Hartman
+ */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
