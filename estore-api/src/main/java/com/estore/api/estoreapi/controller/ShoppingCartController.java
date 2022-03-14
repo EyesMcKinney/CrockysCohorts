@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
-import com.estore.api.estoreapi.persistence.UserDAO;
+import com.estore.api.estoreapi.persistence.ShoppingCartDAO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("shopping-cart")
 public class ShoppingCartController {
     private static final Logger LOG = Logger.getLogger(ShoppingCartController.class.getName());
-    private UserDAO userDAO;
+    private ShoppingCartDAO shoppingCartDAO;
 
 
     // TODO change ShoppingCart to UserDAO stuff 
-    public ShoppingCartController(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public ShoppingCartController(ShoppingCartDAO shoppingCartDAO) {
+        this.shoppingCartDAO = shoppingCartDAO;
     }
 
     /**
