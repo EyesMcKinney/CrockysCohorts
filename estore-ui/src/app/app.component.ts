@@ -16,7 +16,11 @@ export class AppComponent {
   }
 
   changeAdminUser(): void {
-    this.adminUser == true ; 
+    this.adminUser == !this.adminUser ; 
+  }
+
+  changeOtherUser(): void {
+    this.otherUser == !this.otherUser ; 
   }
 
 }

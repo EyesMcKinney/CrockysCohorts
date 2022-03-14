@@ -9,7 +9,9 @@
   <a routerLink="/homepage">Homepage</a>
   <a routerLink="/loginpage">Login</a>
 </nav>
+<router-outlet></router-outlet>
 <nav *ngIf="adminUser==true">
   <a routerLink="/admin">Admin</a>
+  <button (click)="changeAdminUser()">Log Out</button>
 </nav>
 <router-outlet></router-outlet>
