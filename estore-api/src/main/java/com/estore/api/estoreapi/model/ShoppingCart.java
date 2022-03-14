@@ -154,7 +154,7 @@ public class ShoppingCart implements Cart{
      * @author Alex Vernes
      */
     public double getTotalCost() throws IOException {
-        double total = 0;
+        double total = 0; 
         Iterator<Product> iterateProducts = Arrays.asList(products).iterator();
         Product product;
 
