@@ -40,13 +40,12 @@ public class ShoppingCart implements Cart{
     public void addProduct(Product product) throws IOException{
         // if the cart already has this product
         int i = products.indexOf(product);
-        product.setQuantity(1);
         if (i != -1){
             product = products.get(i);
             product.setQuantity(product.getQuantity() + 1);
         }
         else{
-            // add the product
+            product.setQuantity(1);
             products.add(product);
         }
     }
