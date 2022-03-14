@@ -7,26 +7,6 @@
 
 <h1>{{title}}</h1>
 
-<nav *ngIf="adminUser==false&&otherUser==false">
-  <a routerLink="/homepage">Homepage</a>
-  <a routerLink="/loginpage">Login</a>
-  <a routerLink="/shopping-cart">Shopping Cart</a>
-</nav>
-<router-outlet></router-outlet>
-
-<nav *ngIf="adminUser==true">
-  <a routerLink="/admin">Admin</a>
-  <button (click)="logOut()">Log Out</button>
-</nav>
-<router-outlet></router-outlet>
-
-<nav *ngIf="otherUser==true">
-  <a routerLink="/shoppingcart">Shopping Cart</a>
-  <button (click)="logOut()">Log Out</button>
-</nav>
-<router-outlet></router-outlet>
-
-
 <app-header [currentUser]="user"></app-header>
 <router-outlet></router-outlet>
 <app-messages></app-messages>

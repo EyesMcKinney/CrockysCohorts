@@ -12,8 +12,6 @@ import { MessageService } from './message.service';
 })
 export class AppComponent {
   title = 'Crocy\'s Crochet';
-  adminUser: Boolean | undefined ;
-  otherUser: Boolean | undefined ;
 
   
   /**
@@ -27,8 +25,6 @@ export class AppComponent {
   subscription!: Subscription;
 
   constructor(private loginService: LoginService, private message: MessageService, private router: Router) {
-      this.adminUser = false ;
-      this.otherUser = false ;
       this.user = {id:-1, username:"dummy user"} as User;
       this.subscription = this.loginService.getLoggedInUser().subscribe(user => this.user = user);
       
@@ -44,19 +40,7 @@ export class AppComponent {
       this.message.add("@app component: user: " + this.user.username + " logged in")
   }
 
-  changeAdminUser(): void {
-    this.adminUser = !this.adminUser ; 
-  }
 
-  changeOtherUser(): void {
-    this.otherUser = !this.otherUser ; 
-  }
-
-  logOut(): void {
-    this.adminUser = false ; 
-    this.otherUser = false ;
-    this.router.navigate(['homepage']);
-  }
 }
 
 
