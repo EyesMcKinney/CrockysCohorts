@@ -2,7 +2,9 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -78,6 +80,23 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
     }
 
     /**
+     * Turn shoppingcart map to an array
+     * 
+     * @return array of all shopping carts
+     */
+    private ShoppingCart[] makeArray() {
+        synchronized(carts) {
+            List<ShoppingCart> shoppingCarts = new ArrayList<>();
+            for (int id : carts.keySet()) {
+                shoppingCarts.add(carts.get(id));
+            }
+            ShoppingCart[] cartArray = new ShoppingCart[shoppingCarts.size()];
+            shoppingCarts.toArray(cartArray);
+            return cartArray;
+        }
+    }
+
+    /**
      * save the users
      * 
      * @throws IOException when file cannot be accessed or read from
@@ -85,7 +104,7 @@ public class ShoppingCartFileDAO implements ShoppingCartDAO {
      * @throws DatabindException
      */
     private Boolean save() throws IOException {
-        ShoppingCart[] cartArray = searchForCart(null);
+        ShoppingCart[] cartArray = makeArray();
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
