@@ -23,16 +23,27 @@ public class ShoppingCart implements Cart{
 
     /**
      * Create a new shopping cart
+     * 
+     * @param id the user's id
+     * @param productArr the array of product in theuser's shopping cart's
      */
     public ShoppingCart(@JsonProperty("id")int id, @JsonProperty("shopping-cart")Product[] productArr) {
         this.id = id;
         this.products = productArr;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Add the product to the cart and increase the array's amount
+     * 
+     * @param product the product to add to the array
+     */
     private void add(Product product) {
         products = Arrays.copyOf(products, products.length + 1);
         products[products.length - 1] = product;
