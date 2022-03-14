@@ -39,7 +39,7 @@ public class ShoppingCartController {
     /**
      * Responds to the GET request for all {@linkplain Product products} in the cart
      * 
-     * @param username the id of the user
+     * @param id the id of the user
      * @return ResponseEntity with array of <{@linkplain Product product}, quantity> 
      * and HTTP status of OK
      */
@@ -58,17 +58,16 @@ public class ShoppingCartController {
     /**
      * Adds a provided {@linkplain Product product} to {@linkplain ShoppingCart shoppingCart}
      * 
-     * @param username the username of the user
+     * @param id the id of the user
      * @param product the {@linkplain Product product} to add 
      * @return ResponseEntity with added {@linkplain Product product} 
      * and HTTP status of CREATED
      */
     @PostMapping("/{id}")
-    public ResponseEntity<Product> addProduct(@PathVariable String username, @RequestBody Product product) {
-        LOG.info("POST /products/" + product.getId());
+    public ResponseEntity<Product> addProduct(@PathVariable int id, @RequestBody Product product) {
+        LOG.info("POST /products/" + id + "/" + product.getId());
         try {
-            User user = userDAO.getUser(username);
-            ShoppingCart shoppingCart = userDAO.getCart(user);
+            ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             shoppingCart.addProduct(product);
             return new ResponseEntity<>(product, HttpStatus.CREATED);
         } catch (IOException e) {
@@ -79,17 +78,16 @@ public class ShoppingCartController {
     /**
      * Remove a {@linkplain Product product} from the cart
      * 
-     * @param username the username of the user
+     * @param id the id of the user
      * @param product the {@linkplain Product product} removed
      * @return ResponseEntity with removed {@linkplain Product product} 
      * and HTTP status of OK
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> removeProduct(@PathVariable String username, @RequestBody Product product) {
-        LOG.info("DELETE /prodcuts/" + product.getId());
+    public ResponseEntity<Product> removeProduct(@PathVariable int id, @RequestBody Product product) {
+        LOG.info("DELETE /prodcuts/" + id + "/" + product.getId());
         try {
-            User user = userDAO.getUser(username);
-            ShoppingCart shoppingCart = userDAO.getCart(user);
+            ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             shoppingCart.removeProduct(product);
             return new ResponseEntity<>(product, HttpStatus.OK);
         } catch (IOException e) {
@@ -101,18 +99,17 @@ public class ShoppingCartController {
     /**
      * Updates the {@linkplain Product product} with the provided quantity
      * 
-     * @param username the username of the user
+     * @param id the id of the user
      * @param product the {@linkplain Product product} to update the quantity of
      * @param amount the amount the quantity will change to
      * @return ResponseEntity with updated {@linkplain Product product}
      * and HTTP status of OK
      */
-    @PutMapping("/{id}-{amount}")
-    public ResponseEntity<Product> editProductQuantity(@PathVariable String username, @RequestBody Product product, @RequestParam int amount) {
+    @PutMapping("/{id}-{amount}")  // TODO: update maping, not sure if -{amount} sets amount to a param (for @RequestParam, see below) <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    public ResponseEntity<Product> editProductQuantity(@PathVariable int id, @RequestBody Product product, @RequestParam int amount) {  // TODO: should amount be @RequestBody
         LOG.info("PUT /products/" + product.getId() + " quantity " + amount);
         try {
-            User user = userDAO.getUser(username);
-            ShoppingCart shoppingCart = userDAO.getCart(user);
+            ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             product = shoppingCart.editProductQuantity(product, amount);
             return new ResponseEntity<>(product, HttpStatus.OK);
         } catch (IOException e) {
@@ -123,16 +120,15 @@ public class ShoppingCartController {
     /**
      * Buys everything currently in the cart
      * 
-     * @param username the username of the user
+     * @param id the id of the user
      * @return ResponseEntity with the total cost and HTTP status of OK
      * ReponseEntity with HTTP status of INTERNAL_SERVER_ERROR if problem with underlying storage
      */
     @DeleteMapping("")
-    public ResponseEntity<Double> buyEntireCart(@PathVariable String username) {
+    public ResponseEntity<Double> buyEntireCart(@PathVariable int id) {
         LOG.info("Delete /products");
         try {
-            User user = userDAO.getUser(username);
-            ShoppingCart shoppingCart = userDAO.getCart(user);
+             ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             double total = shoppingCart.buyEntireCart();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {
@@ -143,16 +139,15 @@ public class ShoppingCartController {
     /**
      * Responds to the GET request for the total cost of the {@linkplain ShoppingCart shoppingCart}
      * 
-     * @param username the username of the user
+     * @param id the id of the user
      * @return ResponseEntity with the total cost of the {@linkplain ShoppingCart shoppingCart} 
      * and HTTP status of OK
      */
     @GetMapping("cost")
-    public ResponseEntity<Double> getTotalCost(@PathVariable String username) {
+    public ResponseEntity<Double> getTotalCost(@PathVariable int id) {
         LOG.info("GET cost");
         try {
-            User user = userDAO.getUser(username);
-            ShoppingCart shoppingCart = userDAO.getCart(user);
+            ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             double total = shoppingCart.getTotalCost();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {
