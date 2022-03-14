@@ -32,8 +32,6 @@ public class ShoppingCartController {
     private static final Logger LOG = Logger.getLogger(ShoppingCartController.class.getName());
     private ShoppingCartDAO shoppingCartDAO;
 
-
-    // TODO change ShoppingCart to UserDAO stuff 
     public ShoppingCartController(ShoppingCartDAO shoppingCartDAO) {
         this.shoppingCartDAO = shoppingCartDAO;
     }
@@ -41,17 +39,15 @@ public class ShoppingCartController {
     /**
      * Responds to the GET request for all {@linkplain Product products} in the cart
      * 
-     * @param username the username of the user
+     * @param username the id of the user
      * @return ResponseEntity with array of <{@linkplain Product product}, quantity> 
      * and HTTP status of OK
      */
-    @GetMapping("")
-    public ResponseEntity<Product[]> getProducts(@PathVariable String username) {
-        LOG.info("GET /products");
+    @GetMapping("/{id}")
+    public ResponseEntity<Product[]> getProducts(@PathVariable int id) {
+        LOG.info("GET /shopping-cart/" + id);
         try {
-            User user = userDAO.getUser(username);
-            ShoppingCart shoppingCart = userDAO.getCart(user);
-            // TODO: Check if passing a Map over to client works or if we should use different list
+            ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             Product[] products = shoppingCart.getProducts();
             return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (IOException e) {
