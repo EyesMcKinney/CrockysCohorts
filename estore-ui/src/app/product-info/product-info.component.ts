@@ -17,7 +17,7 @@ import { CartService } from '../cart.service';
 /**
  * Provides methods to interact with individual {@linkplain Product}.
  * 
- * @author Stevie Alvarez
+ * @author Stevie Alvarez and Isaac McKinney
  */
 @Component({
   selector: 'app-product-info',

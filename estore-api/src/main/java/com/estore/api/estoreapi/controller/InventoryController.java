@@ -81,7 +81,7 @@ public class InventoryController {
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * 
-     * @author Alex Vernes
+     * @author Alex Vernes and Isaac McKinney
      */
     @GetMapping("/")
     public ResponseEntity<Product[]> searchforProduct(@RequestParam("name") String text) {
