@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+[{"id":1,"username":"franky"}]
+=======
 [
+    {"id":0,"username":"admin"},
     {"id":1,"username":"franky"}
 ]
+>>>>>>> 22b3f5272679238194992a5772ac65fea8769610

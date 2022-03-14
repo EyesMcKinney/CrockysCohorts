@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ShoppingCart implements Cart{
 
-    @JsonProperty("shopping-cart")List<Product> products;
+    List<Product> products;
 
     /**
      * Create a new shopping cart
@@ -126,7 +126,7 @@ public class ShoppingCart implements Cart{
      * {@inheritDoc}
      */
     public Product[] getProducts(){
-        return (Product[])products.toArray();
+        return products.toArray(new Product[products.size()]);
     }
     
     /**
