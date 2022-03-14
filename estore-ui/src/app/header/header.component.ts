@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { User } from '../user';
 import { MessageService } from '../message.service';
+import { Subscription } from 'rxjs';
 
 
 /**
