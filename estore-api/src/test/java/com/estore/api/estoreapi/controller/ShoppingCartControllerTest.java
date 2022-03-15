@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 
 
 @Tag("Controller-tier")
-public class ShoppingCartControllerTests {
+public class ShoppingCartControllerTest {
 
     // CuT
     private ShoppingCartController shoppingCartController;
