@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
 import { AppComponent } from '../app.component';
+import { MessageService } from '../message.service';
 
 
 /**
@@ -24,7 +25,7 @@ export class HomepageComponent implements OnInit {
 
   products: Product[] = [];  // An array of products
 
-  constructor(private inventoryService: InventoryService, private appcomp: AppComponent) { }
+  constructor(private inventoryService: InventoryService, private appcomp: AppComponent, private message: MessageService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -36,7 +37,12 @@ export class HomepageComponent implements OnInit {
    */
   getProducts(): void {
     this.inventoryService.getInventory()
-      .subscribe(products => this.products = products);
+      .subscribe(products => {
+        this.products = products;
+        if (this.products.length == 0){
+          this.message.add("No Products Availible")
+        }
+      });
   }
 
 }

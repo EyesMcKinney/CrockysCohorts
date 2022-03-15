@@ -30,7 +30,6 @@ export class LoginService {
    * @returns the {@link User User} that's currently logged in
    */
   public getLoggedInUser(): Observable<User> {
-      this.message.add("@login service: getLoggedInUser() called")
       return this.userUpdate.asObservable();
   }
 
@@ -40,7 +39,6 @@ export class LoginService {
    * @param newUser the {@link User User} that's logged in
    */
   public userLogin(newUser: User): void {
-      this.message.add("@login service: userLogin: user: " + newUser.username);
       this.userUpdate.next(newUser);
   }
 
@@ -64,13 +62,4 @@ export class LoginService {
   createUser(user: User): Observable<User> { 
       return this.http.post<User>(this.loginUrl, user, this.httpOptions);
   }
-/**
-   * Set boolean object to true
-   * 
-   * Return true
-   */
-  returnTrue(): Boolean {
-    return true ;
-  }
-
 }

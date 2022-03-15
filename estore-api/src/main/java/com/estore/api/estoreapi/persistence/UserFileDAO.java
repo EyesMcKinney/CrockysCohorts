@@ -84,8 +84,8 @@ public class UserFileDAO implements UserDAO{
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users){
-            User newUser = new User(nextId(), user.getName());
-            users.put(newUser.getName(), newUser);
+            User newUser = new User(nextId(), user.getUsername());
+            users.put(newUser.getUsername(), newUser);
             save(); // may throw an IOException
             return newUser;
         }
@@ -170,7 +170,7 @@ public class UserFileDAO implements UserDAO{
         // or reading from the file
         User[] UserArray = oMapper.readValue(new File(filename), User[].class);
         for (User user : UserArray) {
-            users.put(user.getName(), user);
+            users.put(user.getUsername(), user);
             if (currId <= user.getId()) {
                 currId = user.getId() + 1;
             }

@@ -38,13 +38,10 @@ import { CartService } from '../cart.service';
       * {@link Product} of interest.
       */
      @Input() product?: Product;
- 
-    id = 1;
- 
+  
      ngOnInit(): void {
          this.getProduct();
      }
- 
  
      /**
       * GET a {@link product Product} from storage.
