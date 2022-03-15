@@ -98,19 +98,19 @@ public class UserFileDAO implements UserDAO{
      * 
      * @return array of similar users
      */
-    private User[] searchForUser(String text) {
-        synchronized(users) {
-            List<User> UserArrayList = new ArrayList<>();
-            for (String name : users.keySet()) {
-                if (text == null || name.contains(text)) {
-                    UserArrayList.add(users.get(name));
-                }
-            }
-            User[] UserArray = new User[UserArrayList.size()];
-            UserArrayList.toArray(UserArray);
-            return UserArray;
-        }
-    }
+    // private User[] searchForUser(String text) {
+    //     synchronized(users) {
+    //         List<User> UserArrayList = new ArrayList<>();
+    //         for (String name : users.keySet()) {
+    //             if (text == null || name.contains(text)) {
+    //                 UserArrayList.add(users.get(name));
+    //             }
+    //         }
+    //         User[] UserArray = new User[UserArrayList.size()];
+    //         UserArrayList.toArray(UserArray);
+    //         return UserArray;
+    //     }
+    // }
 
     /**
      * 
@@ -120,24 +120,24 @@ public class UserFileDAO implements UserDAO{
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    @Override
-    public User[] findUsers(String text) throws IOException {
-        synchronized(users) {
-            return searchForUser(text);
-        }
-    }
+    // @Override
+    // public User[] findUsers(String text) throws IOException {
+    //     synchronized(users) {
+    //         return searchForUser(text);
+    //     }
+    // }
 
     /**
      * get all the users (currently)
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    @Override
-    public User[] getUsers() throws IOException {
-        synchronized(users) {
-            return searchForUser(null);
-        }
-    }
+    // @Override
+    // public User[] getUsers() throws IOException {
+    //     synchronized(users) {
+    //         return searchForUser(null);
+    //     }
+    // }
     
     /**
      * save the users
@@ -147,7 +147,8 @@ public class UserFileDAO implements UserDAO{
      * @throws DatabindException
      */
     private Boolean save() throws StreamWriteException, DatabindException, IOException {
-        User[] userArray = searchForUser(null);
+        User[] userArray = new User[users.size()];
+        users.values().toArray(userArray);
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
