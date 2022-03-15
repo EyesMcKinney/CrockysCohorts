@@ -29,20 +29,6 @@ export class HeaderComponent implements OnInit {
     }
 
     /**
-     * Update user on change (not when property/field of user is updated)
-     * @param changes 
-     */
-    ngOnChanges(changes: SimpleChange) {
-        //if (changes.currentValue) { // check if user logged in is admin 
-
-        //} else {  // otherwise, its a user
-
-        //}
-        this.message.add("@header component: user: " + this.currentUser.username + " logged in");
-
-    }
-
-    /**
      * Logout reverts current user to dummy user
      */
     logout(): void {

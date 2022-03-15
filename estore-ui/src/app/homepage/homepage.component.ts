@@ -39,7 +39,6 @@ export class HomepageComponent implements OnInit {
     this.inventoryService.getInventory()
       .subscribe(products => {
         this.products = products;
-        this.message.add(this.products.toString());
         if (this.products.length == 0){
           this.message.add("No Products Availible")
         }
