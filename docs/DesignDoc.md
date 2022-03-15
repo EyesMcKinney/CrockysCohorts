@@ -109,6 +109,9 @@ When the Admin clicks on a product, they can edit the information for that produ
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class diagrams) with some details such as critical attributes and methods._ -->
 
+When Customers or the Admin login, the LoginController checks the username of the User and fetches the information in the Customer's shopping cart for Customers or changes the display to the administrator display for the Admin. 
+When the Users, either Customers or the Admin, see the display of products, 
+the InventoryController fetches the information of products that are stored in the JSON files. 
 
 ### Model Tier
 <!-- > _Provide a summary of this tier of your architecture. This
