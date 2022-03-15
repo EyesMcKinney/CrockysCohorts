@@ -23,16 +23,27 @@ public class ShoppingCart implements Cart{
 
     /**
      * Create a new shopping cart
+     * 
+     * @param id the user's id
+     * @param productArr the array of product in theuser's shopping cart's
      */
     public ShoppingCart(@JsonProperty("id")int id, @JsonProperty("shopping-cart")Product[] productArr) {
         this.id = id;
         this.products = productArr;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Add the product to the cart and increase the array's amount
+     * 
+     * @param product the product to add to the array
+     */
     private void add(Product product) {
         products = Arrays.copyOf(products, products.length + 1);
         products[products.length - 1] = product;
@@ -44,7 +55,13 @@ public class ShoppingCart implements Cart{
     @Override
     public void addProduct(Product product) throws IOException {
         // if the cart already has this product
-        int i = Arrays.binarySearch(products, product);
+        int i = -1;
+        for (int j = 0; j < products.length; j++){
+            if (product.getId() == products[j].getId()){
+                i = j;
+                break;
+            }
+        }
         if (i != -1){
             product = products[i];
             product.setQuantity(product.getQuantity() + 1);
@@ -72,7 +89,13 @@ public class ShoppingCart implements Cart{
      */
     @Override
     public Product editProductQuantity(Product product, int amount) throws IOException {
-        int i = Arrays.binarySearch(products, product);
+        int i = -1;
+        for (int j = 0; j < products.length; j++){
+            if (product.getId() == products[j].getId()){
+                i = j;
+                break;
+            }
+        }
 
         // if the quantity will be 0
         if (amount <= 0){
@@ -83,8 +106,10 @@ public class ShoppingCart implements Cart{
             product = products[i];
             product.setQuantity(amount);
         }
+        else{
+            product.setQuantity(0);
+        }
 
-        product.setQuantity(0);
         return product;
     }
 

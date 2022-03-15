@@ -30,7 +30,7 @@ public interface ShoppingCartDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    void addToCart(int id, Product product) throws IOException;
+    void addProduct(int id, Product product) throws IOException;
 
     /**
      * Remove a {@linkplain Product Product} to a {@linkplain User User}'s {@linkplain ShoppingCart ShoppingCart}.
@@ -52,7 +52,7 @@ public interface ShoppingCartDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Product editQuantity(int id, Product product, int amount) throws IOException;
+    Product editProductQuantity(int id, Product product, int amount) throws IOException;
 
     /**
      * Clear a {@linkplain User User's} {@linkplain ShoppingCart ShoppingCart}.
@@ -71,7 +71,7 @@ public interface ShoppingCartDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    double buyCart(int id) throws IOException;
+    double buyEntireCart(int id) throws IOException;
 
     /**
      * Get the cost of a {@linkplain User User's} {@linkplain ShoppingCart ShoppingCart}.
@@ -81,5 +81,5 @@ public interface ShoppingCartDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    double getCost(int id) throws IOException;
+    double getTotalCost(int id) throws IOException;
 }
