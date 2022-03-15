@@ -31,7 +31,7 @@ public class ShoppingCartControllerTest {
     private ShoppingCartDAO mockShoppingCartDAO;
 
     // test objects
-    int id = 1;
+    private int id = 1;
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
 
     /**
