@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
 /**
  * Unit tests for all public methods in {@linkplain LoginController}
  * 
