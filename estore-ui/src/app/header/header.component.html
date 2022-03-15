@@ -1,4 +1,5 @@
-<nav>
+<nav *ngIf="currentUser.id != 0">
+    
     <a routerLink="/homepage">Homepage</a>
     <!--<header-router-outlet></header-router-outlet>-->
     <!--*ngIf="admin=undefined"-->
@@ -7,15 +8,19 @@
     </div>
 
     <div *ngIf="currentUser.id >= 1"><!--When user logged in: shopping cart link (and logout option?)-->
-        <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->
+        <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->   
+        <button type="button" (click)="logout()">Logout</button> 
     </div>
 
-    <div>
-        <!--search bar-->
+    <div >
+        <app-product-search></app-product-search>  <!--Product-Search Component-->
     </div>
-        
     
-    <div *ngIf="currentUser.id == 0"><!--When admin logged in: admin component template link(?) (and logout option?)-->
-        <!--<a routerLink="/admin">Admin</a> ADMIN COMPONENT HAS YET TO BE IMPLEMENTED-->
-    </div>
 </nav>
+
+<nav *ngIf="currentUser.id == 0">
+    <a routerLink="/admin">Admin</a>
+    <button type="button" (click)="logout()">Logout</button>
+    <app-product-search></app-product-search>  <!--Product-Search Component-->
+</nav>
+

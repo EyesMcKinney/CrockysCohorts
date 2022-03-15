@@ -9,6 +9,8 @@ import { Observable, Subject } from 'rxjs';
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
+import { User } from '../user';
+import { HeaderComponent } from '../header/header.component';
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
 
@@ -28,10 +30,18 @@ export class ProductSearchComponent implements OnInit {
   /** {@link Product}s of interest. */
   products$!: Observable<Product[]>;
 
+
   /** User input search term */
   private searchTerms = new Subject<string>();  
 
-  constructor(private inventoryService: InventoryService) { }
+  currentUser: User;
+
+  constructor(
+    private inventoryService: InventoryService,
+    private header: HeaderComponent
+    ) { 
+      this.currentUser = header.currentUser ;
+    }
 
   /**
    * Updates searchterms as user provides new input

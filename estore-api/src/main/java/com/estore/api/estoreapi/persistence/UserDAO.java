@@ -44,7 +44,7 @@ public interface UserDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    User[] findUsers(String text) throws IOException;
+    // User[] findUsers(String text) throws IOException;
 
     /**
      * Retrieves all {@linkplain User user}
@@ -53,5 +53,5 @@ public interface UserDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    User[] getUsers() throws IOException;
+    // User[] getUsers() throws IOException;
 }

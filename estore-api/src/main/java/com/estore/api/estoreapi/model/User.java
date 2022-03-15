@@ -19,6 +19,7 @@ public class User{
 
     /**
      * Constructor for the user object
+     * @param is - user id to be given to the user
      * @param username - user name to be given to the user
      */
     public User(@JsonProperty("id") int id, @JsonProperty("username") String username){
