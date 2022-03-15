@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { User } from '../user';
 import { MessageService } from '../message.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 /**
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
     @Input() currentUser: User;
 
-    constructor(private message: MessageService) {
+    constructor(private message: MessageService, private router: Router) {
         this.currentUser = {id:-1, username:"dummy user"} as User;
     }
 
@@ -39,6 +40,15 @@ export class HeaderComponent implements OnInit {
         //}
         this.message.add("@header component: user: " + this.currentUser.username + " logged in");
 
+    }
+
+    /**
+     * Logout reverts current user to dummy user
+     */
+    logout(): void {
+        this.message.add("@header component: user: " + this.currentUser.username + " logged out");
+        this.currentUser = {id:-1, username:"dummy user"} as User;
+        this.router.navigate(['homepage']);
     }
 
     // TODO: get input from root: https://angular.io/guide/inputs-outputs#watching-for-input-changes

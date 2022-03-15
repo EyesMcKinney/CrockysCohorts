@@ -40,6 +40,21 @@ public class ShoppingCart implements Cart{
     }
 
     /**
+     * Finds a product from the list of products in the cart
+     * 
+     * @param product the product to compare to
+     * @return the index of the product if it is in the cart, -1 if not in the cart
+     */
+    private int findProduct(Product product){
+        for (int i = 0; i < products.length; i++){
+            if (product.getId() == products[i].getId()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Add the product to the cart and increase the array's amount
      * 
      * @param product the product to add to the array
@@ -54,14 +69,8 @@ public class ShoppingCart implements Cart{
      */
     @Override
     public void addProduct(Product product) throws IOException {
-        // if the cart already has this product
-        int i = -1;
-        for (int j = 0; j < products.length; j++){
-            if (product.getId() == products[j].getId()){
-                i = j;
-                break;
-            }
-        }
+        int i = findProduct(product);
+
         if (i != -1){
             product = products[i];
             product.setQuantity(product.getQuantity() + 1);
@@ -89,13 +98,7 @@ public class ShoppingCart implements Cart{
      */
     @Override
     public Product editProductQuantity(Product product, int amount) throws IOException {
-        int i = -1;
-        for (int j = 0; j < products.length; j++){
-            if (product.getId() == products[j].getId()){
-                i = j;
-                break;
-            }
-        }
+        int i = findProduct(product);
 
         // if the quantity will be 0
         if (amount <= 0){
