@@ -80,7 +80,7 @@ public class ShoppingCartControllerTests {
     @Test
     void testAddProduct() throws IOException{
         when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
-        
+
         // invoke
         ResponseEntity<Product> response = shoppingCartController.addProduct(id, TEST_PRODUCT);
     
@@ -137,8 +137,10 @@ public class ShoppingCartControllerTests {
      */
     @Test
     void testEditProductQuantity() throws IOException {
+        when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
+        when(mockShoppingCart.editProductQuantity(TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
+
         // invoke
-        when(mockShoppingCartDAO.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1)).thenReturn(TEST_PRODUCT);
         ResponseEntity<Product> response = shoppingCartController.editProductQuantity(id, TEST_PRODUCT, TEST_PRODUCT.getQuantity() - 1);
 
         // check
@@ -166,7 +168,8 @@ public class ShoppingCartControllerTests {
     @Test
     void testBuyEntireCart() throws IOException{
         // simulates having 1 TEST_PRODUCT in the shopping cart
-        when(mockShoppingCartDAO.buyEntireCart(id)).thenReturn(TEST_PRODUCT.getPrice());
+        when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
+        when(mockShoppingCart.buyEntireCart()).thenReturn(TEST_PRODUCT.getPrice());
 
         // invoke
         ResponseEntity<Double> response = shoppingCartController.buyEntireCart(id);
@@ -196,7 +199,8 @@ public class ShoppingCartControllerTests {
     @Test
     void testGetTotalCost() throws IOException{
         // simulates having 1 TEST_PRODUCT in the shopping cart
-        when(mockShoppingCartDAO.getTotalCost(id)).thenReturn(TEST_PRODUCT.getPrice());
+        when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
+        when(mockShoppingCart.getTotalCost()).thenReturn(TEST_PRODUCT.getPrice());
 
         // invoke
         ResponseEntity<Double> response = shoppingCartController.getTotalCost(id);
