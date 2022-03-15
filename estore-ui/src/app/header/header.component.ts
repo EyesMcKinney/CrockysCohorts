@@ -41,6 +41,14 @@ export class HeaderComponent implements OnInit {
 
     }
 
+    /**
+     * Logout reverts current user to dummy user
+     */
+    logout(): void {
+        this.message.add("@header component: user: " + this.currentUser.username + " logged out");
+        this.currentUser = {id:-1, username:"dummy user"} as User;
+    }
+
     // TODO: get input from root: https://angular.io/guide/inputs-outputs#watching-for-input-changes
     // TODO: update changes to user(?): https://angular.io/guide/lifecycle-hooks#onchanges
 
