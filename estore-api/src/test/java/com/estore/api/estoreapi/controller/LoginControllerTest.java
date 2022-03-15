@@ -45,10 +45,10 @@ public class LoginControllerTest {
      */
     @Test
     public void testGetUser() throws IOException{
-        when(mockUserFileDAO.getUser(TEST_USER.getName())).thenReturn(TEST_USER);
+        when(mockUserFileDAO.getUser(TEST_USER.getUsername())).thenReturn(TEST_USER);
         
         // Invoke
-        ResponseEntity<User> response = loginController.getUser(TEST_USER.getName());
+        ResponseEntity<User> response = loginController.getUser(TEST_USER.getUsername());
 
         // Check
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -61,10 +61,10 @@ public class LoginControllerTest {
      */
     @Test
     public void testGetUserFailed() throws IOException{
-        when(mockUserFileDAO.getUser(TEST_USER.getName())).thenReturn(null);
+        when(mockUserFileDAO.getUser(TEST_USER.getUsername())).thenReturn(null);
         
         // Invoke
-        ResponseEntity<User> response = loginController.getUser(TEST_USER.getName());
+        ResponseEntity<User> response = loginController.getUser(TEST_USER.getUsername());
 
         // Check
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -77,10 +77,10 @@ public class LoginControllerTest {
      */
     @Test
     public void testGetUserError() throws IOException{
-        doThrow(new IOException()).when(mockUserFileDAO).getUser(TEST_USER.getName());
+        doThrow(new IOException()).when(mockUserFileDAO).getUser(TEST_USER.getUsername());
 
         // Invoke
-        ResponseEntity<User> response = loginController.getUser(TEST_USER.getName());
+        ResponseEntity<User> response = loginController.getUser(TEST_USER.getUsername());
 
         // Check
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());

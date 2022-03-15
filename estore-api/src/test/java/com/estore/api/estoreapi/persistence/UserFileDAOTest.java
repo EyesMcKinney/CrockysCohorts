@@ -57,6 +57,6 @@ public class UserFileDAOTest {
 
         User actual = userFileDAO.getUser("user2");
         assertEquals(result.getId(), actual.getId());
-        assertEquals(result.getName(), actual.getName());
+        assertEquals(result.getUsername(), actual.getUsername());
     }
 }
