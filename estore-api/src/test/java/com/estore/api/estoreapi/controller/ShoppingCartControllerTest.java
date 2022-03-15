@@ -7,9 +7,7 @@ import java.io.IOException;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
-import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.ShoppingCartDAO;
-import com.estore.api.estoreapi.persistence.UserDAO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -19,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 
 
 @Tag("Controller-tier")
-public class ShoppingCartControllerTests {
+public class ShoppingCartControllerTest {
 
     // CuT
     private ShoppingCartController shoppingCartController;
