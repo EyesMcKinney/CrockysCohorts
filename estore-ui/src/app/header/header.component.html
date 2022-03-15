@@ -7,14 +7,15 @@
     </div>
 
     <div *ngIf="currentUser.id >= 1"><!--When user logged in: shopping cart link (and logout option?)-->
-        <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->
+        <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->        
     </div>
+
+    <app-product-search></app-product-search>  <!--Product-Search Component-->
     
 </nav>
 
 <nav *ngIf="currentUser.id == 0">
     <a routerLink="/admin">Admin</a>
+    <app-product-search></app-product-search>  <!--Product-Search Component-->
 </nav>
 
-<!--Product-Search Component-->
-    <app-product-search></app-product-search>  
