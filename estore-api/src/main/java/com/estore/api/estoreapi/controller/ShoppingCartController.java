@@ -63,7 +63,7 @@ public class ShoppingCartController {
      */
     @PostMapping("/{id}")
     public ResponseEntity<Product> addProduct(@PathVariable int id, @RequestBody Product product) {
-        LOG.info("POST /products/" + id + "/" + product.getId());
+        LOG.info("POST /shopping-cart/" + id + "/" + product.getId());
         try {
             ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             shoppingCart.addProduct(product);
@@ -83,7 +83,7 @@ public class ShoppingCartController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> removeProduct(@PathVariable int id, @RequestBody Product product) {
-        LOG.info("DELETE /prodcuts/" + id + "/" + product.getId());
+        LOG.info("DELETE /shopping-cart/" + id + "/" + product.getId());
         try {
             ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             shoppingCart.removeProduct(product);
@@ -105,7 +105,7 @@ public class ShoppingCartController {
      */
     @PutMapping("/{id}-{amount}")  // TODO: update maping, not sure if -{amount} sets amount to a param (for @RequestParam, see below) <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public ResponseEntity<Product> editProductQuantity(@PathVariable int id, @RequestBody Product product, @RequestParam int amount) {  // TODO: should amount be @RequestBody
-        LOG.info("PUT /products/" + product.getId() + " quantity " + amount);
+        LOG.info("PUT /shopping-cart/" + product.getId() + " quantity " + amount);
         try {
             ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             product = shoppingCart.editProductQuantity(product, amount);
@@ -124,7 +124,7 @@ public class ShoppingCartController {
      */
     @DeleteMapping("")
     public ResponseEntity<Double> buyEntireCart(@PathVariable int id) {
-        LOG.info("Delete /products");
+        LOG.info("DELETE /shopping-cart");
         try {
             ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             double total = shoppingCart.buyEntireCart();
