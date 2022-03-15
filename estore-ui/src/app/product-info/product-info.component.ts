@@ -76,6 +76,27 @@ import { CartService } from '../cart.service';
         window.alert('Your product has been added to the cart!');
     }
  
+    /**
+     * Update the {@link product Product} information in storage.
+     */
+     save(): void {
+        if (this.product) {
+            this.inventoryService.updateProduct(this.product)
+                .subscribe(() => this.goBack());
+        }
+    }
+
+
+    /**
+     * Delete the {@link product Product} from storage. 
+     * 
+     * @author Alex Vernes
+     */
+    delete(): void {
+        this.inventoryService.deleteProduct(
+            Number(this.route.snapshot.paramMap.get("id"))
+            ).subscribe(product => this.product = product);
+    }
 
  }
  
