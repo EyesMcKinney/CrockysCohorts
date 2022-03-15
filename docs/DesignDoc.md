@@ -30,7 +30,6 @@ The project will be a website of an online e-store called "Crocky's Crochet", wh
 - The Admin can login with a special Admin-only username into the e-store. The Admin can edit, add, and remove and generally manage the inventory of the e-store. 
 
 ### MVP Features
-- _Provide a list of top-level Epics and/or Stories of the MVP._
 - Customer can login
 - Customer can browse products
 - Customer can search products
@@ -48,13 +47,12 @@ The project will be a website of an online e-store called "Crocky's Crochet", wh
 
 
 ## Application Domain
+![Domain Model](crockys-crochet-domain-analysis.png)
 
-![Domain Model](crocky's-crochet-domain-analysis.png)
-
-In the domain model, firstly, there are two kinds of Users that can login to Crock's Crochet, an Admin and a Customer. 
-Crock's Crochet displays for Users the products that are in the inventory. 
+In the domain model, firstly, there are two kinds of Users that can login to Crocky's Crochet, an Admin and a Customer. 
+Crocky's Crochet displays for Users the products that are in the inventory. 
 The Admin can manage those products that are in inventory. 
-A Customer can browse the products displayed by Crock's Crochet and can add products to their shopping cart. 
+A Customer can browse the products displayed by Crocky's Crochet and can add products to their shopping cart. 
 A Customer can proceed to the checkout with the products in their shopping cart, making the purchase complete. 
 
 ## Architecture and Design
@@ -81,14 +79,9 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 
 ### Overview of User Interface
 
-This section describes the web interface flow; this is how the user views and interacts
-with the e-store application.
-
-> TODO
-
 
 ### View Tier
-> _Provide a summary of the View Tier UI of your architecture.
+<!-- > _Provide a summary of the View Tier UI of your architecture.
 > Describe the types of components in the tier and describe their
 > responsibilities.  This should be a narrative description, i.e. it has
 > a flow or "story line" that the reader can follow._
@@ -97,28 +90,36 @@ with the e-store application.
 > of the design that you are describing.  For example, in e-store you might create a 
 > sequence diagram of a customer searching for an item and adding to their cart. 
 > Be sure to include an relevant HTTP reuqests from the client-side to the server-side 
-> to help illustrate the end-to-end flow._
+> to help illustrate the end-to-end flow._ -->
+
+Customers open the webpage to a generic product serach page, displaying the all prodcuts currently in the inventory. 
+The Customer can click "login" and be taken to the login page, where they can either login with an existing username or create a new account. 
+Now that the Customer is logged in, when clicking in a product, the option to add that prodcut to the cart displays alongside other information about that product. 
+The Customer can add products to their shopping cart. 
+The Customer can also remove the item or proceed to checkout, where it clears all products in the cart. 
+When the Admin logs in, the same display of products is shown alongside the "New Product" button. 
+When the Admin clicks on a product, they can edit the information for that product or delete the product. 
 
 
 ### ViewModel Tier
-> _Provide a summary of this tier of your architecture. This
+<!-- > _Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
 
 > _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
+> static models (UML class diagrams) with some details such as critical attributes and methods._ -->
 
 
 ### Model Tier
-> _Provide a summary of this tier of your architecture. This
+<!-- > _Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
 
 > _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
+> static models (UML class diagrams) with some details such as critical attributes and methods._ -->
 
 ### Static Code Analysis/Design Improvements
-> _Discuss design improvements that you would make if the project were
+<!-- > _Discuss design improvements that you would make if the project were
 > to continue. These improvement should be based on your direct
 > analysis of where there are problems in the code base which could be
 > addressed with design changes, and describe those suggested design
@@ -127,22 +128,20 @@ with the e-store application.
 > _With the results from the Static Code Analysis exercise, 
 > discuss the resulting issues/metrics measurements along with your analysis
 > and recommendations for further improvements. Where relevant, include 
-> screenshots from the tool and/or corresponding source code that was flagged._
+> screenshots from the tool and/or corresponding source code that was flagged._ -->
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+<!-- > _This section will provide information about the testing performed
+> and the results of the testing._ -->
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
+<!-- > _Report on the number of user stories that have passed all their
 > acceptance criteria tests, the number that have some acceptance
 > criteria tests failing, and the number of user stories that
 > have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+> acceptance testing and if there are any concerns._ -->
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+![Code Coverage](code-coverage.png)
+After each collection of files were writen, such that it is ensured that they will not be edited later, a team member or two were assigned to write unit tests for those files. The code coverage is 99% complete with the exception of the main method. 
+We did not excpect to get that much code coverage in this sprint, but with efficient code writing we were able to go beyond the excpected 90%. 
