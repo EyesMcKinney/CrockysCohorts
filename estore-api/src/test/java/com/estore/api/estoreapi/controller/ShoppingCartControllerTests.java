@@ -44,7 +44,6 @@ public class ShoppingCartControllerTests {
 
     /**
      * Test if get products returns OK and the correct Product's array
-     * @throws IOException
      */
     @Test
 	void testGetProducts() throws IOException {
@@ -79,7 +78,9 @@ public class ShoppingCartControllerTests {
      * Test if add product returns CREATED and the product
      */
     @Test
-    void testAddProduct(){
+    void testAddProduct() throws IOException{
+        when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
+        
         // invoke
         ResponseEntity<Product> response = shoppingCartController.addProduct(id, TEST_PRODUCT);
     
@@ -106,7 +107,9 @@ public class ShoppingCartControllerTests {
      * Test if remove product returns OK and the product
      */
     @Test
-    void testRemoveProduct(){
+    void testRemoveProduct() throws IOException{
+        when(mockShoppingCartDAO.getCart(id)).thenReturn(mockShoppingCart);
+        
         // invoke
         ResponseEntity<Product> response = shoppingCartController.removeProduct(id, TEST_PRODUCT);
 
@@ -165,14 +168,12 @@ public class ShoppingCartControllerTests {
         // simulates having 1 TEST_PRODUCT in the shopping cart
         when(mockShoppingCartDAO.buyEntireCart(id)).thenReturn(TEST_PRODUCT.getPrice());
 
-
         // invoke
         ResponseEntity<Double> response = shoppingCartController.buyEntireCart(id);
 
         // check
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(TEST_PRODUCT.getPrice(), response.getBody());
-
     }
 
     /**
