@@ -11,6 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests ShoppingCart
+ * 
+ * @author Holden Lalumiere
+ */
 @Tag("Controller-tier")
 public class ShoppingCartTest {
     

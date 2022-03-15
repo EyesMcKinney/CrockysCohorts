@@ -16,6 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests UserFileDAO
+ * 
+ * @author Alex Vernes
+ */
 @Tag("Persistence-tire")
 public class UserFileDAOTest {
     
