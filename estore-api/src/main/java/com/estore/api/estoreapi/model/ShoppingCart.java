@@ -25,7 +25,7 @@ public class ShoppingCart implements Cart{
      * Create a new shopping cart
      * 
      * @param id the user's id
-     * @param productArr the array of product in theuser's shopping cart's
+     * @param productArr the array of product in the user's shopping cart's
      */
     public ShoppingCart(@JsonProperty("id")int id, @JsonProperty("shopping-cart")Product[] productArr) {
         this.id = id;

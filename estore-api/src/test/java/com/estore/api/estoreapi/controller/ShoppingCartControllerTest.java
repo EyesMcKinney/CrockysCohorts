@@ -15,7 +15,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
+/**
+ * Tests ShoppingCartController
+ * 
+ * @author Holden Lalumiere
+ */
 @Tag("Controller-tier")
 public class ShoppingCartControllerTest {
 
@@ -27,7 +31,7 @@ public class ShoppingCartControllerTest {
     private ShoppingCartDAO mockShoppingCartDAO;
 
     // test objects
-    int id = 1;
+    private int id = 1;
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
 
     /**
