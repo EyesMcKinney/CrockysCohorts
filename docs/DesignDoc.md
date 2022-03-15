@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: Crocky's Cohort
 * Team members
@@ -44,7 +39,6 @@ The project will be a website of an online e-store called "Crocky's Crochet", wh
 - Admin can manage the inventory of the e-store
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
 1. Customer can browse products
 2. Customer can search products
 3. Admin can manage the inventory of the e-store
