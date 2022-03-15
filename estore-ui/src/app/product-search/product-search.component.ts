@@ -1,3 +1,9 @@
+/**
+ * Manages searching for a product
+ * 
+ * @author Tylin Hartman
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -6,6 +12,12 @@ import {
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
 
+/**
+ * Provides methods to find and return 
+ * relevant {@linkplain Product}s
+ * 
+ * @author Tylin Hartman
+ */
 @Component({
   selector: 'app-product-search',
   templateUrl: './product-search.component.html',
@@ -13,11 +25,19 @@ import { InventoryService } from '../inventory.service';
 })
 export class ProductSearchComponent implements OnInit {
 
+  /** {@link Product}s of interest. */
   products$!: Observable<Product[]>;
-  private searchTerms = new Subject<string>();
+
+  /** User input search term */
+  private searchTerms = new Subject<string>();  
 
   constructor(private inventoryService: InventoryService) { }
 
+  /**
+   * Updates searchterms as user provides new input
+   * 
+   * @param term User input string
+   */
   search(term: string): void {
     this.searchTerms.next(term);
   }

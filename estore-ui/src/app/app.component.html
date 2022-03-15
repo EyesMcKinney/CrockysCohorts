@@ -4,10 +4,9 @@
     <title>Product Info display</title>
     <link type="text/css" rel="stylesheet" href="app.component.css">
 </head>
+
 <h1>{{title}}</h1>
-<nav>
-  <a routerLink="/homepage">Homepage</a>
-  <a routerLink="/loginpage">Login</a>
-  <a routerLink="/shopping-cart">Shopping Cart</a>
-</nav>
+
+<app-header [currentUser]="user"></app-header>
 <router-outlet></router-outlet>
+<app-messages></app-messages>

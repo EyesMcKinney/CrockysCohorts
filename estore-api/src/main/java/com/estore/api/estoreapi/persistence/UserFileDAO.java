@@ -62,7 +62,7 @@ public class UserFileDAO implements UserDAO{
 
     private synchronized static int nextId(){
         int id = currId;
-        ++currId;
+        currId++;
         return id;
     }
 
@@ -170,6 +170,9 @@ public class UserFileDAO implements UserDAO{
         User[] UserArray = oMapper.readValue(new File(filename), User[].class);
         for (User user : UserArray) {
             users.put(user.getName(), user);
+            if (currId <= user.getId()) {
+                currId = user.getId() + 1;
+            }
         }
         return true;
     }
