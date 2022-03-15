@@ -3,14 +3,12 @@ package com.estore.api.estoreapi.persistence;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
 
-import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests UserFileDAO
+ * 
+ * @author Alex Vernes
+ */
 @Tag("Persistence-tire")
 public class UserFileDAOTest {
     
@@ -25,8 +28,6 @@ public class UserFileDAOTest {
     private UserFileDAO userFileDAO;
 
     private ObjectMapper mockObjectMapper;
-
-    private User mockUser;
 
     private User[] testUsers;
 

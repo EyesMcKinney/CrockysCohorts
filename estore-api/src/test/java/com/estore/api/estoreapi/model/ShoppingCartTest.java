@@ -11,6 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests ShoppingCart
+ * 
+ * @author Holden Lalumiere
+ */
 @Tag("Controller-tier")
 public class ShoppingCartTest {
     
@@ -18,7 +23,7 @@ public class ShoppingCartTest {
     private ShoppingCart shoppingCart;
 
     // Test objects
-    Product[] productArr;
+    private Product[] productArr;
     private final Product TEST_PRODUCT = new Product(5, "shoe", 6.77, 10, "This product is a shoe");
 
     /**

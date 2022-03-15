@@ -6,6 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests Product
+ * 
+ * @author Holden Lalumiere
+ */
 @Tag("Controller-tier")
 public class ProductTest {
     

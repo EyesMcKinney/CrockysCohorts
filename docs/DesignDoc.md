@@ -3,67 +3,66 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Crocky's Cohort
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Alex Vernes
+  * Holden Lalumiere
+  * Stevie Alvarez
+  * Isaac McKinney
+  * Tylin Hartman
 
 ## Executive Summary
 
-This is a summary of the project.
-
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+The project will be a website of an online e-store called "Crocky's Crochet", where various crochet products are sold. Customers can browse and purchase products and the administrator can manage the inventory through the website. 
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
-
 | Term | Definition |
 |------|------------|
-| SPA | Single Page |
+| MVP | Minimum Viable Product |
 
 
 ## Requirements
 
-This section describes the features of the application.
-
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
-
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+- A Customer can login with a username into the e-store. Customers can browse and search for products and also add those products to their shopping cart. When that customer logins in later, the products that were in their shopping cart from a previous login are still there. 
+- The Admin can login with a special Admin-only username into the e-store. The Admin can edit, add, and remove and generally manage the inventory of the e-store. 
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+- _Provide a list of top-level Epics and/or Stories of the MVP._
+- Customer can login
+- Customer can browse products
+- Customer can search products
+- Customer can add products to their shopping cart
+- Admin can login
+- Admin can manage the inventory of the e-store
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+1. Customer can browse products
+2. Customer can search products
+3. Admin can manage the inventory of the e-store
+4. Customer can login
+5. Admin can login
+6. Customer can add products to their shopping cart
 
 
 ## Application Domain
 
-This section describes the application domain.
+![Domain Model](crocky's-crochet-domain-analysis.png)
 
-![Domain Model](domain-model-placeholder.png)
-
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
-
+In the domain model, firstly, there are two kinds of Users that can login to Crock's Crochet, an Admin and a Customer. 
+Crock's Crochet displays for Users the products that are in the inventory. 
+The Admin can manage those products that are in inventory. 
+A Customer can browse the products displayed by Crock's Crochet and can add products to their shopping cart. 
+A Customer can proceed to the checkout with the products in their shopping cart, making the purchase complete. 
 
 ## Architecture and Design
 
-This section describes the application architecture.
+The files will be split into two sections, the e-store UI and the e-store API. 
+The e-store UI is contains all components that are part of every webpage for the e-store. 
+The e-store API is split further into three subsections, controller, model, and persistence. 
+Controller mediates communication between the front-end and the back-end in terms of data stored. Model provides a platform for viewing and modelling the data stored. Persistence provides a method of manipulating the data stored. 
 
 ### Summary
 
@@ -85,8 +84,7 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 This section describes the web interface flow; this is how the user views and interacts
 with the e-store application.
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+> TODO
 
 
 ### View Tier
