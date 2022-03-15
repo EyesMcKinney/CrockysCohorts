@@ -9,8 +9,9 @@
     <div *ngIf="currentUser.id >= 1"><!--When user logged in: shopping cart link (and logout option?)-->
         <a routerLink="/shoppingcart/{{currentUser.id}}">Shopping Cart</a>  <!--REPLACE TEXT W/ PICTURE OF SHOPPING CART-->
     </div>
+    <!--Product-Search Component-->
+    <app-product-search></app-product-search>  
 
-        
 </nav>
 
 <nav *ngIf="currentUser.id == 0">
