@@ -32,10 +32,27 @@ public class ShoppingCartTest {
     }
 
     /**
-     * Test if add product adds a product to the array
+     * Test if add product adds a product to the array when there are other products in the cart
      */
     @Test
-	void testAddProductNotInCart() throws IOException {
+    void testAddProductNotInCart() throws IOException{
+        Product p = new Product(100, "hi", 99, 101, "description");
+        shoppingCart.addProduct(p);
+
+        // Invoke
+        shoppingCart.addProduct(TEST_PRODUCT);
+
+        // Check
+        Product addedProduct = shoppingCart.getProducts()[1];
+        assertEquals(TEST_PRODUCT, addedProduct);
+        assertEquals(TEST_PRODUCT.getQuantity(), addedProduct.getQuantity());
+    }
+
+    /**
+     * Test if add product adds a product to the array when the cart is empty
+     */
+    @Test
+	void testAddProductNotInCartEmpty() throws IOException {
         // Invoke
         shoppingCart.addProduct(TEST_PRODUCT);
 
