@@ -126,7 +126,7 @@ public class ShoppingCartController {
     public ResponseEntity<Double> buyEntireCart(@PathVariable int id) {
         LOG.info("Delete /products");
         try {
-             ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
+            ShoppingCart shoppingCart = shoppingCartDAO.getCart(id);
             double total = shoppingCart.buyEntireCart();
             return new ResponseEntity<>(total, HttpStatus.OK);
         } catch (IOException e) {

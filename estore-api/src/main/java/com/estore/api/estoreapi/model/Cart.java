@@ -10,6 +10,13 @@ import java.io.IOException;
 public interface Cart {
 
     /**
+     * Get the user's id from the cart
+     * 
+     * @returns the user's id
+     */
+    public int getId();
+
+    /**
      * Add a product to the cart
      * 
      * @param product the product to add
