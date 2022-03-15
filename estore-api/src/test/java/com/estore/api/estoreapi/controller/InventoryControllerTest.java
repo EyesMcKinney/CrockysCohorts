@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
 /**
  * Unit tests for all public methods in {@linkplain InventoryController}
  * 
@@ -36,7 +35,6 @@ public class InventoryControllerTest {
 
     // Test objects
     private final Product TEST_PRODUCT = new Product(11, "Crocy's Croc", 10.99, 2, "Crocy's Croc Description");
-
 
     /// run before each test
     @BeforeEach

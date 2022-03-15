@@ -22,9 +22,6 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("Persistence-tire")
 public class ShoppingCartFileDAOTest {
-    
-    private static final Object[] Product = null;
-
     // CuT
     private ShoppingCartFileDAO shoppingCartFileDAO;
 
@@ -77,7 +74,80 @@ public class ShoppingCartFileDAOTest {
         assertEquals(TEST_PRODUCT, testShoppingCarts[0].getProducts()[0]);
     }
 
+    /**
+     * Test if remove from cart correctly removes a product
+     */
+    @Test
+    void testRemoveFromCart() throws IOException{
+        shoppingCartFileDAO.addProduct(id1, TEST_PRODUCT);
 
+        // Invoke
+        shoppingCartFileDAO.removeFromCart(id1, TEST_PRODUCT);
 
+        // Check
+        assertEquals(p2.length, testShoppingCarts[0].getProducts().length);
+    }
+
+    /**
+     * Test if edit product quantity correctly edits the quantity
+    */
+    @Test
+    void testEditProductQuantity() throws IOException{
+        shoppingCartFileDAO.addProduct(id1, TEST_PRODUCT);
+
+        // Invoke
+        shoppingCartFileDAO.editProductQuantity(id1, TEST_PRODUCT, 3);
+
+        // Check
+        assertEquals(TEST_PRODUCT, testShoppingCarts[0].getProducts()[0]);
+    }
+    
+    /**
+     * Test if clear cart removes everything from the cart
+     */
+    @Test
+    void testClearCart() throws IOException{
+        shoppingCartFileDAO.addProduct(id1, TEST_PRODUCT);
+
+        // Invoke
+        shoppingCartFileDAO.clearCart(id1);
+
+        // Check
+        assertEquals(0, testShoppingCarts[0].getProducts().length);
+    }
+
+    /**
+     * Test if buy entire cart clears the cart and returns the correct cost
+     */
+    @Test
+    void testbuyEntireCart() throws IOException{
+        int quantity = 3;
+        shoppingCartFileDAO.addProduct(id1, TEST_PRODUCT);
+        shoppingCartFileDAO.editProductQuantity(id1, TEST_PRODUCT, quantity);
+
+        // Invoke
+        double cost = shoppingCartFileDAO.buyEntireCart(id1);
+
+        // Check
+        assertEquals(0, testShoppingCarts[0].getProducts().length);
+        assertEquals(quantity * TEST_PRODUCT.getPrice(), cost);
+    }
+
+    /**
+     * Test if get total cost returns the correct cost
+     */
+    @Test
+    void testGetTotalCost() throws IOException{
+        int quantity = 3;
+        shoppingCartFileDAO.addProduct(id1, TEST_PRODUCT);
+        shoppingCartFileDAO.editProductQuantity(id1, TEST_PRODUCT, quantity);
+
+        // Invoke
+        double cost = shoppingCartFileDAO.getTotalCost(id1);
+
+        // Check
+        assertEquals(1, testShoppingCarts[0].getProducts().length);
+        assertEquals(quantity * TEST_PRODUCT.getPrice(), cost);
+    }
 
 }
