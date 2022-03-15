@@ -108,14 +108,14 @@ public class LoginControllerTest {
      */
     @Test
     public void testCreateUserFailed() throws IOException{
-        when(mockUserFileDAO.getUser(TEST_USER.getName())).thenReturn(null);
+        when(mockUserFileDAO.createUser(TEST_USER)).thenReturn(null);
         
         // Invoke
-        ResponseEntity<User> response = loginController.getUser(TEST_USER.getName());
+        ResponseEntity<User> response = loginController.createUser(TEST_USER);
 
         // Check
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertNull(response.getBody());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(TEST_USER, response.getBody());
     }
 
     /**
