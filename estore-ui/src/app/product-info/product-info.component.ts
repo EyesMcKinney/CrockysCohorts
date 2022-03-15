@@ -39,6 +39,7 @@ import { CartService } from '../cart.service';
       */
      @Input() product?: Product;
  
+    id = 1;
  
      ngOnInit(): void {
          this.getProduct();
