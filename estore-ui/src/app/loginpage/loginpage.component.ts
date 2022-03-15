@@ -87,6 +87,8 @@ export class LoginpageComponent implements OnInit {
 
     if( this.user.username == "admin"){
       this.adminUser = true ; 
+      this.router.navigate(['admin']);
+      
       
     }else{
       this.adminUser = false ;
@@ -94,6 +96,5 @@ export class LoginpageComponent implements OnInit {
       //   .subscribe();
     }
   }
-
 
 }

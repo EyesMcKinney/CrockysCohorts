@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from './user';
 import { LoginService } from './login.service';
 import { Subscription } from 'rxjs';
@@ -12,6 +13,7 @@ import { MessageService } from './message.service';
 export class AppComponent {
   title = 'Crocy\'s Crochet';
 
+  
   /**
    * Current {@link User User} logged in.
    */
@@ -22,9 +24,10 @@ export class AppComponent {
    */
   subscription!: Subscription;
 
-  constructor(private loginService: LoginService, private message: MessageService) {
+  constructor(private loginService: LoginService, private message: MessageService, private router: Router) {
       this.user = {id:-1, username:"dummy user"} as User;
       this.subscription = this.loginService.getLoggedInUser().subscribe(user => this.user = user);
+      
   }
 
   public ngOnInit(): void {  // subscribe to user login
@@ -36,4 +39,8 @@ export class AppComponent {
       this.user = newUser;
       this.message.add("@app component: user: " + this.user.username + " logged in")
   }
+
+
 }
+
+

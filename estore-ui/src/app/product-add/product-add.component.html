@@ -1,0 +1,68 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Info display</title>
+    <!--<link type="text/css" rel="stylesheet" href="../app.component.css">-->
+    <style type="text/css">
+        .wrapper {  /* grid container */
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
+            grid-template-areas: 
+            "image image"
+            "description cost"
+            "description add_cart";
+        }
+
+        .image {
+            grid-area: image;
+        }
+
+        .desc {
+            grid-area: description;
+        }
+
+        .cost {
+            grid-area: cost;
+        }
+
+        .add_to_cart {
+            grid-area: add_cart;
+        }
+    </style>
+</head>
+
+
+<!--New product information-->
+<div>  <!-- *ngIf to check if user is an admin-->
+    <h2 style="font-weight: bold;">Create New Product</h2>
+    
+    <!--New Name-->
+    <div>
+        <label for="product-name">Product name: </label>  <!--Prompt-->
+        <input id="product-name" #productName placeholder="name">  <!--Enter new-->
+    </div>
+
+    <!--New price-->
+    <div>
+        <label for="product-price">Product price: </label>
+        <input id="product-price" #productPrice placeholder="price">
+    </div>
+
+    <!--New description-->
+    <div>
+        <label for="product-description">Product description: </label>
+        <input id="product-description" #productDescription placeholder="description">
+    </div>
+
+    <!--New quantity-->
+    <div>
+        <label for="product-quantity">Product quantity: </label>
+        <input id="product-quantity" #productQuantity placeholder="quantity"/>
+    </div>
+
+    <!-- Add Product -->
+    <button type = "button" (click) = "add(productName.value, productPrice.value, productQuantity.value, productDescription.value)">Create</button>
+
+</div>
+
+
